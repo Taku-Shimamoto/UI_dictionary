@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link rel="stylesheet" href="common.css" />
+        <meta charset="UTF-8" />
+        <title>UI辞典 ボタン</title>
+    </head>
+    <style>
+        .button {
+            background-color: #0f0;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 2px #0c0;
+            margin-top: 24px;
+            padding: 8px 24px;
+        }
+
+        .button:hover {
+            cursor: pointer;
+            opacity: .6;
+        }
+
+        .button:active {
+            box-shadow: none;
+            transform: translateY(2px);
+        }
+    </style>
+    <body>
+        <header>
+            <h1><a href="index.html">UI Dictionary</a></h1>
+            <div id="hamburger" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="hamburger_nav">
+                <ul>
+                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
+                    <li><a class="nav-link" href="#feature">特徴</a></li>
+                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
+                    <li><a class="nav-link" href="#html_code">HTML</a></li>
+                    <li><a class="nav-link" href="#css_code">CSS</a></li>
+                    <li><a class="nav-link" href="#explanation">解説</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <nav class="breadcrumb-nav">
+                <a href="index.html">ホーム</a> > ボタン
+            </nav>
+            <input type="button" class="button" value="ボタン" />
+            <h2 id="feature">特徴</h2>
+            <p>
+                マウスを乗せると色が淡くなり、クリックするとボタンを押したような感覚のする、一般的なボタンUIです。<br />
+                ※押しても何も起こりませんので、好きなだけ押してください。
+            </p>
+            <h2 id="code">ソースコードの一例</h2>
+            <h3 id="html_code">HTML</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+            -->&lt;input type=&quot;button&quot; class=&quot;button&quot; value=&quot;ボタン&quot; /&gt;<!--
+         --></code></pre>
+            <h3 id="css_code">CSS</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->.button {
+    background-color: #0f0;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 2px #0c0;
+    padding: 8px 24px;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+.button:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}<!--
+         --></code></pre>
+            <h2 id="explanation">解説</h2>
+            <ol>
+                <li>マウスを乗せたときに色を淡くする</li>
+                <pre><code><!--
+-->.button:hover {
+    cursor: pointer;
+    opacity: .6;
+}<!--
+             --></code></pre>
+                <p>
+                    マウスを乗せたときにCSSを適用するには、:hover擬似要素を使います。<br />
+                    cursor: pointer; を指定するとマウスポインタが指の形になります。任意で指定してください。<br />
+                    色を淡くする効果は、opacity(透明度)を上げることによって実現することができます。
+                </p>
+                <li>クリックしたときにボタンを押した感覚を持たせる</li>
+                <pre><code><!--
+-->.button:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}<!--
+             --></code></pre>
+                <p>
+                    厳密には「<span class="bold">ボタンを押したように見せる</span>」というほうがニュアンス的には正しいです。<br />
+                    クリックしたときにCSSを適用するには、:active擬似要素を使います。<br />
+                    ① box-shadow: none; によってボタンの影をなくし、<br />
+                    ② transform: translateY(2px); によってボタンの影の高さぶん(今回は2px)下に押し下げることで、視覚的にボタンを押したように見えます。
+                </p>
+            </ol>
+            <div id="page_top" class="page-top">
+                <a href="#">Page Top</a>
+            </div>
+        </main>
+    </body>
+    <script src="common.js" defer></script>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link rel="stylesheet" href="common.css" />
+        <meta charset="UTF-8" />
+        <title>UI辞典 トップスクロールボタン</title>
+    </head>
+    <style>
+
+    </style>
+    <body>
+        <header>
+            <h1><a href="index.html">UI Dictionary</a></h1>
+            <div id="hamburger" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="hamburger_nav">
+                <ul>
+                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
+                    <li><a class="nav-link" href="#feature">特徴</a></li>
+                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
+                    <li><a class="nav-link" href="#html_code">HTML</a></li>
+                    <li><a class="nav-link" href="#css_code">CSS</a></li>
+                    <li><a class="nav-link" href="#js_code">JavaScript</a></li>
+                    <li><a class="nav-link" href="#explanation">解説</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <nav class="breadcrumb-nav">
+                <a href="index.html">ホーム</a> > トップスクロールボタン
+            </nav>
+            <p>
+                少し下にスクロールしてみましょう。<br />
+                右下に「Page Top」というボタンが表示されたら、押してみましょう。
+            </p>
+            <h2 id="feature">特徴</h2>
+            <p>
+                少しスクロールすると表示され、クリックするとページの一番上までスクロールするボタンです。<br />
+                ページの一番上にいるときは表示されないようにします。
+            </p>
+            <h2 id="code">ソースコードの一例</h2>
+            <h3 id="html_code">HTML</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->&lt;div id=&quot;page_top&quot; class=&quot;page-top&quot;&gt;
+    &lt;a href=&quot;#&quot;&gt;Page Top&lt;/a&gt;
+&lt;/div&gt;<!--
+         --></code></pre>
+            <h3 id="css_code">CSS</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->.page-top {
+    opacity: 0;
+    position: fixed;
+    right: 10px;
+    top: 90%;
+    transition: all .5s;
+    visibility: hidden;
+    z-index: 10;
+}
+
+.page-top a {
+    background-color: #00ac;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    padding: 8px 16px;
+}
+
+.page-top a:hover {
+    font-weight: normal;
+    opacity: .6;
+    text-decoration: none;
+}<!--
+         --></code></pre>
+            <h3 id="js_code">JavaScript</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->const pageTopButton = document.getElementById("page_top");
+const BUTTON_APPEARANCE_HEIGHT = 300;
+
+// トップスクロールボタンの表示/非表示
+window.addEventListener("scroll", toggleTopScrollButton);
+function toggleTopScrollButton() {
+    pageTopButton.style.opacity = window.scrollY > BUTTON_APPEARANCE_HEIGHT
+        ? 1 : 0;
+    pageTopButton.style.visibility = window.scrollY > BUTTON_APPEARANCE_HEIGHT
+        ? "visible" : "hidden";
+}<!--
+         --></code></pre>
+            <h2 id="explanation">解説</h2>
+            <ol>
+                <li>aタグのリンク先</li>
+                <p>
+                    aタグのリンク先を # にすることで、ページの一番上にスクロールします。
+                </p>
+                <li>ボタンCSS</li>
+                <pre><code><!--
+-->.page-top {
+    opacity: 0;
+    position: fixed;
+    right: 8px;
+    top: 90%;
+    transition: all .5s;
+    visibility: hidden;
+    z-index: 10;
+}<!--
+             --></code></pre>
+                <p>
+                    position: fixed; と top, right で位置を固定します。<br />
+                    デフォルトはopacity: 0; + visibility: hidden; で見えないようにし、クリックもできないようにします。
+                </p>
+                <p>
+                    表示 / 非表示にフェード効果を与えるため、transition: all .5s; を指定します。
+                </p>
+                <li>JavaScriptでCSSを変更する</li>
+                <pre><code><!--
+-->// トップスクロールボタンの表示/非表示
+window.addEventListener("scroll", toggleTopScrollButton);
+function toggleTopScrollButton() {
+    pageTopButton.style.opacity = window.scrollY > BUTTON_APPEARANCE_HEIGHT
+        ? 1 : 0;
+    pageTopButton.style.visibility = window.scrollY > BUTTON_APPEARANCE_HEIGHT
+        ? "visible" : "hidden";
+}<!--
+         --></code></pre>
+            <p>
+                windowに対してスクロールイベントを設定します。
+            </p>
+            <p>
+                デフォルトではopacity: 0; , visibility: hidden; で設定されているCSSですが、スクロールの高さによって<br />
+                 0 と 1 ・ hidden と visible を交互に切り替えることで、表示 / 非表示を制御することができます。 
+            </p>
+            </ol>
+            <div id="page_top" class="page-top">
+                <a href="#">Page Top</a>
+            </div>
+        </main>
+    </body>
+    <script src="common.js" defer></script>
+</html>
