@@ -62,6 +62,11 @@
     z-index: 10;
 }
 
+.page-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
 .page-top a {
     background-color: #00ac;
     border-radius: 8px;
@@ -87,10 +92,7 @@ const BUTTON_APPEARANCE_HEIGHT = 300;
 // トップスクロールボタンの表示/非表示
 window.addEventListener("scroll", toggleTopScrollButton);
 function toggleTopScrollButton() {
-    pageTopButton.style.opacity = window.scrollY > BUTTON_APPEARANCE_HEIGHT
-        ? 1 : 0;
-    pageTopButton.style.visibility = window.scrollY > BUTTON_APPEARANCE_HEIGHT
-        ? "visible" : "hidden";
+    pageTopButton.classList.toggle("is-visible", window.scrollY > BUTTON_APPEARANCE_HEIGHT);
 }<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
@@ -109,6 +111,11 @@ function toggleTopScrollButton() {
     transition: all .5s;
     visibility: hidden;
     z-index: 10;
+}
+
+.page-top.is-visible {
+    opacity: 1;
+    visibility: visible;
 }<!--
              --></code></pre>
                 <p>
@@ -118,23 +125,23 @@ function toggleTopScrollButton() {
                 <p>
                     表示 / 非表示にフェード効果を与えるため、transition: all .5s; を指定します。
                 </p>
-                <li>JavaScriptでCSSを変更する</li>
+                <li>原則、JavaScriptでは「クラスの付け外し」を行うだけ</li>
                 <pre><code><!--
 -->// トップスクロールボタンの表示/非表示
 window.addEventListener("scroll", toggleTopScrollButton);
 function toggleTopScrollButton() {
-    pageTopButton.style.opacity = window.scrollY > BUTTON_APPEARANCE_HEIGHT
-        ? 1 : 0;
-    pageTopButton.style.visibility = window.scrollY > BUTTON_APPEARANCE_HEIGHT
-        ? "visible" : "hidden";
+    pageTopButton.classList.toggle("is-visible", window.scrollY > BUTTON_APPEARANCE_HEIGHT);
 }<!--
          --></code></pre>
             <p>
-                windowに対してスクロールイベントを設定します。
-            </p>
-            <p>
                 デフォルトではopacity: 0; , visibility: hidden; で設定されているCSSですが、スクロールの高さによって<br />
-                 0 と 1 ・ hidden と visible を交互に切り替えることで、表示 / 非表示を制御することができます。 
+                 .is-visible クラスが付いたり外れたりし、表示/非表示が切り替わります。
+            </p>
+            <p class="important">
+                JavaScriptで直接、CSSを変更することもできます。<br />
+                (例: <span class="bold">pageTopButton.style.opacity = window.scrollY > BUTTON_APPEARANCE_HEIGHT ? 1 : 0;)</span><br />
+                ですが、CSSであらかじめ値を設定しておき、JavaScriptではクラスの付け外しを行うだけにしておくと、<br />
+                「<span class="bold">CSSは装飾を担う</span>」「<span class="bold">JavaScriptはクラスの付け外しを担う</span>」というようにそれぞれの責務の境界が明確になります。
             </p>
             </ol>
             <div id="page_top" class="page-top">

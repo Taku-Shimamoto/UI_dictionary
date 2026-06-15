@@ -55,43 +55,92 @@
                 <a href="index.html">ホーム</a> > アコーディオン
             </nav>
             <p class="accordion-title">ここをクリックしてみましょう。<span></span></p>
-            <p class="accordion">クリックすると中身が表示されます。</p>
-            <p class="accordion-title">こっちもクリックしてみてね☆<span></span></p>
-            <p class="accordion">クリックすると中身が表示されます。</p>
+            <div class="accordion">
+                <p>クリックすると中身が表示されます。</p>
+            </div>
             <h2 id="feature">特徴</h2>
             <p>
-
+                見出し部分をクリックすると中身が表示され、+マークから-マークに変化します。<br />
+                もう一度クリックすると中身が格納され、-マークから+マークに戻ります。
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
-            <pre><code class="copy-text">
-
-            </code></pre>
+            <pre><code class="copy-text"><!--
+-->&lt;p class=&quot;accordion-title&quot;&gt;ここをクリックしてみましょう。&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&quot;accordion&quot;&gt;
+    &lt;p&gt;クリックすると中身が表示されます。&lt;/p&gt;
+&lt;/div&gt;<!--
+         --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
-            <pre><code class="copy-text">
+            <pre><code class="copy-text"><!--
+-->.accordion-title {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
 
-            </code></pre>
+.accordion-title:hover {
+    cursor: pointer;
+}
+
+.accordion-title span:after {
+    content: "+";
+}
+
+.accordion-title.open span:after {
+    content: "-";
+}
+
+.accordion {
+    height: 0;
+    overflow-y: hidden;
+    transition: all .5s;
+}<!--
+         --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
-            <pre><code class="copy-text">
+            <pre><code class="copy-text"><!--
+-->const accordionTitles = Array.from(document.getElementsByClassName("accordion-title"));
+const accordions = Array.from(document.getElementsByClassName("accordion"));
 
-            </code></pre>
+accordionTitles.forEach((title, i) => title.addEventListener("click", () => toggleClassOpen(i)));
+function toggleClassOpen(i) {
+    accordionTitles[i].classList.toggle("open");
+    const isOpen = accordions[i].classList.toggle("open");
+    accordions[i].style.height = isOpen ? accordions[i].scrollHeight + "px" : "0";
+}<!--
+         --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li></li>
-                <pre><code>
-
-                </code></pre>
+                <li>アコーディオンの高さ・幅・アニメーション秒数の設定</li>
+                <pre><code><!--
+-->.accordion {
+    height: 0;
+    overflow-y: hidden;
+    transition: all .5s;
+}<!--
+         --></code></pre>
                 <p>
-
+                    クリックしていない状態で中身が表示されないよう、高さを0、縦方向のはみ出し部分を hidden に設定します。<br />
+                    アニメーション秒数は好みに応じて調整しましょう。
                 </p>
-                <li></li>
-                <pre><code>
-
-                </code></pre>
-                <p></p>
+                <li>.open クラスの付け外しと高さの取得</li>
+                <pre><code><!--
+-->accordionTitles.forEach((title, i) => title.addEventListener("click", () => toggleClassOpen(i)));
+function toggleClassOpen(i) {
+    accordionTitles[i].classList.toggle("open");
+    const isOpen = accordions[i].classList.toggle("open");
+    accordions[i].style.height = isOpen ? accordions[i].scrollHeight + "px" : "0";
+}<!--
+             --></code></pre>
+                <p>
+                    アコーディオンの見出しと中身の両方に .open クラスの付け外しを行います。<br />
+                    isOpen はアコーディオンの中身に .open クラスの付け外しを行い、クラス名が付いていればtrueを、そうでなければfalseを返します。<br />
+                    .open クラス名が付いていればその要素の高さを取得し指定することで中身が表示されます。<br />
+                    そうでなければ0が指定され、中身が隠れます。
+                </p>
             </ol>
             <div id="page_top" class="page-top">
                 <a href="#">Page Top</a>

@@ -22,8 +22,7 @@ const BUTTON_APPEARANCE_HEIGHT = 300;
 // トップスクロールボタンの表示/非表示
 window.addEventListener("scroll", toggleTopScrollButton);
 function toggleTopScrollButton() {
-    pageTopButton.style.opacity = window.scrollY > BUTTON_APPEARANCE_HEIGHT ? 1 : 0;
-    pageTopButton.style.visibility = window.scrollY > BUTTON_APPEARANCE_HEIGHT ? "visible" : "hidden";
+    pageTopButton.classList.toggle("is-visible", window.scrollY > BUTTON_APPEARANCE_HEIGHT);
 }
 
 const copyButtons = Array.from(document.getElementsByClassName("copy-button"));

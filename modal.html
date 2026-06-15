@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link rel="stylesheet" href="common.css" />
+        <meta charset="UTF-8" />
+        <title>UI辞典 モーダルウィンドウ</title>
+    </head>
+    <style>
+        .no-scroll {
+            overflow: hidden;
+        }
+
+        .modal-button {
+            background-color: #0f0;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 2px #0a0;
+            margin: 16px 0;
+            padding: 8px;
+        }
+
+        .modal-button:hover {
+            cursor: pointer;
+            opacity: .6;
+        }
+
+        .modal-button:active {
+            box-shadow: none;
+            transform: translateY(2px);
+        }
+
+        .modal-background {
+            align-items: center;
+            background-color: #000c;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            left: 0;
+            opacity: 0;
+            position: fixed;
+            top: 0;
+            transition: all .8s;
+            visibility: hidden;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .modal-background.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: #fff;
+            border: 8px solid #ccc;
+            border-radius: 20px;
+            padding: 16px 0 160px 16px;
+            position: relative;
+            transition: all .8s;
+            width: 400px;
+        }
+
+        .close {
+            height: 48px;
+            position: absolute;
+            right: 8px;
+            top: 4px;
+            width: 48px;
+        }
+
+        .close:hover {
+            cursor: pointer;
+        }
+
+        .close span {
+            background-color: #000;
+            border-radius: 50px;
+            display: block;
+            height: 2px;
+            position: absolute;
+            right: 8px;
+            top: 4px;
+            width: 32px;
+        }
+
+        .close span:nth-of-type(1) {
+            top: 24px;
+            transform: rotate(-45deg);
+        }
+
+        .close span:nth-of-type(2) {
+            top: 24px;
+            transform: rotate(45deg);
+        }
+    </style>
+    <body>
+        <header>
+            <h1><a href="index.html">UI Dictionary</a></h1>
+            <div id="hamburger" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="hamburger_nav">
+                <ul>
+                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
+                    <li><a class="nav-link" href="#feature">特徴</a></li>
+                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
+                    <li><a class="nav-link" href="#html_code">HTML</a></li>
+                    <li><a class="nav-link" href="#css_code">CSS</a></li>
+                    <li><a class="nav-link" href="#js_code">JavaScript</a></li>
+                    <li><a class="nav-link" href="#explanation">解説</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <nav class="breadcrumb-nav">
+                <a href="index.html">ホーム</a> > モーダルウィンドウ
+            </nav>
+            <input type="button" id="modal_button" class="modal-button" value="クリックしてみましょう" />
+            <div id="modal_background" class="modal-background">
+                <div id="modal" class="modal">
+                    モーダルを表示します。
+                    <div id="close" class="close">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <h2 id="feature">特徴</h2>
+            <p>
+                画面中央にウィンドウと×印を表示します。<br />
+                表示されている間は背景が暗転し、その間はスクロールができなくなります。<br />
+                モーダルウィンドウの×印を押すか、Escキーを押下するとモーダルウィンドウを閉じることができます。
+            </p>
+            <h2 id="code">ソースコードの一例</h2>
+            <h3 id="html_code">HTML</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->&lt;input type=&quot;button&quot; id=&quot;modal_button&quot; class=&quot;modal-button&quot; value=&quot;クリックしてみましょう&quot; /&gt;
+&lt;div id=&quot;modal_background&quot; class=&quot;modal-background&quot;&gt;
+    &lt;div id=&quot;modal&quot; class=&quot;modal&quot;&gt;
+        モーダルを表示します。
+        &lt;div id=&quot;close&quot; class=&quot;close&quot;&gt;
+            &lt;span&gt;&lt;/span&gt;
+            &lt;span&gt;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;<!--
+         --></code></pre>
+            <h3 id="css_code">CSS</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->.no-scroll {
+    overflow: hidden;
+}
+
+.modal-button {
+    background-color: #0f0;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 2px #0a0;
+    margin: 16px 0;
+    padding: 8px;
+}
+
+.modal-button:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+.modal-button:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}
+
+.modal-background {
+    align-items: center;
+    background-color: #000c;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    transition: all .8s;
+    visibility: hidden;
+    width: 100%;
+    z-index: 10;
+}
+
+.modal-background.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background-color: #fff;
+    border: 8px solid #ccc;
+    border-radius: 20px;
+    padding: 16px 0 160px 16px;
+    position: relative;
+    transition: all .8s;
+    width: 400px;
+}
+
+.close {
+    height: 48px;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    width: 48px;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+.close span {
+    background-color: #000;
+    border-radius: 50px;
+    display: block;
+    height: 2px;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    width: 32px;
+}
+
+.close span:nth-of-type(1) {
+    top: 24px;
+    transform: rotate(-45deg);
+}
+
+.close span:nth-of-type(2) {
+    top: 24px;
+    transform: rotate(45deg);
+}
+<!--
+         --></code></pre>
+            <h3 id="js_code">JavaScript</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->const modalButton = document.getElementById("modal_button");
+const modalBackground = document.getElementById("modal_background");
+
+function getScrollbarWidth() {
+    return window.innerWidth - document.documentElement.clientWidth;
+}
+
+modalButton.addEventListener("click", openModal);
+function openModal() {
+    const scrollbarWidth = getScrollbarWidth();
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    modalBackground.classList.add("open");
+    document.body.classList.add("no-scroll");
+}
+
+const closeButton = document.getElementById("close");
+closeButton.addEventListener("click", closeModal);
+document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape") {
+        closeModal();
+    }
+});
+function closeModal() {
+    document.body.style.paddingRight = "";
+    modalBackground.classList.remove("open");
+    document.body.classList.remove("no-scroll");
+}
+<!--
+         --></code></pre>
+            <h2 id="explanation">解説</h2>
+            <ol>
+                <li>モーダルの仕組み</li>
+                <pre><code><!--
+-->&lt;input type=&quot;button&quot; id=&quot;modal_button&quot; class=&quot;modal-button&quot; value=&quot;クリックしてみましょう&quot; /&gt;
+&lt;div id=&quot;modal_background&quot; class=&quot;modal-background&quot;&gt;
+    &lt;div id=&quot;modal&quot; class=&quot;modal&quot;&gt;
+        モーダルを表示します。
+        &lt;div id=&quot;close&quot; class=&quot;close&quot;&gt;
+            &lt;span&gt;&lt;/span&gt;
+            &lt;span&gt;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;<!--
+             --></code></pre>
+                <p>
+                    モーダルの仕組みは「<span class="bold">ボタン</span>」「<span class="bold">背景</span>」「<span class="bold">モーダルウィンドウ</span>」の3つになります。<br />
+                    ボタンと背景は兄弟要素、背景とモーダルウィンドウは親子要素にします。
+                </p>
+                <li>ボタンCSS</li>
+                <pre><code><!--
+-->.modal-button {
+    background-color: #0f0;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 2px #0a0;
+    margin: 16px 0;
+    padding: 8px;
+}
+
+.modal-button:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+.modal-button:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}<!--
+             --></code></pre>
+                <p>
+                    <a href="button.html">ボタン</a>の装飾です。好きなデザインのものがあればそれを使っていただいて構いません。
+                </p>
+                <li>モーダルの背景</li>
+                <pre><code><!--
+-->.modal-background {
+    align-items: center;
+    background-color: #000c;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    transition: all .8s;
+    visibility: hidden;
+    width: 100%;
+    z-index: 10;
+}
+
+.modal-background.open {
+    opacity: 1;
+    visibility: visible;
+}<!--
+             --></code></pre>
+                <p>
+                    ①モーダルウィンドウを画面中央に配置するためのflexプロパティを、ここで指定します。<br />
+                    　(display: flex; , align-items: center; , justify-content: center;)
+                </p>
+                <p>
+                    ②背景色に透明度を持たせ、高さと幅をそれぞれ画面いっぱいにします。<br />
+                    　position: fixed; で位置も固定します。
+                </p>
+                <p>
+                    ③opacity: 0; と visibility: hidden; で見えないようにし、 transition: all .8s; でアニメーション秒数を指定します。<br />
+                    　JavaScriptで .open クラスの付け外しをした際に opacity と visibility の値が変化して表示/非表示を制御することができます。
+                </p>
+                <li>モーダルウィンドウ</li>
+                <pre><code><!--
+-->.modal {
+    background-color: #fff;
+    border: 8px solid #ccc;
+    border-radius: 20px;
+    padding: 16px 0 160px 16px;
+    position: relative;
+    transition: all .8s;
+    width: 400px;
+}
+
+.close {
+    height: 48px;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    width: 48px;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+.close span {
+    background-color: #000;
+    border-radius: 50px;
+    display: block;
+    height: 2px;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    width: 32px;
+}
+
+.close span:nth-of-type(1) {
+    top: 24px;
+    transform: rotate(-45deg);
+}
+
+.close span:nth-of-type(2) {
+    top: 24px;
+    transform: rotate(45deg);
+}<!--
+             --></code></pre>
+                <p>
+                    モーダルウィンドウの×印のデザインは、<a href="hamburger.html">ハンバーガーメニュー</a>のものと一緒です。
+                </p>
+                <li>モーダルウィンドウ表示中のスクロール無効</li>
+                <pre><code><!--
+-->.no-scroll {
+    overflow: hidden;
+}<!--
+             --></code></pre>
+                <p>
+                    JavaScriptでbodyタグに .no-scroll クラスが付与されると、スクロールを無効にします。
+                </p>
+                <li>原則、JavaScriptでは「クラスの付け外し」を行うだけ</li>
+                <pre><code><!--
+-->function getScrollbarWidth() {
+    return window.innerWidth - document.documentElement.clientWidth;
+}
+
+modalButton.addEventListener("click", openModal);
+function openModal() {
+    const scrollbarWidth = getScrollbarWidth();
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    modalBackground.classList.add("open");
+    document.body.classList.add("no-scroll");
+}
+
+const closeButton = document.getElementById("close");
+closeButton.addEventListener("click", closeModal);
+document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape") {
+        closeModal();
+    }
+});
+function closeModal() {
+    document.body.style.paddingRight = "";
+    modalBackground.classList.remove("open");
+    document.body.classList.remove("no-scroll");
+}<!--
+             --></code></pre>
+                <p>
+                    モーダルウィンドウに .open クラスを付与して表示、 body タグに .no-scroll クラスを付与してスクロールを無効にします。<br />
+                    閉じるときも同様に .open クラスと .no-scroll クラスを取り除きます。
+                </p>
+                <p>
+                    原則、JavaScriptで直接CSSの値を変更しないほうが、「CSS→装飾、JavaScript→クラス付け外し」という責務の境界を守る<br />
+                    という意味で望ましいですが、今回は「スクロールバーの幅ぶんの padding を操作する」ことをしています。<br />
+                    こうすることで、モーダルウィンドウ表示時にスクロールバーの幅ぶんズレるという動きを防ぎます。
+                </p>
+            </ol>
+            <div id="page_top" class="page-top">
+                <a href="#">Page Top</a>
+            </div>
+        </main>
+    </body>
+    <script src="common.js" defer></script>
+    <script>
+        const modalButton = document.getElementById("modal_button");
+        const modalBackground = document.getElementById("modal_background");
+
+        function getScrollbarWidth() {
+            return window.innerWidth - document.documentElement.clientWidth;
+        }
+
+        modalButton.addEventListener("click", openModal);
+        function openModal() {
+            const scrollbarWidth = getScrollbarWidth();
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+            modalBackground.classList.add("open");
+            document.body.classList.add("no-scroll");
+        }
+
+        const closeButton = document.getElementById("close");
+        closeButton.addEventListener("click", closeModal);
+        document.addEventListener("keydown", (e) => {
+            if(e.key === "Escape") {
+                closeModal();
+            }
+        });
+        function closeModal() {
+            modalBackground.classList.remove("open");
+            document.body.classList.remove("no-scroll");
+            document.body.style.paddingRight = "";
+        }
+    </script>
+</html>

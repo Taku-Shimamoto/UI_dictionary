@@ -41,7 +41,7 @@ h1 {
 
 h1:after {
     content: " - このUIってどうやって作るの？ このUIってどういう仕組みなの？ -";
-    font-size: 16px;
+    font-size: 14px;
 }
 
 h1 a {
@@ -224,6 +224,11 @@ pre {
     transition: all .5s;
     visibility: hidden;
     z-index: 10;
+}
+
+.page-top.is-visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 .page-top a {

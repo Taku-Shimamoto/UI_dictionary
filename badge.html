@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link rel="stylesheet" href="common.css" />
+        <meta charset="UTF-8" />
+        <script src="https://kit.fontawesome.com/27cbb9919d.js" crossorigin="anonymous"></script>
+        <title>UI辞典 購入バッジ</title>
+    </head>
+    <style>
+        .qty {
+            width: 40px;
+        }
+
+        .icon-wrapper {
+            background-color: #00a;
+            display: flex;
+            height: 64px;
+            justify-content: center;
+            margin-top: 8px;
+            width: 10%;
+        }
+
+        .cart-icon-wrapper {
+            position: relative;
+        }
+
+        .qty-badge {
+            background-color: #f00;
+            border-radius: 50%;
+            color: #fff;
+            cursor: default;
+            display: inline-block;
+            font-size: 12px;
+            height: 24px;
+            padding: 2px;
+            position: absolute;
+            right: 0;
+            text-align: center;
+            top: 0;
+            transform: translate(50%, -50%);
+            width: 24px;
+            z-index: 5;
+        }
+
+        .fa-cart-shopping {
+            color: #fff;
+            font-size: 24px;
+            line-height: 64px;
+        }
+
+        .fa-cart-shopping:hover {
+            cursor: pointer;
+        }
+    </style>
+    <body>
+        <header>
+            <h1><a href="index.html">UI Dictionary</a></h1>
+            <div id="hamburger" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="hamburger_nav">
+                <ul>
+                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
+                    <li><a class="nav-link" href="#feature">特徴</a></li>
+                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
+                    <li><a class="nav-link" href="#css_code">CSS</a></li>
+                    <li><a class="nav-link" href="#explanation">解説</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <nav class="breadcrumb-nav">
+                <a href="index.html">ホーム</a> > 購入バッジ
+            </nav>
+            <p>好きな商品を選び、「カートに入れる」ボタンを押してみましょう。</p>
+            <select id="product">
+                <option>りんご</option>
+                <option>バナナ</option>
+                <option>みかん</option>
+            </select>
+            <input type="number" id="qty" class="qty" value="1" min="0" />個
+            <input type="button" id="add" value="カートに入れる" />
+            <div class="icon-wrapper">
+                <div id="cart_icon_wrapper" class="cart-icon-wrapper">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+            </div>
+            <h2 id="feature">特徴</h2>
+            <p>
+                ECサイトなどでよく見かける購入バッジです。<br />
+                カートに商品が1つ以上あるとき、カートアイコンの右上に個数を表す赤いバッジアイコンが表示されます。<br />
+                ここでは、「9」を表示上限とし、それ以上の商品がカートに入っている場合は「9+」と表示します。
+            </p>
+            <p class="attention">
+                購入バッジの中に表示する購入数の取得方法については、使用する言語に依存しますので、ここでは言及しません。
+            </p>
+            <h2 id="code">ソースコードの一例</h2>
+            <h3 id="html_code">HTML</h3>
+            <p>
+                カートのアイコンはFont Awesomeより拝借しています。気になる方は調べてみましょう。
+            </p>
+            <h3 id="css_code">CSS</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->.cart-icon-wrapper {
+    position: relative;
+}
+
+.qty-badge {
+    background-color: #f00;
+    border-radius: 50%;
+    color: #fff;
+    cursor: default;
+    display: inline-block;
+    font-size: 12px;
+    height: 24px;
+    padding: 2px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    transform: translate(50%, -50%);
+    width: 24px;
+    z-index: 5;
+}
+
+.cart-icon {
+    color: #fff;
+    font-size: 24px;
+    line-height: 48px;
+}
+
+.cart-icon:hover {
+    cursor: pointer;
+}<!--
+         --></code></pre>
+            <h2 id="explanation">解説</h2>
+            <ol>
+                <li>購入バッジのデザイン、配置など</li>
+                <pre><code><!--
+-->.qty-badge {
+    background-color: #f00;
+    border-radius: 50%;
+    color: #fff;
+    cursor: default;
+    display: inline-block;
+    font-size: 12px;
+    height: 24px;
+    padding: 2px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    transform: translate(50%, -50%);
+    width: 24px;
+    z-index: 5;
+}<!--
+             --></code></pre>
+                <p>
+                    特に重要なのが <span class="bold">transform: translate(50%, -50%);</span> の部分です。<br />
+                    これは「要素の50%分右と上にズラす」という意味で、これを指定することでアイコンの高さ・幅・大きさなどに<br />
+                    依存せず常に右上の位置に配置することができます。
+                </p>
+                <li>在庫「0」のときは表示しない</li>
+                <p>
+                    扱う言語にもよりますが、if文や三項演算子などを使って、カート内の数量を表す変数が0のときとそうでないときとで<br />
+                    表示を変えるようにしましょう。
+                </p>
+                <p class="important">
+                    PHPなどのサーバーサイド言語では、数量に加えてログイン状態(セッション状態)なども参照しておくと、<br />
+                    「ログアウトしているのに購入バッジが表示されている」などの事故を防ぐことができます。
+                </p>
+            </ol>
+            <div id="page_top" class="page-top">
+                <a href="#">Page Top</a>
+            </div>
+        </main>
+    </body>
+    <script src="common.js" defer></script>
+    <script>
+        let qty = 0;
+        const cartAddQty = document.getElementById("qty");
+        const addButton = document.getElementById("add");
+        const cartIconWrapper = document.getElementById("cart_icon_wrapper");
+
+        addButton.addEventListener("click", () => {
+            if (Number(cartAddQty.value) <= 0) {
+                return;
+            }
+
+            qty += Number(cartAddQty.value);
+        
+            let qtyBadge = document.getElementById("qty_badge");
+        
+            if (!qtyBadge) {
+                cartIconWrapper.insertAdjacentHTML(
+                    "beforeend",
+                    "<p id='qty_badge' class='qty-badge'></p>"
+                );
+            
+                qtyBadge = document.getElementById("qty_badge");
+            }
+        
+            qtyBadge.textContent = qty > 9 ? "9+" : String(qty);
+        });
+    </script>
+</html>
