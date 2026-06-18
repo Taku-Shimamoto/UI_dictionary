@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link rel="stylesheet" href="common.css" />
+        <meta charset="UTF-8" />
+        <title>UI辞典 スライダー(ドット)</title>
+    </head>
+    <style>
+        img {
+            width: 400px;
+        }
+
+        .slider-wrapper {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .dots {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .dots span {
+            background-color: #000;
+            border-radius: 50%;
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+        }
+
+        .dots span:hover {
+            cursor: pointer;
+            opacity: .6;
+        }
+
+        .dots span.active {
+            background-color: #f88;
+        }
+    </style>
+    <body>
+        <header>
+            <h1><a href="index.html">UI Dictionary</a></h1>
+            <div id="hamburger" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="hamburger_nav">
+                <ul>
+                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
+                    <li><a class="nav-link" href="#feature">特徴</a></li>
+                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
+                    <li><a class="nav-link" href="#html_code">HTML</a></li>
+                    <li><a class="nav-link" href="#css_code">CSS</a></li>
+                    <li><a class="nav-link" href="#js_code">JavaScript</a></li>
+                    <li><a class="nav-link" href="#explanation">解説</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <nav class="breadcrumb-nav">
+                <a href="index.html">ホーム</a> > スライダー(ドット)
+            </nav>
+            <div class="slider-wrapper">
+                <div id="slider_track" class="slider-track">
+                    <img class="slide-img" src="images/gallery01.jpg" alt="" />
+                    <img class="slide-img" src="images/gallery02.jpg" alt="" />
+                    <img class="slide-img" src="images/gallery03.jpg" alt="" />
+                    <img class="slide-img" src="images/gallery04.jpg" alt="" />
+                </div>
+            </div>
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <h2 id="feature">特徴</h2>
+            <p>
+
+            </p>
+            <h2 id="code">ソースコードの一例</h2>
+            <h3 id="html_code">HTML</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->
+<!--
+         --></code></pre>
+            <h3 id="css_code">CSS</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->
+<!--
+         --></code></pre>
+            <h3 id="js_code">JavaScript</h3>
+            <input type="button" class="copy-button" value="コードをコピーする" />
+            <pre><code class="copy-text"><!--
+-->
+<!--
+         --></code></pre>
+            <h2 id="explanation">解説</h2>
+            <ol>
+                <li></li>
+                <pre><code><!--
+-->
+<!--
+             --></code></pre>
+                <p>
+
+                </p>
+                <li></li>
+                <pre><code><!--
+-->
+<!--
+             --></code></pre>
+                <p>
+
+                </p>
+            </ol>
+            <div id="page_top" class="page-top">
+                <a href="#">Page Top</a>
+            </div>
+        </main>
+    </body>
+    <script src="common.js" defer></script>
+    <script>
+        const track = document.getElementById("slider_track");
+        const dots = Array.from(document.getElementsByClassName("dot"));
+
+        let currentIndex = 0;
+        const SLIDE_WIDTH = 400;
+
+        function showSlide(i) {
+            currentIndex = i;
+        
+            track.style.transform = `translateX(-${currentIndex * SLIDE_WIDTH}px)`;
+        
+            dots.forEach((dot) => dot.classList.remove("active"));
+            dots[currentIndex].classList.add("active");
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => showSlide(i));
+        });
+
+        showSlide(0);
+    </script>
+</html>
