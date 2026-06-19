@@ -3,10 +3,44 @@
     <head>
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
-        <title>UI辞典 原本</title>
+        <title>UI辞典 トグルスイッチ</title>
     </head>
     <style>
+        .switch-outer {
+            background-color: #ddd;
+            border-radius: calc(infinity * 1px);
+            height: 40px;
+            margin: 8px 0;
+            position: relative;
+            transition: all .5s ease;
+            width: 80px;
+        }
 
+        .switch-outer:hover {
+            cursor: pointer;
+        }
+
+        .switch-outer.active {
+            background-color: #0f0;
+        }
+
+        .toggle-switch {
+            background-color: #fff;
+            border-radius: 50%;
+            bottom: 0;
+            box-shadow: 1px 1px 7px #B7B7B7, -1px -1px 4px #CECECE inset;
+            height: 32px;
+            left: 4px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            transition: left .5s ease;
+            width: 32px;
+        }
+
+        .toggle-switch.active {
+            left: 44px;
+        }
     </style>
     <body>
         <header>
@@ -30,12 +64,22 @@
         </header>
         <main>
             <nav class="breadcrumb-nav">
-                <a href="index.html">ホーム</a> &gt; 
+                <a href="index.html">ホーム</a> &gt; トグルスイッチ
             </nav>
-
+            <p>クリックしてみましょう。</p>
+            <div class="switch-outer">
+                <div class="toggle-switch"></div>
+            </div>
+            <div class="switch-outer">
+                <div class="toggle-switch"></div>
+            </div>
+            <div class="switch-outer">
+                <div class="toggle-switch"></div>
+            </div>
             <h2 id="feature">特徴</h2>
             <p>
-
+                クリックすると内側の丸いボタンが右側に動き、スイッチ背面の色が灰色→緑色に変化します。<br />
+                もう一度クリックすると元の状態に戻ります。
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
@@ -81,4 +125,16 @@
         </main>
     </body>
     <script src="common.js" defer></script>
+    <script>
+        const switchOuters = Array.from(document.getElementsByClassName("switch-outer"));
+        const toggleSwitches = Array.from(document.getElementsByClassName("toggle-switch"));
+
+        function toggleButtonActive(i) {
+            const isActive = switchOuters[i].classList.contains("active");
+            switchOuters[i].classList.toggle("active", !isActive);
+            toggleSwitches[i].classList.toggle("active", !isActive);
+        }
+
+        switchOuters.forEach((outer, i) => outer.addEventListener("click", () => toggleButtonActive(i)));
+    </script>
 </html>

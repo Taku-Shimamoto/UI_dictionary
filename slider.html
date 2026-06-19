@@ -11,15 +11,43 @@
         }
 
         .slider-wrapper {
-            width: 400px;
             height: 400px;
             margin: 0 auto;
             overflow: hidden;
+            position: relative;
+            width: 400px;
+            z-index: 5;
+        }
+
+        .arrow {
+            background-color: #fffa;
+            border-radius: 50%;
+            height: 24px;
+            margin: 0;
+            padding: 2px;
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            width: 24px;
+            z-index: 10; 
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .arrow:hover {
+            background-color: #fffe;
+            cursor: pointer;
         }
 
         .slider-track {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform .5s ease;
         }
 
         .dots {
@@ -68,15 +96,17 @@
         </header>
         <main>
             <nav class="breadcrumb-nav">
-                <a href="index.html">ホーム</a> > スライダー(ドット)
+                <a href="index.html">ホーム</a> &gt; スライダー(ドット)
             </nav>
             <div class="slider-wrapper">
+                <p id="prev" class="arrow prev">&lt;</p>
                 <div id="slider_track" class="slider-track">
-                    <img class="slide-img" src="images/gallery01.jpg" alt="" />
-                    <img class="slide-img" src="images/gallery02.jpg" alt="" />
-                    <img class="slide-img" src="images/gallery03.jpg" alt="" />
-                    <img class="slide-img" src="images/gallery04.jpg" alt="" />
+                    <img src="images/gallery01.jpg" alt="" />
+                    <img src="images/gallery02.jpg" alt="" />
+                    <img src="images/gallery03.jpg" alt="" />
+                    <img src="images/gallery04.jpg" alt="" />
                 </div>
+                <p id="next" class="arrow next">&gt;</p>
             </div>
             <div class="dots">
                 <span class="dot active"></span>
@@ -86,44 +116,299 @@
             </div>
             <h2 id="feature">特徴</h2>
             <p>
-
+                複数の画像がスライドアニメーション形式で表示されるUIです。<br />
+                一定秒数で切り替わるほか、両端のボタン操作や画像下部のドットをクリックすることで<br />
+                任意の画像を表示させることもできます。
             </p>
             <h2 id="code">ソースコードの一例</h2>
+            <p class="attention">自動切換・「前」「次」ボタン・ドットの有無などお好みに応じて使用してください。</p>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->&lt;div class="slider-wrapper"&gt;
+    &lt;p id="prev" class="arrow prev"&gt;&lt;&lt;/p&gt;
+    &lt;div id="slider_track" class="slider-track"&gt;
+        &lt;img src="images/gallery01.jpg" alt="" /&gt;
+        &lt;img src="images/gallery02.jpg" alt="" /&gt;
+        &lt;img src="images/gallery03.jpg" alt="" /&gt;
+        &lt;img src="images/gallery04.jpg" alt="" /&gt;
+    &lt;/div&gt;
+    &lt;p id="next" class="arrow next"&gt;&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="dots"&gt;
+    &lt;span class="dot active"&gt;&lt;/span&gt;
+    &lt;span class="dot"&gt;&lt;/span&gt;
+    &lt;span class="dot"&gt;&lt;/span&gt;
+    &lt;span class="dot"&gt;&lt;/span&gt;
+&lt;/div&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->img {
+    width: 400px;
+}
+
+.slider-wrapper {
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 400px;
+    z-index: 5;
+}
+
+.arrow {
+    background-color: #fffa;
+    border-radius: 50%;
+    height: 24px;
+    margin: 0;
+    padding: 2px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 24px;
+    z-index: 10; 
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.arrow:hover {
+    background-color: #fffe;
+    cursor: pointer;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform .5s ease;
+}
+
+.dots {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.dots span {
+    background-color: #000;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+}
+
+.dots span:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+.dots span.active {
+    background-color: #f88;
+}<!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->const track = document.getElementById("slider_track");
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+const dots = Array.from(document.getElementsByClassName("dot"));
+
+let currentIndex = 0;
+const SLIDE_WIDTH = 400;
+const DURATION_MS = 4000;
+
+function showSlide(i) {
+    currentIndex = i;        
+    track.style.transform = `translateX(-${currentIndex * SLIDE_WIDTH}px)`;
+
+    dots.forEach((dot) => dot.classList.remove("active"));
+    dots[currentIndex].classList.add("active");
+}
+
+setInterval(() => {
+    currentIndex = (currentIndex + 1) % dots.length;
+    showSlide(currentIndex);
+}, DURATION_MS);
+
+prevButton.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + dots.length) % dots.length;
+    showSlide(currentIndex);
+});
+
+nextButton.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % dots.length;
+    showSlide(currentIndex);
+});
+
+dots.forEach((dot, i) => dot.addEventListener("click", () => showSlide(i)));
+
+showSlide(currentIndex);<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li></li>
+                <li>構造</li>
                 <pre><code><!--
--->
-<!--
+-->&lt;div class="slider-wrapper"&gt;
+    &lt;p id="prev" class="arrow prev"&gt;&lt;&lt;/p&gt;
+    &lt;div id="slider_track" class="slider-track"&gt;
+        &lt;img src="images/gallery01.jpg" alt="" /&gt;
+        &lt;img src="images/gallery02.jpg" alt="" /&gt;
+        &lt;img src="images/gallery03.jpg" alt="" /&gt;
+        &lt;img src="images/gallery04.jpg" alt="" /&gt;
+    &lt;/div&gt;
+    &lt;p id="next" class="arrow next"&gt;&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="dots"&gt;
+    &lt;span class="dot active"&gt;&lt;/span&gt;
+    &lt;span class="dot"&gt;&lt;/span&gt;
+    &lt;span class="dot"&gt;&lt;/span&gt;
+    &lt;span class="dot"&gt;&lt;/span&gt;
+&lt;/div&gt;<!--
              --></code></pre>
                 <p>
-
+                    スライダー要素: <span class="bold">画像エリア + 「前」「次」ボタン</span> で構成します。<br />
+                    ドット: ドットのみで構成します。初期状態は一枚目の画像なので、対応する1番目のドットに .active クラスを付与します。
                 </p>
-                <li></li>
+                <li>画像エリアと「前」「次」ボタンの配置・デザイン</li>
                 <pre><code><!--
--->
-<!--
+-->img {
+    width: 400px;
+}
+
+.slider-wrapper {
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 400px;
+    z-index: 5;
+}
+
+.arrow {
+    background-color: #fffa;
+    border-radius: 50%;
+    height: 24px;
+    margin: 0;
+    padding: 2px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 24px;
+    z-index: 10; 
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.arrow:hover {
+    background-color: #fffe;
+    cursor: pointer;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform .5s ease;
+}<!--
              --></code></pre>
                 <p>
+                    ①画像の幅・高さと slider-wrapper の幅・高さを一致させましょう。<br />
+                    ②slider-wrapper の overflow: hidden; と slider-track の flex プロパティで、はみ出し部分を隠しつつ画像を横並びにします。<br />
+                    ③アニメーション秒数や ease による加減速はお好みに応じて指定してください。
+                </p>
+                <li>ドット部分</li>
+                <pre><code><!--
+-->.dots {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 16px;
+}
 
+.dots span {
+    background-color: #000;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+}
+
+.dots span:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+.dots span.active {
+    background-color: #f88;
+}<!--
+             --></code></pre>
+                <p>
+                    flex プロパティで横並び、中央寄せ、均等幅にします。<br />
+                    ドットの大きさは小さすぎず、大きすぎない程度が良いでしょう。<br />
+                    お好みで .active クラスが付いているドットの色を変えると「今、何番目の画像を表示しているのか」が分かりやすくなります。
+                </p>
+                <li>共通関数</li>
+                <pre><code><!--
+-->function showSlide(i) {
+    currentIndex = i;        
+    track.style.transform = `translateX(-${currentIndex * SLIDE_WIDTH}px)`;
+
+    dots.forEach((dot) => dot.classList.remove("active"));
+    dots[currentIndex].classList.add("active");
+}
+
+showSlide(currentIndex);<!--
+             --></code></pre>
+                <p>
+                    この関数が呼び起こされると、インデックス番号(何番目の画像か)が更新され、画像エリアの横幅が SLIDE_WIDTH分左にずれ、<br />
+                    ドットに .active クラスを付与することで色を変えます。<br />
+                    この関数を複数の方法で呼び起こすことで、画像の変更方法にバリエーションを持たせることができます。
+                </p>
+                <li>時間経過による切り替え</li>
+                <pre><code><!--
+-->setInterval(() => {
+    currentIndex = (currentIndex + 1) % dots.length;
+    showSlide(currentIndex);
+}, DURATION_MS);<!--
+             --></code></pre>
+                <p>
+                    変数 currentIndex を 0→1→2→3→0 ... という形で時間経過により循環させます。
+                </p>
+                <li>「前」「次」ボタン</li>
+                <pre><code><!--
+-->prevButton.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + dots.length) % dots.length;
+    showSlide(currentIndex);
+});
+
+nextButton.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % dots.length;
+    showSlide(currentIndex);
+});<!--
+             --></code></pre>
+                <p>
+                    「前」ボタン: 0→3→2→1→0 ... という形で変数 currentIndex が循環します。<br />
+                    「次」ボタン: 0→1→2→3→0 ... という形で変数 currentIndex が循環します。
+                </p>
+                <li>ドットのクリックによる画像変更</li>
+                <pre><code><!--
+-->dots.forEach((dot, i) => dot.addEventListener("click", () => showSlide(i)));<!--
+             --></code></pre>
+                <p>
+                    ドットをクリックするとドットのインデックス番号を取得し、それを showSlide() の引数に格納します。<br />
+                    こうすることで任意の画像を表示することができます。
                 </p>
             </ol>
             <div id="page_top" class="page-top">
@@ -134,24 +419,39 @@
     <script src="common.js" defer></script>
     <script>
         const track = document.getElementById("slider_track");
+        const prevButton = document.getElementById("prev");
+        const nextButton = document.getElementById("next");
         const dots = Array.from(document.getElementsByClassName("dot"));
 
         let currentIndex = 0;
         const SLIDE_WIDTH = 400;
+        const DURATION_MS = 4000;
 
         function showSlide(i) {
-            currentIndex = i;
-        
+            currentIndex = i;        
             track.style.transform = `translateX(-${currentIndex * SLIDE_WIDTH}px)`;
         
             dots.forEach((dot) => dot.classList.remove("active"));
             dots[currentIndex].classList.add("active");
         }
 
-        dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => showSlide(i));
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % dots.length;
+            showSlide(currentIndex);
+        }, DURATION_MS);
+
+        prevButton.addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + dots.length) % dots.length;
+            showSlide(currentIndex);
         });
 
-        showSlide(0);
+        nextButton.addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % dots.length;
+            showSlide(currentIndex);
+        });
+
+        dots.forEach((dot, i) => dot.addEventListener("click", () => showSlide(i)));
+
+        showSlide(currentIndex);
     </script>
 </html>
