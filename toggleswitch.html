@@ -6,6 +6,19 @@
         <title>UI辞典 トグルスイッチ</title>
     </head>
     <style>
+        body.darkmode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.boldtext {
+            font-weight: bold;
+        }
+
+        .important {
+            color: #000;
+        }
+
         .switch-outer {
             background-color: #ddd;
             border-radius: calc(infinity * 1px);
@@ -28,18 +41,18 @@
             background-color: #fff;
             border-radius: 50%;
             bottom: 0;
-            box-shadow: 1px 1px 7px #B7B7B7, -1px -1px 4px #CECECE inset;
+            box-shadow: 1px 1px 8px #ccc, -1px -1px 4px #ddd inset;
             height: 32px;
             left: 4px;
             margin: auto;
             position: absolute;
             top: 0;
-            transition: left .5s ease;
+            transition: transform .5s ease;
             width: 32px;
         }
 
         .toggle-switch.active {
-            left: 44px;
+            transform: translateX(40px);
         }
     </style>
     <body>
@@ -67,13 +80,12 @@
                 <a href="index.html">ホーム</a> &gt; トグルスイッチ
             </nav>
             <p>クリックしてみましょう。</p>
-            <div class="switch-outer">
+            <p>ダークモードにする ON / OFF</p>
+            <div class="switch-outer" data-setting="darkmode">
                 <div class="toggle-switch"></div>
             </div>
-            <div class="switch-outer">
-                <div class="toggle-switch"></div>
-            </div>
-            <div class="switch-outer">
+            <p>太字にする ON / OFF</p>
+            <div class="switch-outer" data-setting="boldtext">
                 <div class="toggle-switch"></div>
             </div>
             <h2 id="feature">特徴</h2>
@@ -82,41 +94,184 @@
                 もう一度クリックすると元の状態に戻ります。
             </p>
             <h2 id="code">ソースコードの一例</h2>
+            <p class="important">
+                このページの「ダークモード切り替え(darkmode)」「太字切り替え(boldtext)」はあくまで一例です。<br />
+                data-setting 属性を自分好みに変更して、ぜひ自分の好きな機能を実装してみてください！
+            </p>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->&lt;div class=&quot;switch-outer&quot; data-setting=&quot;darkmode&quot;&gt;
+    &lt;div class=&quot;toggle-switch&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;switch-outer&quot; data-setting=&quot;boldtext&quot;&gt;
+    &lt;div class=&quot;toggle-switch&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->body.darkmode {
+    background-color: #333;
+    color: #fff;
+}
+
+body.boldtext {
+    font-weight: bold;
+}
+
+.switch-outer {
+    background-color: #ddd;
+    border-radius: calc(infinity * 1px);
+    height: 40px;
+    margin: 8px 0;
+    position: relative;
+    transition: all .5s ease;
+    width: 80px;
+}
+
+.switch-outer:hover {
+    cursor: pointer;
+}
+
+.switch-outer.active {
+    background-color: #0f0;
+}
+
+.toggle-switch {
+    background-color: #fff;
+    border-radius: 50%;
+    bottom: 0;
+    box-shadow: 1px 1px 8px #ccc, -1px -1px 4px #ddd inset;
+    height: 32px;
+    left: 4px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    transition: transform .5s ease;
+    width: 32px;
+}
+
+.toggle-switch.active {
+    transform: translateX(40px);
+}<!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->const switchOuters = Array.from(document.querySelectorAll(".switch-outer"));
+
+switchOuters.forEach((outer) => {
+    outer.addEventListener("click", () => {
+        const dataAttribute = outer.dataset.setting;
+        const isActive = outer.classList.toggle("active");
+        const toggleSwitch = outer.querySelector(".toggle-switch");
+
+        toggleSwitch.classList.toggle("active", isActive);
+        document.body.classList.toggle(dataAttribute, isActive);
+    });
+});<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li></li>
+                <li>構造</li>
                 <pre><code><!--
--->
-<!--
+-->&lt;div class=&quot;switch-outer&quot; data-setting=&quot;darkmode&quot;&gt;
+    &lt;div class=&quot;toggle-switch&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;<!--
              --></code></pre>
                 <p>
-
+                    「スイッチの外側」 + 「スイッチの内側」で構成します。<br />
+                    data-setting 属性はHTML上意味を持ちませんが、スイッチのID代わりになるのと、JavaScript を動かすために指定します。
                 </p>
-                <li></li>
+                <li>トグルスイッチの装飾</li>
                 <pre><code><!--
--->
-<!--
+-->.switch-outer {
+    background-color: #ddd;
+    border-radius: calc(infinity * 1px);
+    height: 40px;
+    margin: 8px 0;
+    position: relative;
+    transition: all .5s ease;
+    width: 80px;
+}
+
+.switch-outer:hover {
+    cursor: pointer;
+}
+
+.switch-outer.active {
+    background-color: #0f0;
+}
+
+.toggle-switch {
+    background-color: #fff;
+    border-radius: 50%;
+    bottom: 0;
+    box-shadow: 1px 1px 8px #ccc, -1px -1px 4px #ddd inset;
+    height: 32px;
+    left: 4px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    transition: transform .5s ease;
+    width: 32px;
+}<!--
              --></code></pre>
                 <p>
+                    border-radius の仕様として、height の半分以上を指定しないと楕円形のような形になってしまいます。<br />
+                    ただし絶対値を指定するとその都度変える手間が発生するので、常にheightの半分以上になるようcalc()で指定します。
+                </p>
+                <p>
+                    box-shadow でボタンに影をつけて立体感を出しています。<br />
+                    外側: 右と下方向に1pxぶんズレた位置に、8pxぶんの強いぼかしが入ります。<br />
+                    内側: 左と上方向に1pxぶんズレた位置に、4pxぶんのぼかしを inset で内側に入れます。
+                </p>
+                <li>トグルスイッチのアニメーション</li>
+                <pre><code><!--
+-->.toggle-switch.active {
+    transform: translateX(40px);
+}<!--
+             --></code></pre>
+                <p>
+                    40pxぶんの横移動をさせます。<br />
+                    40px = ボタン幅32px + (左右余白4px * 2)
+                </p>
+                <li>(例)ダークモードの反映</li>
+                <pre><code><!--
+-->body.darkmode {
+    background-color: #333;
+    color: #fff;
+}<!--
+             --></code></pre>
+                <p>
+                    body タグにそれぞれの data-setting 属性の値をクラスとして付与することで、<br />
+                    ページ全体にCSSが反映されるようになっています。
+                </p>
+                <li>JavaScriptではdata-setting属性とスイッチ内側のDOMを取得し、クラスの付け外しを行う</li>
+                <pre><code><!--
+-->switchOuters.forEach((outer) => {
+    outer.addEventListener("click", () => {
+        const dataAttribute = outer.dataset.setting;
+        const isActive = outer.classList.toggle("active");
+        const toggleSwitch = outer.querySelector(".toggle-switch");
 
+        toggleSwitch.classList.toggle("active", isActive);
+        document.body.classList.toggle(dataAttribute, isActive);
+    });
+});<!--
+             --></code></pre>
+                <p>
+                    HTML側で指定した data-setting 属性を取得し、変数 dataAttribute に代入します。<br />
+                    代入された変数は body タグに付与するクラス名として使用します。
+                </p>
+                <p>
+                    スイッチの外側に .active クラスを付与して、背景色を灰→緑に変えます。
+                </p>
+                <p>
+                    要素の取得方法は様々ありますが、querySelector() は()内のセレクタに当てはまる<span class="bold">最初の要素のみ</span>を取得する性質があるため、<br />
+                    その性質を利用してスイッチ内側のDOMを取得することで、添字依存を解消しつつ確実に1つのスイッチのみを動かすことができます。
                 </p>
             </ol>
             <div id="page_top" class="page-top">
@@ -126,15 +281,18 @@
     </body>
     <script src="common.js" defer></script>
     <script>
-        const switchOuters = Array.from(document.getElementsByClassName("switch-outer"));
-        const toggleSwitches = Array.from(document.getElementsByClassName("toggle-switch"));
+        const switchOuters = Array.from(document.querySelectorAll(".switch-outer"));
 
-        function toggleButtonActive(i) {
-            const isActive = switchOuters[i].classList.contains("active");
-            switchOuters[i].classList.toggle("active", !isActive);
-            toggleSwitches[i].classList.toggle("active", !isActive);
-        }
+        switchOuters.forEach((outer) => {
+            outer.addEventListener("click", () => {
+                const dataAttribute = outer.dataset.setting;
+                const isActive = outer.classList.toggle("active");
 
-        switchOuters.forEach((outer, i) => outer.addEventListener("click", () => toggleButtonActive(i)));
+                const toggleSwitch = outer.querySelector(".toggle-switch");
+
+                toggleSwitch?.classList.toggle("active", isActive);
+                document.body.classList.toggle(dataAttribute, isActive);
+            });
+        });
     </script>
 </html>

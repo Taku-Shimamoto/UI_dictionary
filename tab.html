@@ -14,23 +14,21 @@
         .tab-button-wrapper {
             display: flex;
             justify-content: space-between;
-            list-style: none;
+            position: relative;
         }
 
         .tab-button {
-            border: 2px solid #000;
+            border: 1px solid #000;
             border-radius: 24px 24px 0 0;
             text-align: center;
             padding: 8px 0;
+            transition: all .5s;
             width: calc(100% / 3);
+            z-index: 20;
         }
 
         .tab-button.active {
             border-bottom: none;
-        }
-
-        .tab-button:not(.active) {
-            background-color: #00c;
             color: #fff;
         }
 
@@ -43,12 +41,24 @@
         }
 
         .tab-button:not(.active):hover {
-            opacity: .4;
+            background-color: #eee;
             transition: all .5s;
         }
 
+        .tab-background {
+            background-color: #00c;
+            border-radius: 24px 24px 0 0;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            top: 0;
+            transition: transform .5s;
+            width: calc(100% / 3);
+            z-index: 10;
+        }
+
         .tab-display {
-            border: 2px solid #000;
+            border: 1px solid #000;
             border-radius: 0 0 16px 16px;
             border-top: none;
             display: none;
@@ -86,11 +96,12 @@
             </nav>
             <p>タブ1～3をクリックしてみましょう。</p>
             <div class="tab-wrapper">
-                <ul class="tab-button-wrapper">
-                    <li class="tab-button active">タブ1</li>
-                    <li class="tab-button">タブ2</li>
-                    <li class="tab-button">タブ3</li>
-                </ul>
+                <div class="tab-button-wrapper">
+                    <div id="tab_background" class="tab-background"></div>
+                    <div class="tab-button active">タブ1</div>
+                    <div class="tab-button">タブ2</div>
+                    <div class="tab-button">タブ3</div>
+                </div>
                 <div class="tab-display-wrapper">
                     <div class="tab-display active">タブ1の内容を表示しています。</div>
                     <div class="tab-display">タブ2の内容を表示しています。</div>
@@ -99,19 +110,21 @@
             </div>
             <h2 id="feature">特徴</h2>
             <p>
-                ブラウザなどに用いられているタブと同じで、クリックするとそのタブの内容を表示します。<br />
-                他のタブをクリックすると表示する内容を切り替えることができます。
+                クリックするとそのタブの内容を表示します。<br />
+                他のタブをクリックすると表示する内容を切り替えることができます。<br />
+                タブ切り替えの際、背景色が横方向にスライドで移動します。
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="コードをコピーする" />
             <pre><code class="copy-text"><!--
 -->&lt;div class=&quot;tab-wrapper&quot;&gt;
-    &lt;ul class=&quot;tab-button-wrapper&quot;&gt;
-        &lt;li class=&quot;tab-button active&quot;&gt;タブ1&lt;/li&gt;
-        &lt;li class=&quot;tab-button&quot;&gt;タブ2&lt;/li&gt;
-        &lt;li class=&quot;tab-button&quot;&gt;タブ3&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;div class=&quot;tab-button-wrapper&quot;&gt;
+        &lt;div id=&quot;tab_background&quot; class=&quot;tab-background&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;tab-button active&quot;&gt;タブ1&lt;/div&gt;
+        &lt;div class=&quot;tab-button&quot;&gt;タブ2&lt;/div&gt;
+        &lt;div class=&quot;tab-button&quot;&gt;タブ3&lt;/div&gt;
+    &lt;/div&gt;
     &lt;div class=&quot;tab-display-wrapper&quot;&gt;
         &lt;div class=&quot;tab-display active&quot;&gt;タブ1の内容を表示しています。&lt;/div&gt;
         &lt;div class=&quot;tab-display&quot;&gt;タブ2の内容を表示しています。&lt;/div&gt;
@@ -130,7 +143,7 @@
 .tab-button-wrapper {
     display: flex;
     justify-content: space-between;
-    list-style: none;
+    position: relative;
 }
 
 .tab-button {
@@ -138,15 +151,13 @@
     border-radius: 24px 24px 0 0;
     text-align: center;
     padding: 8px 0;
+    transition: all .5s;
     width: calc(100% / 3);
+    z-index: 20;
 }
 
 .tab-button.active {
     border-bottom: none;
-}
-
-.tab-button:not(.active) {
-    background-color: #00c;
     color: #fff;
 }
 
@@ -159,8 +170,20 @@
 }
 
 .tab-button:not(.active):hover {
-    opacity: .4;
+    background-color: #eee;
     transition: all .5s;
+}
+
+.tab-background {
+    background-color: #00c;
+    border-radius: 24px 24px 0 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: transform .5s;
+    width: calc(100% / 3);
+    z-index: 10;
 }
 
 .tab-display {
@@ -181,16 +204,22 @@
             <pre><code class="copy-text"><!--
 -->const tabButtons = Array.from(document.getElementsByClassName("tab-button"));
 const tabDisplays = Array.from(document.getElementsByClassName("tab-display"));
+const tabBackground = document.getElementById("tab_background");
+        
+let currentIndex = 0;
+const TAB_WIDTH = 160;
 
 tabButtons.forEach((tab, i) => tab.addEventListener("click", () => addClassActive(i)));
-
 function removeClassActive() {
     tabButtons.forEach((button) => button.classList.remove("active"));
     tabDisplays.forEach((display) => display.classList.remove("active"));
 }
 
 function addClassActive(i) {
-    removeClassActive()
+    removeClassActive();
+    currentIndex = i;
+
+    tabBackground.style.transform = `translateX(${currentIndex * TAB_WIDTH}px)`
     tabButtons[i].classList.add("active");
     tabDisplays[i].classList.add("active");
 }<!--
@@ -200,11 +229,12 @@ function addClassActive(i) {
                 <li>構造</li>
                 <pre><code><!--
 -->&lt;div class=&quot;tab-wrapper&quot;&gt;
-    &lt;ul class=&quot;tab-button-wrapper&quot;&gt;
-        &lt;li class=&quot;tab-button active&quot;&gt;タブ1&lt;/li&gt;
-        &lt;li class=&quot;tab-button&quot;&gt;タブ2&lt;/li&gt;
-        &lt;li class=&quot;tab-button&quot;&gt;タブ3&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;div class=&quot;tab-button-wrapper&quot;&gt;
+        &lt;div id=&quot;tab_background&quot; class=&quot;tab-background&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;tab-button active&quot;&gt;タブ1&lt;/div&gt;
+        &lt;div class=&quot;tab-button&quot;&gt;タブ2&lt;/div&gt;
+        &lt;div class=&quot;tab-button&quot;&gt;タブ3&lt;/div&gt;
+    &lt;/div&gt;
     &lt;div class=&quot;tab-display-wrapper&quot;&gt;
         &lt;div class=&quot;tab-display active&quot;&gt;タブ1の内容を表示しています。&lt;/div&gt;
         &lt;div class=&quot;tab-display&quot;&gt;タブ2の内容を表示しています。&lt;/div&gt;
@@ -213,15 +243,15 @@ function addClassActive(i) {
 &lt;/div&gt;<!--
              --></code></pre>
                 <p>
-                    「タブ見出し(ボタン)」 + 「タブ表示部分」で構成します。どちらも初期状態として、<br />
+                    「タブ見出し(ボタン)」 + 「タブ背景」 + 「タブ表示部分」で構成します。どちらも初期状態として、<br />
                     最初のボタンと画面を表示するために .active クラスを付与しています。
                 </p>
-                <li></li>
+                <li>タブ見出しとタブ背景の装飾やアニメーションを設定</li>
                 <pre><code><!--
 -->.tab-button-wrapper {
     display: flex;
     justify-content: space-between;
-    list-style: none;
+    position: relative;
 }
 
 .tab-button {
@@ -229,15 +259,13 @@ function addClassActive(i) {
     border-radius: 24px 24px 0 0;
     text-align: center;
     padding: 8px 0;
+    transition: all .5s;
     width: calc(100% / 3);
+    z-index: 20;
 }
 
 .tab-button.active {
     border-bottom: none;
-}
-
-.tab-button:not(.active) {
-    background-color: #00c;
     color: #fff;
 }
 
@@ -250,18 +278,39 @@ function addClassActive(i) {
 }
 
 .tab-button:not(.active):hover {
-    opacity: .4;
+    background-color: #eee;
     transition: all .5s;
+}
+
+.tab-background {
+    background-color: #00c;
+    border-radius: 24px 24px 0 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: transform .5s;
+    width: calc(100% / 3);
+    z-index: 10;
 }<!--
              --></code></pre>
                 <p>
-                    ①li タグに対して flex プロパティを適用し、 justifu-content: space-between; で均等配置にします。
-                </p>
-                <p>
-                    ②幅はタブの個数で等分します。今回は全体(480px)を3等分するため、 calc(100% / 3) とします。
-                </p>
-                <p>
+                    ①子要素の div タグに対して flex プロパティを適用し、 justify-content: space-between; で均等配置にします。<br />
+                    ②幅はタブの個数で等分します。今回は全体(480px)を3等分するため、 calc(100% / 3) とします。<br />
                     ③.active クラスが付いていない要素に対して<span class="bold">反映させたくない</span>CSSがあれば、 :not(.active) の擬似要素を使うことができます。
+                </p>
+                <p class="important">
+                    CSSには「<span class="bold">引っ張り合いの法則</span>」というものが存在します。<br />
+                    今回でいうところの .tab-background 要素の高さは .tab-button 要素の高さと一致している必要があります。<br />
+                    ただし、絶対値を指定すると将来的にタブの高さが変わったときに変更に弱い、という状況に陥ってしまいます。<br />
+                    そこで、position: relative; と position: absolute; を使って位置を固定し、さらに固定の場所を<br />
+                    top: 0; かつ bottom: 0; という形で上下両方に指定します。
+                    <p>
+                        親要素「上に固定してね」<br />
+                        子要素「うん、わかった」<br />
+                        親要素「下にも固定してね」<br />
+                        子要素「いや、どっちやねん！とりあえず両方に固定するわ！」
+                    </p>
                 </p>
                 <li>表示画面</li>
                 <pre><code><!--
@@ -281,24 +330,32 @@ function addClassActive(i) {
                 <p>
                     .active クラスが付いていない要素を非表示にするため、 display: none;を指定します。<br />
                     .active クラスが付いた場合に display: block; で表示します。<br />
-                    JavaScriptで直接CSSを変えることで表示/非表示にすることもできますが、JavaScriptはあくまでクラスの付け外しのみにします。
+                    JavaScriptで直接CSSを変えることで表示/非表示にすることもできますが、JavaScriptはあくまで「動き」を制御します。
                 </p>
-                <li>JavaScriptではクラスの付け外しを行うのみ</li>
+                <li>JavaScriptでは「タブ背景の横移動」 + 「クラスの付け外し」を行う</li>
                 <pre><code><!--
---> tabButtons.forEach((tab, i) => tab.addEventListener("click", () => addClassActive(i)));
+-->tabButtons.forEach((tab, i) => tab.addEventListener("click", () => addClassActive(i)));
 function removeClassActive() {
     tabButtons.forEach((button) => button.classList.remove("active"));
     tabDisplays.forEach((display) => display.classList.remove("active"));
 }
 
 function addClassActive(i) {
-    removeClassActive()
+    removeClassActive();
+    currentIndex = i;
+
+    tabBackground.style.transform = `translateX(${currentIndex * TAB_WIDTH}px)`
     tabButtons[i].classList.add("active");
     tabDisplays[i].classList.add("active");
 }<!--
              --></code></pre>
                 <p>
                     一度すべての .active クラスを取り除いてから、クリックされた要素に .active クラスを付与しましょう。
+                </p>
+                <p>
+                    タブ移動のしくみは<a href="slider.html">画像スライダー</a>と同じです。<br />
+                    クリックされたタブのインデックス番号を取得し、変数 currentIndex に代入します。<br />
+                    インデックス番号によって 0px, 160px, 320px の位置にタブ背景が移動します。
                 </p>
             </ol>
             <div id="page_top" class="page-top">
@@ -310,6 +367,10 @@ function addClassActive(i) {
     <script>
         const tabButtons = Array.from(document.getElementsByClassName("tab-button"));
         const tabDisplays = Array.from(document.getElementsByClassName("tab-display"));
+        const tabBackground = document.getElementById("tab_background");
+        
+        let currentIndex = 0;
+        const TAB_WIDTH = 160;
 
         tabButtons.forEach((tab, i) => tab.addEventListener("click", () => addClassActive(i)));
         function removeClassActive() {
@@ -319,6 +380,9 @@ function addClassActive(i) {
 
         function addClassActive(i) {
             removeClassActive();
+            currentIndex = i;
+
+            tabBackground.style.transform = `translateX(${currentIndex * TAB_WIDTH}px)`;
 
             tabButtons[i].classList.add("active");
             tabDisplays[i].classList.add("active");
