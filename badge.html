@@ -53,23 +53,7 @@
         }
     </style>
     <body>
-        <header>
-            <h1><a href="index.html">UI Dictionary</a></h1>
-            <div id="hamburger" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav id="hamburger_nav">
-                <ul>
-                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
-                    <li><a class="nav-link" href="#feature">特徴</a></li>
-                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
-                    <li><a class="nav-link" href="#css_code">CSS</a></li>
-                    <li><a class="nav-link" href="#explanation">解説</a></li>
-                </ul>
-            </nav>
-        </header>
+        <site-header></site-header>
         <main>
             <nav class="breadcrumb-nav">
                 <a href="index.html">ホーム</a> > 購入バッジ
@@ -102,7 +86,7 @@
                 カートのアイコンはFont Awesomeより拝借しています。気になる方は調べてみましょう。
             </p>
             <h3 id="css_code">CSS</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->.cart-icon-wrapper {
     position: relative;
@@ -177,6 +161,7 @@
                 <a href="#">Page Top</a>
             </div>
         </main>
+        <site-footer></site-footer>
     </body>
     <script src="common.js" defer></script>
     <script>

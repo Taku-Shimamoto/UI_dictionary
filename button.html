@@ -6,6 +6,16 @@
         <title>UI辞典 ボタン</title>
     </head>
     <style>
+        body.darkmode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .important,
+        .attention {
+            color: #000;
+        }
+
         .button {
             background-color: #0f0;
             border: none;
@@ -24,44 +34,36 @@
             box-shadow: none;
             transform: translateY(2px);
         }
+
+        .button:disabled {
+            box-shadow: none;
+            pointer-events: none;
+            transform: translateY(2px);
+        }
     </style>
     <body>
-        <header>
-            <h1><a href="index.html">UI Dictionary</a></h1>
-            <div id="hamburger" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav id="hamburger_nav">
-                <ul>
-                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
-                    <li><a class="nav-link" href="#feature">特徴</a></li>
-                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
-                    <li><a class="nav-link" href="#html_code">HTML</a></li>
-                    <li><a class="nav-link" href="#css_code">CSS</a></li>
-                    <li><a class="nav-link" href="#explanation">解説</a></li>
-                </ul>
-            </nav>
-        </header>
+        <site-header></site-header>
         <main>
             <nav class="breadcrumb-nav">
                 <a href="index.html">ホーム</a> > ボタン
             </nav>
-            <input type="button" class="button" value="ボタン" />
+            <input type="button" id="button" class="button" value="ボタン" />
             <h2 id="feature">特徴</h2>
             <p>
                 マウスを乗せると色が淡くなり、クリックするとボタンを押したような感覚のする、一般的なボタンUIです。<br />
-                ※押しても何も起こりませんので、好きなだけ押してください。
+                今回は例として、ダークモード切り替えのクリックイベントを付与し、一度ボタンを押すと2秒間、押せない状態になります。
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
             -->&lt;input type=&quot;button&quot; class=&quot;button&quot; value=&quot;ボタン&quot; /&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <p class="important">
+                input要素にはデフォルトで hover, active, disabled 時のCSSが設定されていますが、自分で設定することもできます。
+            </p>
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->.button {
     background-color: #0f0;
@@ -79,7 +81,21 @@
 .button:active {
     box-shadow: none;
     transform: translateY(2px);
+}
+
+.button:disabled {
+    box-shadow: none;
+    pointer-events: none;
+    transform: translateY(2px);
 }<!--
+         --></code></pre>
+            <h3 id="js_code">JavaScript</h3>
+            <input type="button" class="copy-button" value="Copy" />
+            <pre><code class="copy-text"><!--
+-->const button = document.getElementById("button");
+button.addEventListener("click", () => {
+    // この中にクリックイベントの内容を記述してください。
+});<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
@@ -108,11 +124,49 @@
                     ① box-shadow: none; によってボタンの影をなくし、<br />
                     ② transform: translateY(2px); によってボタンの影の高さぶん(今回は2px)下に押し下げることで、視覚的にボタンを押したように見えます。
                 </p>
+                <li>ボタンが押せないときの装飾</li>
+                <pre><code><!--
+-->.button:disabled {
+    box-shadow: none;
+    pointer-events: none;
+    transform: translateY(2px);
+}<!--
+             --></code></pre>
+                <p>
+                    pointer-events: none; を指定することで、hover, active, クリックイベントのいずれも無効になります。
+                </p>
+                <li>クリックイベントの付与</li>
+                <pre><code><!--
+-->button.addEventListener("click", () => {
+    // この中にクリックイベントの内容を記述してください。
+});<!--
+             --></code></pre>
+                <p>
+                    addEventListener() の第2引数には、例のようにアロー関数を指定しても、あらかじめ定義した関数を指定することもできます。
+                </p>
+                <p class="attention">
+                    あらかじめ定義した関数が引数(arg)を持っている場合は、 () => doSomething(arg) のように書きましょう。<br />
+                    このアロー関数は、doSomething(arg) を包んでイベント発生時に実行するための「<span class="bold">ラッパー関数</span>」とよびます。
+                </p>
             </ol>
             <div id="page_top" class="page-top">
                 <a href="#">Page Top</a>
             </div>
         </main>
+        <site-footer></site-footer>
     </body>
     <script src="common.js" defer></script>
+    <script>
+        const button = document.getElementById("button");
+        button.addEventListener("click", () => {
+            document.body.classList.toggle("darkmode");
+            button.disabled = true;
+
+        if (button.disabled) {
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+        });
+    </script>
 </html>

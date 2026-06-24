@@ -18,7 +18,7 @@
         }
 
         .tab-button {
-            border: 1px solid #000;
+            border: 2px solid #000;
             border-radius: 24px 24px 0 0;
             text-align: center;
             padding: 8px 0;
@@ -52,13 +52,13 @@
             left: 0;
             position: absolute;
             top: 0;
-            transition: transform .5s;
+            transition: transform .5s ease;
             width: calc(100% / 3);
             z-index: 10;
         }
 
         .tab-display {
-            border: 1px solid #000;
+            border: 2px solid #000;
             border-radius: 0 0 16px 16px;
             border-top: none;
             display: none;
@@ -71,25 +71,7 @@
         }
     </style>
     <body>
-        <header>
-            <h1><a href="index.html">UI Dictionary</a></h1>
-            <div id="hamburger" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav id="hamburger_nav">
-                <ul>
-                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
-                    <li><a class="nav-link" href="#feature">特徴</a></li>
-                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
-                    <li><a class="nav-link" href="#html_code">HTML</a></li>
-                    <li><a class="nav-link" href="#css_code">CSS</a></li>
-                    <li><a class="nav-link" href="#js_code">JavaScript</a></li>
-                    <li><a class="nav-link" href="#explanation">解説</a></li>
-                </ul>
-            </nav>
-        </header>
+        <site-header></site-header>
         <main>
             <nav class="breadcrumb-nav">
                 <a href="index.html">ホーム</a> > タブ切り替え
@@ -116,8 +98,9 @@
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
-            <pre><code class="copy-text"><!--
+            <div class="code-block">
+                <input type="button" class="copy-button" value="Copy" />
+                <pre><code class="copy-text"><!--
 -->&lt;div class=&quot;tab-wrapper&quot;&gt;
     &lt;div class=&quot;tab-button-wrapper&quot;&gt;
         &lt;div id=&quot;tab_background&quot; class=&quot;tab-background&quot;&gt;&lt;/div&gt;
@@ -131,9 +114,10 @@
         &lt;div class=&quot;tab-display&quot;&gt;タブ3の内容を表示しています。&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;<!--
-         --></code></pre>
+             --></code></pre>
+            </div>
             <h3 id="css_code">CSS</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->.tab-wrapper {
     margin-top: 40px;
@@ -200,7 +184,7 @@
 }<!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->const tabButtons = Array.from(document.getElementsByClassName("tab-button"));
 const tabDisplays = Array.from(document.getElementsByClassName("tab-display"));
@@ -299,19 +283,28 @@ function addClassActive(i) {
                     ②幅はタブの個数で等分します。今回は全体(480px)を3等分するため、 calc(100% / 3) とします。<br />
                     ③.active クラスが付いていない要素に対して<span class="bold">反映させたくない</span>CSSがあれば、 :not(.active) の擬似要素を使うことができます。
                 </p>
-                <p class="important">
-                    CSSには「<span class="bold">引っ張り合いの法則</span>」というものが存在します。<br />
-                    今回でいうところの .tab-background 要素の高さは .tab-button 要素の高さと一致している必要があります。<br />
-                    ただし、絶対値を指定すると将来的にタブの高さが変わったときに変更に弱い、という状況に陥ってしまいます。<br />
-                    そこで、position: relative; と position: absolute; を使って位置を固定し、さらに固定の場所を<br />
-                    top: 0; かつ bottom: 0; という形で上下両方に指定します。
+                <div class="important">
                     <p>
-                        親要素「上に固定してね」<br />
-                        子要素「うん、わかった」<br />
-                        親要素「下にも固定してね」<br />
-                        子要素「いや、どっちやねん！とりあえず両方に固定するわ！」
+                        CSSには「<span class="bold">引っ張り合いの法則</span>」というものが存在します。<br />
+                        これは、背景要素 (.tab-background) の高さを、ボタン (.tab-button) の高さにぴったり合わせたい時のテクニックです。
                     </p>
-                </p>
+                    <p>
+                        .tab-background に height: 40px; などと直接数値を決め打ちすると、将来タブのサイズが変わったときに<br />
+                        あちこちのコードを修正することになり管理が大変になります。<br />
+                        これを解決するために、position: absolute; を設定した上で、あえて top: 0; と bottom: 0; を同時に指定します。
+                    </p>
+                    <p>
+                        ブラウザは「上と下の両方にくっつきなさい」という、一見無理難題な指示を受けることになります。<br />
+                        この矛盾を解決するために、ブラウザは「子要素のサイズを上下に引き伸ばす」という処理を行います。<br />
+                        これが「<span class="bold">引っ張り合いの法則</span>」です。
+                    </p>
+                    <p>
+                        親要素「一番上にくっついてね」<br />
+                        子要素「うん、わかった！」<br />
+                        親要素「一番下にもくっついてちょうだい」<br />
+                        子要素「ええっ！？ どっちにくっつけばいいの……？あ、そうか！僕自身がびよ〜んと伸びれば、どっちの命令も叶えられるぞ！」びよ～ん
+                    </p>
+                </div>
                 <li>表示画面</li>
                 <pre><code><!--
 -->.tab-display {
@@ -362,6 +355,7 @@ function addClassActive(i) {
                 <a href="#">Page Top</a>
             </div>
         </main>
+        <site-footer></site-footer>
     </body>
     <script src="common.js" defer></script>
     <script>

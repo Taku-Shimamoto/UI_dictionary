@@ -6,13 +6,13 @@
         <title>UI辞典 トグルスイッチ</title>
     </head>
     <style>
+        body {
+            transition: all .2s;
+        }
+
         body.darkmode {
             background-color: #333;
             color: #fff;
-        }
-
-        body.boldtext {
-            font-weight: bold;
         }
 
         .important {
@@ -56,36 +56,14 @@
         }
     </style>
     <body>
-        <header>
-            <h1><a href="index.html">UI Dictionary</a></h1>
-            <div id="hamburger" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav id="hamburger_nav">
-                <ul>
-                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
-                    <li><a class="nav-link" href="#feature">特徴</a></li>
-                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
-                    <li><a class="nav-link" href="#html_code">HTML</a></li>
-                    <li><a class="nav-link" href="#css_code">CSS</a></li>
-                    <li><a class="nav-link" href="#js_code">JavaScript</a></li>
-                    <li><a class="nav-link" href="#explanation">解説</a></li>
-                </ul>
-            </nav>
-        </header>
+        <site-header></site-header>
         <main>
             <nav class="breadcrumb-nav">
                 <a href="index.html">ホーム</a> &gt; トグルスイッチ
             </nav>
             <p>クリックしてみましょう。</p>
-            <p>ダークモードにする ON / OFF</p>
+            <lavel>ダークモードにする</label>
             <div class="switch-outer" data-setting="darkmode">
-                <div class="toggle-switch"></div>
-            </div>
-            <p>太字にする ON / OFF</p>
-            <div class="switch-outer" data-setting="boldtext">
                 <div class="toggle-switch"></div>
             </div>
             <h2 id="feature">特徴</h2>
@@ -95,11 +73,11 @@
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <p class="important">
-                このページの「ダークモード切り替え(darkmode)」「太字切り替え(boldtext)」はあくまで一例です。<br />
+                このページの「ダークモード切り替え(darkmode)」はあくまで一例です。<br />
                 data-setting 属性を自分好みに変更して、ぜひ自分の好きな機能を実装してみてください！
             </p>
             <h3 id="html_code">HTML</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->&lt;div class=&quot;switch-outer&quot; data-setting=&quot;darkmode&quot;&gt;
     &lt;div class=&quot;toggle-switch&quot;&gt;&lt;/div&gt;
@@ -110,9 +88,13 @@
 &lt;/div&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
--->body.darkmode {
+-->body {
+    transition: all .2s;
+}
+
+    body.darkmode {
     background-color: #333;
     color: #fff;
 }
@@ -158,7 +140,7 @@ body.boldtext {
 }<!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->const switchOuters = Array.from(document.querySelectorAll(".switch-outer"));
 
@@ -223,6 +205,10 @@ switchOuters.forEach((outer) => {
                     border-radius の仕様として、height の半分以上を指定しないと楕円形のような形になってしまいます。<br />
                     ただし絶対値を指定するとその都度変える手間が発生するので、常にheightの半分以上になるようcalc()で指定します。
                 </p>
+                <p class="attention">
+                    ブラウザによっては infinity という値に対応していない場合があります。<br />
+                    その際は border-radius: 9999px; などで対応しましょう。
+                </p>
                 <p>
                     box-shadow でボタンに影をつけて立体感を出しています。<br />
                     外側: 右と下方向に1pxぶんズレた位置に、8pxぶんの強いぼかしが入ります。<br />
@@ -240,7 +226,11 @@ switchOuters.forEach((outer) => {
                 </p>
                 <li>(例)ダークモードの反映</li>
                 <pre><code><!--
--->body.darkmode {
+-->body {
+    transition: all .2s;
+}
+
+body.darkmode {
     background-color: #333;
     color: #fff;
 }<!--
@@ -249,6 +239,7 @@ switchOuters.forEach((outer) => {
                     body タグにそれぞれの data-setting 属性の値をクラスとして付与することで、<br />
                     ページ全体にCSSが反映されるようになっています。
                 </p>
+                <p>transition の有無は好みに応じて選んでください。</p>
                 <li>JavaScriptではdata-setting属性とスイッチ内側のDOMを取得し、クラスの付け外しを行う</li>
                 <pre><code><!--
 -->switchOuters.forEach((outer) => {
@@ -264,10 +255,10 @@ switchOuters.forEach((outer) => {
              --></code></pre>
                 <p>
                     HTML側で指定した data-setting 属性を取得し、変数 dataAttribute に代入します。<br />
-                    代入された変数は body タグに付与するクラス名として使用します。
+                    代入された値は body タグに付与するクラス名としてそのまま使用します。
                 </p>
                 <p>
-                    スイッチの外側に .active クラスを付与して、背景色を灰→緑に変えます。
+                    同時に、スイッチの外側に .active クラスを付与して、背景色を灰色→緑色に変えます。
                 </p>
                 <p>
                     要素の取得方法は様々ありますが、querySelector() は()内のセレクタに当てはまる<span class="bold">最初の要素のみ</span>を取得する性質があるため、<br />
@@ -278,6 +269,7 @@ switchOuters.forEach((outer) => {
                 <a href="#">Page Top</a>
             </div>
         </main>
+        <site-footer></site-footer>
     </body>
     <script src="common.js" defer></script>
     <script>

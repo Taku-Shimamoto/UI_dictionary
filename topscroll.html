@@ -9,25 +9,7 @@
 
     </style>
     <body>
-        <header>
-            <h1><a href="index.html">UI Dictionary</a></h1>
-            <div id="hamburger" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav id="hamburger_nav">
-                <ul>
-                    <li><a class="nav-link" href="#">ページの一番上に戻る</a></li>
-                    <li><a class="nav-link" href="#feature">特徴</a></li>
-                    <li><a class="nav-link" href="#code">ソースコードの一例</a></li>
-                    <li><a class="nav-link" href="#html_code">HTML</a></li>
-                    <li><a class="nav-link" href="#css_code">CSS</a></li>
-                    <li><a class="nav-link" href="#js_code">JavaScript</a></li>
-                    <li><a class="nav-link" href="#explanation">解説</a></li>
-                </ul>
-            </nav>
-        </header>
+        <site-header></site-header>
         <main>
             <nav class="breadcrumb-nav">
                 <a href="index.html">ホーム</a> > トップスクロールボタン
@@ -43,14 +25,14 @@
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->&lt;div id=&quot;page_top&quot; class=&quot;page-top&quot;&gt;
     &lt;a href=&quot;#&quot;&gt;Page Top&lt;/a&gt;
 &lt;/div&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->.page-top {
     opacity: 0;
@@ -84,7 +66,7 @@
 }<!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
-            <input type="button" class="copy-button" value="コードをコピーする" />
+            <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->const pageTopButton = document.getElementById("page_top");
 const BUTTON_APPEARANCE_HEIGHT = 300;
@@ -148,6 +130,7 @@ function toggleTopScrollButton() {
                 <a href="#">Page Top</a>
             </div>
         </main>
+        <site-footer></site-footer>
     </body>
     <script src="common.js" defer></script>
 </html>
