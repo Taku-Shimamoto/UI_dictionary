@@ -8,7 +8,9 @@
     <style>
         .accordion-title {
             display: flex;
+            font-size: 14px;
             justify-content: space-between;
+            margin: 16px;
             width: 40%;
         }
 
@@ -34,9 +36,9 @@
         <site-header></site-header>
         <main>
             <nav class="breadcrumb-nav">
-                <a href="index.html">ホーム</a> > アコーディオン
+                <a href="index.html">ホーム</a> &gt; アコーディオン
             </nav>
-            <p class="accordion-title">ここをクリックしてみましょう。<span></span></p>
+            <div class="accordion-title">ここをクリックしてみましょう。<span></span></div>
             <div class="accordion">
                 <p>クリックすると中身が表示されます。</p>
             </div>
@@ -49,8 +51,8 @@
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
--->&lt;p class=&quot;accordion-title&quot;&gt;ここをクリックしてみましょう。&lt;span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;div class=&quot;accordion&quot;&gt;
+-->&lt;div class="accordion-title"&gt;ここをクリックしてみましょう。&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="accordion"&gt;
     &lt;p&gt;クリックすると中身が表示されます。&lt;/p&gt;
 &lt;/div&gt;<!--
          --></code></pre>
@@ -85,14 +87,17 @@
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->const accordionTitles = Array.from(document.getElementsByClassName("accordion-title"));
-const accordions = Array.from(document.getElementsByClassName("accordion"));
 
-accordionTitles.forEach((title, i) => title.addEventListener("click", () => toggleClassOpen(i)));
-function toggleClassOpen(i) {
-    accordionTitles[i].classList.toggle("open");
-    const isOpen = accordions[i].classList.toggle("open");
-    accordions[i].style.height = isOpen ? accordions[i].scrollHeight + "px" : "0";
-}<!--
+accordionTitles.forEach((title) => {
+    title.addEventListener("click", () => {
+        title.classList.toggle("open");
+
+        const accordion = title.nextElementSibling;
+        const isOpen = accordion.classList.toggle("open");
+
+        accordion.style.height = isOpen ? accordion.scrollHeight + "px" : 0;
+    });
+});<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
@@ -110,15 +115,24 @@ function toggleClassOpen(i) {
                 </p>
                 <li>.open クラスの付け外しと高さの取得</li>
                 <pre><code><!--
--->accordionTitles.forEach((title, i) => title.addEventListener("click", () => toggleClassOpen(i)));
-function toggleClassOpen(i) {
-    accordionTitles[i].classList.toggle("open");
-    const isOpen = accordions[i].classList.toggle("open");
-    accordions[i].style.height = isOpen ? accordions[i].scrollHeight + "px" : "0";
-}<!--
+-->accordionTitles.forEach((title) => {
+    title.addEventListener("click", () => {
+        title.classList.toggle("open");
+
+        const accordion = title.nextElementSibling;
+        const isOpen = accordion.classList.toggle("open");
+
+        accordion.style.height = isOpen ? accordion.scrollHeight + "px" : 0;
+    });
+});<!--
              --></code></pre>
                 <p>
-                    アコーディオンの見出しと中身の両方に .open クラスの付け外しを行います。<br />
+                    アコーディオンの見出しに .open クラスの付け外しを行います。
+                </p>
+                <p>
+                    nextElementSibling によって<span class="bold">見出しの兄弟要素</span>である .accordion 要素を取得します。
+                </p>
+                <p>
                     isOpen はアコーディオンの中身に .open クラスの付け外しを行い、クラス名が付いていればtrueを、そうでなければfalseを返します。<br />
                     .open クラス名が付いていればその要素の高さを取得し指定することで中身が表示されます。<br />
                     そうでなければ0が指定され、中身が隠れます。
@@ -133,13 +147,15 @@ function toggleClassOpen(i) {
     <script src="common.js" defer></script>
     <script>
         const accordionTitles = Array.from(document.getElementsByClassName("accordion-title"));
-        const accordions = Array.from(document.getElementsByClassName("accordion"));
 
-        accordionTitles.forEach((title, i) => title.addEventListener("click", () => toggleClassOpen(i)));
-        function toggleClassOpen(i) {
-            accordionTitles[i].classList.toggle("open");
-            const isOpen = accordions[i].classList.toggle("open");
-            accordions[i].style.height = isOpen ? accordions[i].scrollHeight + "px" : "0";
-        }
+        accordionTitles.forEach((title) => {
+            title.addEventListener("click", () => {
+                title.classList.toggle("open");
+                const accordion = title.nextElementSibling;
+
+                const isOpen = accordion?.classList.toggle("open");
+                accordion.style.height = isOpen ? accordion.scrollHeight + "px" : 0;
+            });
+        });
     </script>
 </html>

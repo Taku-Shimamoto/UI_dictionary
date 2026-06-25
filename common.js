@@ -43,6 +43,20 @@ customElements.define("site-footer", class extends HTMLElement {
 });
 
 // ==================================================
+// トースト通知のテンプレート化
+// ==================================================
+
+customElements.define("toast-notice", class extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = `
+            <div id="toast_notice" class="toast-notice">
+                ✓ コピーしました
+            </div>
+        `;
+    }
+});
+
+// ==================================================
 // ハンバーガーメニュー
 // ==================================================
 
@@ -78,22 +92,38 @@ function toggleTopScrollButton() {
 }
 
 // ==================================================
-// コードのコピー
+// コードのコピー + トースト通知
 // ==================================================
 
 const copyButtons = Array.from(document.getElementsByClassName("copy-button"));
 const copyTexts = Array.from(document.getElementsByClassName("copy-text"));
 const RETURN_MS = 3000;
+const toastNotice = document.getElementById("toast_notice");
+let toastTimerId = null;
 
 // テキストのコピー
 copyButtons.forEach((button, i) => button.addEventListener("click", () => copyText(i)));
 function copyText(i) {
+    if (toastTimerId) {
+        clearTimeout(toastTimerId);
+    }
+
+    navigator.clipboard.writeText(copyTexts[i].textContent);
     copyButtons[i].value = "✓";
     copyButtons[i].disabled = true;
-    navigator.clipboard.writeText(copyTexts[i].textContent);
 
     setTimeout(() => {
         copyButtons[i].value = "Copy";
         copyButtons[i].disabled = false;
+    }, RETURN_MS);
+
+    toggleToastActive();
+}
+
+function toggleToastActive() {
+    toastNotice.classList.add("active");
+    toastTimerId = setTimeout(() => {
+        toastNotice.classList.remove("active");
+        toastTimerId = null;
     }, RETURN_MS);
 }

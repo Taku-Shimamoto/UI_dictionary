@@ -147,6 +147,29 @@ main {
     padding-top: 64px;
 }
 
+/* トースト通知 */
+.toast-notice {
+    background-color: #0b0b;
+    border-radius: 8px;
+    color: #fff;
+    cursor: default;
+    display: inline-block;
+    font-size: 14px;
+    opacity: 0;
+    padding: 8px 16px;
+    position: fixed;
+    right: 0;
+    top: calc(var(--header-height) + 8px);
+    transform: translateX(100%);
+    transition: all .5s ease;
+    user-select: none;
+}
+
+.toast-notice.active {
+    opacity: 1;
+    transform: translateX(-8px);
+}
+
 /* パンくずリスト */
 .breadcrumb-nav {
     font-size: 12px;

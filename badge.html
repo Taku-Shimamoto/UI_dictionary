@@ -7,6 +7,10 @@
         <title>UI辞典 購入バッジ</title>
     </head>
     <style>
+        input {
+            display: inline;
+        }
+
         .qty {
             width: 40px;
         }
@@ -55,8 +59,9 @@
     <body>
         <site-header></site-header>
         <main>
+            <toast-notice></toast-notice>
             <nav class="breadcrumb-nav">
-                <a href="index.html">ホーム</a> > 購入バッジ
+                <a href="index.html">ホーム</a> &gt; 購入バッジ
             </nav>
             <p>好きな商品を選び、「カートに入れる」ボタンを押してみましょう。</p>
             <select id="product">

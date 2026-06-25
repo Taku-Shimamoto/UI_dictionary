@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link rel="stylesheet" href="common.css" />
+        <meta charset="UTF-8" />
+        <title>UI辞典 トースト通知</title>
+    </head>
+    <style>
+
+    </style>
+    <body>
+        <site-header></site-header>
+        <main>
+            <toast-notice></toast-notice>
+            <nav class="breadcrumb-nav">
+                <a href="index.html">ホーム</a> &gt; トースト通知
+            </nav>
+            <p>
+                <a href="#code">Copy ボタン</a>を押して、ソースコードをコピーしてみましょう。
+            </p>
+            <h2 id="feature">特徴</h2>
+            <p>
+                何か処理をおこなったとき、その処理を正常に行えた旨を伝えるちょっとした通知です。<br />
+                ここでは、画面右側からそっと通知が現れ、2秒後にそっと画面外に戻っていきます。
+            </p>
+            <p>画面の端から出てくる様子がトースターから飛び出す食パンのようであることから、この名前が付いたそうです。</p>
+            <h2 id="code">ソースコードの一例</h2>
+            <h3 id="html_code">HTML</h3>
+            <input type="button" class="copy-button" value="Copy" />
+            <pre><code class="copy-text"><!--
+-->&lt;div id="toast_notice" class="toast-notice"&gt;
+    ✓ ここに通知として表示するメッセージを記述してください。
+&lt;/div&gt;<!--
+         --></code></pre>
+            <h3 id="css_code">CSS</h3>
+            <input type="button" class="copy-button" value="Copy" />
+            <pre><code class="copy-text"><!--
+-->.toast-notice {
+    background-color: #0b0b;
+    border-radius: 8px;
+    color: #fff;
+    cursor: default;
+    display: inline-block;
+    font-size: 14px;
+    padding: 8px 16px;
+    position: fixed;
+    right: 0;
+    top: 72px;
+    transform: translateX(100%);
+    transition: transform .5s ease;
+    user-select: none;
+}
+
+.toast-notice.active {
+    transform: translateX(-8px);
+}<!--
+         --></code></pre>
+            <h3 id="js_code">JavaScript</h3>
+            <input type="button" class="copy-button" value="Copy" />
+            <pre><code class="copy-text"><!--
+-->const toastNotice = document.getElementById("toast_notice");
+const RETURN_MS = 3000;
+let toastTimerId = null;
+
+function toggleToastActive() {
+    if (toastTimerId) {
+        clearTimeout(toastTimerId);
+    }
+
+    toastNotice.classList.add("active");
+    toastTimerId = setTimeout(() => {
+        toastNotice.classList.remove("active");
+        toastTimerId = null;
+    }, RETURN_MS);
+}
+
+// コードをペーストしただけでは動きません。
+// toggleToastActive() 関数を、クリックイベントと紐づける等して呼び出しましょう。
+<!--
+         --></code></pre>
+            <h2 id="explanation">解説</h2>
+            <ol>
+                <li>トースト通知のデザインと配置</li>
+                <pre><code><!--
+-->.toast-notice {
+    background-color: #0b0b;
+    border-radius: 8px;
+    color: #fff;
+    cursor: default;
+    display: inline-block;
+    font-size: 14px;
+    padding: 8px 16px;
+    position: fixed;
+    right: 0;
+    top: 72px;
+    transform: translateX(100%);
+    transition: transform .5s ease;
+    user-select: none;
+}
+
+.toast-notice.active {
+    transform: translateX(-8px);
+}<!--
+             --></code></pre>
+                <p class="attention">
+                    top の値はこのページのヘッダーの高さ(64px)に合わせて72pxになっています。<br />
+                    72px = 64px(ヘッダーの高さ) + 8px(余白)<br />
+                    実際のページレイアウトに合わせて、お好みで高さを調整してください。
+                </p>
+                <p>
+                    通常時は通知が見えないよう、 right: 0; と transform: translateX(100%); で通知の幅100%ぶんを画面右側に隠しておきます。<br />
+                    JavaScript で .active クラスを付与したときに、画面内にスライドするようにします。<br />
+                    画面右端との余白が必要なければ、translateX() の値は0でもかまいません。
+                </p>
+                <li>JavaScriptでの .active クラスの付け外し</li>
+                <pre><code><!--
+-->function toggleToastActive() {
+    if (toastTimerId) {
+        clearTimeout(toastTimerId);
+    }
+
+    toastNotice.classList.add("active");
+    toastTimerId = setTimeout(() => {
+        toastNotice.classList.remove("active");
+        toastTimerId = null;
+    }, RETURN_MS);
+}<!--
+             --></code></pre>
+                <p>
+                    ほかのUIと同様、JavaScript では .active クラスの付け外しを行います。
+                </p>
+                <p>
+                    タイマーIDを使用して、処理を行う前にタイマーリセットをしておくと、例えば連続でクリックした場合、<br />
+                    <span class="bold">最後に通知を表示してから2秒後</span>に通知が引っ込むようになります。<br />
+                    タイマーリセットをしないと、連続クリックをしても<span class="bold">最初の通知が出てから2秒後</span>に強制的に引っ込んでしまいます。
+                </p>
+            </ol>
+            <div id="page_top" class="page-top">
+                <a href="#">Page Top</a>
+            </div>
+        </main>
+        <site-footer></site-footer>
+    </body>
+    <script src="common.js" defer></script>
+</html>

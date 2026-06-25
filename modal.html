@@ -96,8 +96,9 @@
     <body>
         <site-header></site-header>
         <main>
+            <toast-notice></toast-notice>
             <nav class="breadcrumb-nav">
-                <a href="index.html">ホーム</a> > モーダルウィンドウ
+                <a href="index.html">ホーム</a> &gt; モーダルウィンドウ
             </nav>
             <input type="button" id="modal_button" class="modal-button" value="クリックしてみましょう" />
             <div id="modal_background" class="modal-background">
@@ -119,11 +120,11 @@
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
--->&lt;input type=&quot;button&quot; id=&quot;modal_button&quot; class=&quot;modal-button&quot; value=&quot;クリックしてみましょう&quot; /&gt;
-&lt;div id=&quot;modal_background&quot; class=&quot;modal-background&quot;&gt;
-    &lt;div id=&quot;modal&quot; class=&quot;modal&quot;&gt;
+-->&lt;input type="button" id="modal_button" class="modal-button" value="クリックしてみましょう" /&gt;
+&lt;div id="modal_background" class="modal-background"&gt;
+    &lt;div id="modal" class="modal"&gt;
         モーダルを表示します。
-        &lt;div id=&quot;close&quot; class=&quot;close&quot;&gt;
+        &lt;div id="close" class="close"&gt;
             &lt;span&gt;&lt;/span&gt;
             &lt;span&gt;&lt;/span&gt;
         &lt;/div&gt;
@@ -257,11 +258,11 @@ function closeModal() {
             <ol>
                 <li>モーダルの仕組み</li>
                 <pre><code><!--
--->&lt;input type=&quot;button&quot; id=&quot;modal_button&quot; class=&quot;modal-button&quot; value=&quot;クリックしてみましょう&quot; /&gt;
-&lt;div id=&quot;modal_background&quot; class=&quot;modal-background&quot;&gt;
-    &lt;div id=&quot;modal&quot; class=&quot;modal&quot;&gt;
+-->&lt;input type="button" id="modal_button" class="modal-button" value="クリックしてみましょう" /&gt;
+&lt;div id="modal_background" class="modal-background"&gt;
+    &lt;div id="modal" class="modal"&gt;
         モーダルを表示します。
-        &lt;div id=&quot;close&quot; class=&quot;close&quot;&gt;
+        &lt;div id="close" class="close"&gt;
             &lt;span&gt;&lt;/span&gt;
             &lt;span&gt;&lt;/span&gt;
         &lt;/div&gt;
