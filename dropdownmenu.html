@@ -11,6 +11,11 @@
             margin-bottom: 35vh;
         }
 
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
         .dropdown-title {
             background-color: #fff;
             border: 1px solid #000;
@@ -40,10 +45,11 @@
             transform: rotate(315deg);
         }
 
-        .menu-wrapper {
+        .menu-list {
             background-color: #fff;
             height: 0;
-            margin-left: 16px;
+            left: 16px;
+            list-style: none;
             opacity: 0;
             overflow-y: hidden;
             position: absolute;
@@ -53,25 +59,33 @@
             z-index: 10;
         }
 
-        .menu-wrapper.open {
+        .menu-list.open {
             opacity: 1;
             visibility: visible;
         }
 
         .menu {
             border-bottom: 1px solid #ccc;
-            color: #000;
             display: block;
             font-size: 14px;
             padding: 8px 16px;
-            text-decoration: none;
             transition: background .2s ease;
         }
 
         .menu:hover {
             background-color: #0aa;
-            color: #fff;
             cursor: pointer;
+        }
+
+        .menu a {
+            color: #000;
+        }
+
+        .menu:hover a {
+            color: #fff;
+        }
+
+        .menu a:hover {
             font-weight: normal;
             text-decoration: none;
         }
@@ -88,38 +102,53 @@
                 <a href="index.html">ホーム</a> &gt; ドロップダウンメニュー
             </nav>
             <div class="dropdown-wrapper">
-                <button class="dropdown-title">Menu<span></span></button>
-                <div class="menu-wrapper">
-                    <a class="menu" href="javascript:void(0)"><i class="fa-solid fa-user-plus"></i>新規登録</a>
-                    <a class="menu" href="javascript:void(0)"><i class="fa-regular fa-id-card"></i>ログイン</a>
-                    <a class="menu" href="javascript:void(0)"><i class="fa-solid fa-store"></i>商品一覧</a>
-                    <a class="menu" href="javascript:void(0)"><i class="fa-solid fa-cart-shopping"></i>ショッピングカート</a>
-                    <a class="menu" href="javascript:void(0)"><i class="fa-solid fa-gear"></i>設定</a>
+                <div class="dropdown">
+                    <button class="dropdown-title">Menu<span></span></button>
+                    <ul class="menu-list">
+                        <li class="menu"><a href="javascript:void(0)"><i class="fa-solid fa-user-plus"></i>新規登録</a></li>
+                        <li class="menu"><a href="javascript:void(0)"><i class="fa-regular fa-id-card"></i>ログイン</a></li>
+                        <li class="menu"><a href="javascript:void(0)"><i class="fa-solid fa-store"></i>商品一覧</a></li>
+                        <li class="menu"><a href="javascript:void(0)"><i class="fa-solid fa-cart-shopping"></i>ショッピングカート</a></li>
+                        <li class="menu"><a href="javascript:void(0)"><i class="fa-solid fa-gear"></i>設定</a></li>
+                    </ul>
                 </div>
             </div>
             <h2 id="feature">特徴</h2>
             <p>
                 Menu ボタンをクリックするとメニュー一覧が表示され、+印が回転して×印になります。<br />
-                もう一度クリックすると元に戻ります。
+                もう一度クリックするか、枠外をクリックすると元に戻ります。
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
--->&lt;button class="dropdown-title"&gt;Menu&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
-&lt;div class="menu-wrapper"&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;新規登録&lt;/a&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;ログイン&lt;/a&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;商品一覧&lt;/a&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;ショッピングカート&lt;/a&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;設定&lt;/a&gt;
+-->&lt;div class="dropdown-wrapper"&gt;
+    &lt;div class="dropdown"&gt;
+        &lt;button class="dropdown-title"&gt;Menu&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;ul class="menu-list"&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;新規登録&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;ログイン&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;商品一覧&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;ショッピングカート&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;設定&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
 &lt;/div&gt;<!--
          --></code></pre>
             <p class="caution">使用する際は、aタグにhref属性を必ず指定してください。</p>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
--->.dropdown-title {
+-->.dropdown-wrapper {
+    margin-bottom: 35vh;
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown-title {
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 8px;
@@ -148,10 +177,11 @@
     transform: rotate(315deg);
 }
 
-.menu-wrapper {
+.menu-list {
     background-color: #fff;
     height: 0;
-    margin-left: 16px;
+    left: 16px;
+    list-style: none;
     opacity: 0;
     overflow-y: hidden;
     position: absolute;
@@ -161,67 +191,118 @@
     z-index: 10;
 }
 
-.menu-wrapper.open {
+.menu-list.open {
     opacity: 1;
     visibility: visible;
 }
 
 .menu {
     border-bottom: 1px solid #ccc;
-    color: #000;
     display: block;
     font-size: 14px;
     padding: 8px 16px;
-    text-decoration: none;
     transition: background .2s ease;
 }
 
 .menu:hover {
     background-color: #0aa;
-    color: #fff;
     cursor: pointer;
+}
+
+.menu a {
+    color: #000;
+    text-decoration: none;
+}
+
+.menu:hover a {
+    color: #fff;
+}
+
+.menu a:hover {
+    font-weight: normal;
 }<!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
 -->const dropdownTitles = Array.from(document.getElementsByClassName("dropdown-title"));
-const dropdownMenu = document.getElementById("menu_wrapper");
+const menuLists = Array.from(document.getElementsByClassName("menu-list"));
+
+function clearAlldropdownMenus() {
+    dropdownTitles.forEach((title) => title.classList.remove("open"));
+    menuLists.forEach((menu) => {
+        menu.style.height = 0;
+        menu.classList.remove("open");
+    });
+}
 
 dropdownTitles.forEach((title) => {
     title.addEventListener("click", () => {
-        title.classList.toggle("open");
         const dropdownMenu = title.nextElementSibling;
-        const isOpen = dropdownMenu.classList.toggle("open");
-        dropdownMenu.style.height = isOpen ? dropdownMenu.scrollHeight + "px" : 0;
+        const isOpen = title.classList.contains("open");
+
+        clearAlldropdownMenus();
+
+        if (!isOpen) {
+            title.classList.add("open");
+            dropdownMenu.classList.add("open");
+            dropdownMenu.style.height = dropdownMenu.scrollHeight + "px";
+        } else {
+            dropdownMenu.classList.remove("open");
+            dropdownMenu.style.height = 0;
+        }
     });
+});
+
+window.addEventListener("click", (e) => {
+    const isDropdownTitle = dropdownTitles.some((title) => title.contains(e.target));
+    const isMenuList = menuLists.some((menu) => menu.contains(e.target));
+
+    if (isDropdownTitle || isMenuList) {
+        return;
+    }
+    
+    clearAlldropdownMenus();
 });<!--
-         --></code></pre>
+--></code></pre>
             <h2 id="explanation">解説</h2>
             <p>基本的な仕組みは<a href="accordion.html">アコーディオン</a>とほとんど一緒です。合わせてご覧いただくと、より理解が深まります。</p>
             <ol>
                 <li>構造</li>
                 <pre><code><!--
--->&lt;button class="dropdown-title"&gt;Menu&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
-&lt;div class="menu-wrapper"&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;新規登録&lt;/a&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;ログイン&lt;/a&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;商品一覧&lt;/a&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;ショッピングカート&lt;/a&gt;
-    &lt;a class="menu" href="リンク先のURL"&gt;設定&lt;/a&gt;
+-->&lt;div class="dropdown-wrapper"&gt;
+    &lt;div class="dropdown"&gt;
+        &lt;button class="dropdown-title"&gt;Menu&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;ul class="menu-list"&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;新規登録&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;ログイン&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;商品一覧&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;ショッピングカート&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="menu"&gt;&lt;a href="リンク先のURL"&gt;設定&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
 &lt;/div&gt;<!--
              --></code></pre>
                 <p>
-                    開閉用の見出しボタンと、その兄弟要素である .menu-wrapper 要素で構成し、<br />
-                    各メニューはaタグで作成します。
+                    開閉用の見出しボタン(&lt;button&gt;タグ)と、その兄弟要素である .menu-list 要素(&lt;ul&gt;タグ)で構成し、<br />
+                    各メニューは&lt;a&gt;タグで作成します。
                 </p>
                 <p>
-                    span タグ内に開閉状態を表す+印をCSSで記述します。
+                    &lt;span&gt;タグ内に開閉状態を表す+印をCSSで記述します。
                 </p>
                 <li>ドロップダウンメニュー見出しボタンのデザインや配置など
                 </li>
                 <pre><code><!--
--->.dropdown-title {
+-->.dropdown-wrapper {
+    margin-bottom: 35vh;
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown-title {
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 8px;
@@ -251,19 +332,27 @@ dropdownTitles.forEach((title) => {
 }<!--
              --></code></pre>
                 <p>
+                    .dropdown 要素には、ドロップダウンメニューが複数あるときに横並びになるよう、 inline-block 要素にします。<br />
+                    また、メニューの表示場所がクリックしたメニューによって変わるよう、 position: relative; を指定します。
+                </p>
+                <p>
                     Menu の文字と +印 を横並びにするため flex プロパティを適用します。ただし、普通の flex プロパティでは<br />
                     要素幅が画面いっぱいになってしまうので、 inline-flex を適用し flex でありながら inline-block の要素としても扱います。
                 </p>
                 <p>
-                    span タグ内に +印 を入れます。<br />
-                    かつこの +印 はクリックしたときに transform が適用できるよう、inline-block 要素にします。
+                    &lt;span&gt;タグ内に +印 を入れます。<br />
+                </p>
+                <p class="important">
+                    文字列はそのままではCSSの transform プロパティの影響を受けません。<br />
+                    inline-block 要素にすることで、transform プロパティを適用できるようにしましょう。
                 </p>
                 <li>メニュー全体の配置やデザインなど</li>
                 <pre><code><!--
--->.menu-wrapper {
+-->.menu-list {
     background-color: #fff;
     height: 0;
-    margin-left: 16px;
+    left: 16px;
+    list-style: none;
     opacity: 0;
     overflow-y: hidden;
     position: absolute;
@@ -273,30 +362,77 @@ dropdownTitles.forEach((title) => {
     z-index: 10;
 }
 
-.menu-wrapper.open {
+.menu-list.open {
     opacity: 1;
     visibility: visible;
 }<!--
              --></code></pre>
                 <p>
                     アコーディオンとの共通点:<br />
-                    
+                    height: 0; と overflow-y: hidden; によってデフォルト(閉じた状態)での高さとはみ出し部分をなくします。<br />
+                    クリックによって .open クラスの付け外しを行い、高さの調節がされることで開閉されます。
                 </p>
-                <li></li>
+                <p>
+                    アコーディオンとの相違点: <br />
+                    position: absolute; を指定することで、ページから「浮いた」状態になり、スクロールの計上から除外されます。<br />
+                    その結果アコーディオンとは違って、<span class="bold">ページ全体がスクロールの高さぶん押し出されなくなります</span>。
+                </p>
+                <li>ボタンクリックによる開閉</li>
                 <pre><code><!--
--->
-<!--
+-->dropdownTitles.forEach((title) => {
+    title.addEventListener("click", () => {
+        const dropdownMenu = title.nextElementSibling;
+        const isOpen = title.classList.contains("open");
+
+        clearAlldropdownMenus();
+
+        if (!isOpen) {
+            title.classList.add("open");
+            dropdownMenu.classList.add("open");
+            dropdownMenu.style.height = dropdownMenu.scrollHeight + "px";
+        } else {
+            dropdownMenu.classList.remove("open");
+            dropdownMenu.style.height = 0;
+        }
+    });
+});<!--
              --></code></pre>
                 <p>
-
+                    添字(インデックス番号)に依存しないよう、nextElementSibling でボタンの兄弟要素であるメニューリストを取得します。
                 </p>
-                <li></li>
+                <p>
+                    clearAlldropdownMenus() 関数によって、一度メニューの開閉状態をリセットします。こうすることで、<br />
+                    他のメニューが開かれた際に前のメニューと重なって開かれることを防ぎます。
+                </p>
+                <p>
+                    変数 isOpen で開閉状態を判定し、閉じられていれば .open クラスを付与したうえで高さを自動計算し持たせ、<br />
+                    そうでなければ .open クラスを取り除いて高さをなくします。
+                </p>
+                <li>枠外クリックによって閉じる</li>
                 <pre><code><!--
--->
-<!--
+-->window.addEventListener("click", (e) => {
+    const isDropdownTitle = dropdownTitles.some((title) => title.contains(e.target));
+    const isMenuList = menuLists.some((menu) => menu.contains(e.target));
+
+    if (isDropdownTitle || isMenuList) {
+        return;
+    }
+            
+    clearAlldropdownMenus();
+});<!--
              --></code></pre>
                 <p>
-
+                    ページ全体(window)に対してクリックイベントを付与します。
+                </p>
+                <p>
+                    クリックした要素が「ボタン」または「メニューリスト」である場合を早期 return で除外します。<br />
+                    そうでないとボタンやメニューリストをクリックした際もイベントハンドラが発火しメニューの開閉が<br />
+                    正常に行われないためです。
+                </p>
+                <p class="attention">
+                    イベント要素(event, eなどと表記されるケースが多いです)は通常、関数引数で受けるのが一般的です。<br />
+                    なくてもブラウザ側が暗黙にイベント要素として処理することがありますが、現在は非推奨とされています。<br />
+                    ブラウザによっては暗黙のイベント依存が壊れます。
                 </p>
             </ol>
             <div id="page_top" class="page-top">
@@ -308,14 +444,41 @@ dropdownTitles.forEach((title) => {
     <script src="common.js" defer></script>
     <script>
         const dropdownTitles = Array.from(document.getElementsByClassName("dropdown-title"));
+        const menuLists = Array.from(document.getElementsByClassName("menu-list"));
+
+        function clearAlldropdownMenus() {
+            dropdownTitles.forEach((title) => title.classList.remove("open"));
+            menuLists.forEach((menu) => {
+                menu.style.height = 0;
+                menu.classList.remove("open");
+            });
+        }
 
         dropdownTitles.forEach((title) => {
             title.addEventListener("click", () => {
-                title.classList.toggle("open");
                 const dropdownMenu = title.nextElementSibling;
-                const isOpen = dropdownMenu.classList.toggle("open");
-                dropdownMenu.style.height = isOpen ? dropdownMenu.scrollHeight + "px" : 0;
+                const isOpen = title.classList.contains("open");
+
+                clearAlldropdownMenus();
+
+                if (!isOpen) {
+                    title.classList.add("open");
+                    dropdownMenu.classList.add("open");
+                    dropdownMenu.style.height = dropdownMenu.scrollHeight + "px";
+                } else {
+                    dropdownMenu.classList.remove("open");
+                    dropdownMenu.style.height = 0;
+                }
             });
+        });
+
+        window.addEventListener("click", (e) => {
+            const isDropdownTitle = dropdownTitles.some((title) => title.contains(e.target));
+            const isMenuList = menuLists.some((menu) => menu.contains(e.target));
+
+            if (isDropdownTitle || isMenuList) return;
+            
+            clearAlldropdownMenus();
         });
     </script>
 </html>
