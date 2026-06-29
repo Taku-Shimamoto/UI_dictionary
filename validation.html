@@ -13,6 +13,10 @@
         input {
             display: inline;
         }
+
+        .message {
+            font-size: 12px;
+        }
     </style>
     <body>
         <site-header></site-header>
@@ -28,51 +32,176 @@
             <form>
                 <label for="signup_id">ユーザーID: </label>
                 <input id="signup_id" name="signup_id" type="text" placeholder="ユーザーID" />
-                <span id="id_errormessage" class="error"></span><br />
+                <span id="id_errormessage" class="message"></span><br />
                 <label for="password">パスワード: </label>
                 <input id="password" name="password" type="password" placeholder="パスワード" />
-                <span id="password_message" class="error"></span>
+                <span id="password_message" class="message"></span>
             </form>
             <h2 id="feature">特徴</h2>
             <p>
-
+                ユーザーIDとパスワードにそれぞれ入力すると、入力形式に合っているかどうかを即時で返してくれます。<br />
+                パスワードに関しては文字数・大文字・小文字・数字・記号の有無で細かく調べます。
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->&lt;form&gt;
+    &lt;label for="signup_id"&gt;ユーザーID: &lt;/label&gt;
+    &lt;input id="signup_id" name="signup_id" type="text" placeholder="ユーザーID" /&gt;
+    &lt;span id="id_errormessage" class="message"&gt;&lt;/span&gt;&lt;br /&gt;
+    &lt;label for="password"&gt;パスワード: &lt;/label&gt;
+    &lt;input id="password" name="password" type="password" placeholder="パスワード" /&gt;
+    &lt;span id="password_message" class="message"&gt;&lt;/span&gt;
+&lt;/form&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->input {
+    display: inline;
+}
+
+.message {
+    font-size: 12px;
+}<!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text"><!--
--->
-<!--
+-->const signupIdForm = document.getElementById("signup_id");
+const passwordForm = document.getElementById("password");
+const ID_MIN_LENGTH = 5;
+const PASSWORD_MIN_LENGTH = 8;
+const signupIdRegExp = new RegExp(`^\\w{${ID_MIN_LENGTH},}$`);
+const passwordRegExp = new RegExp(`^\\w{${PASSWORD_MIN_LENGTH},}$`);
+
+const idErrorMessage = document.getElementById("id_errormessage");
+const passwordMessage = document.getElementById("password_message");
+
+function getPasswordLevel(password) {
+    let score = 0;
+
+    if (password.length >= PASSWORD_MIN_LENGTH) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/\d/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    return score;
+}
+
+const PASSWORD_LEVEL = {
+    0: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+    1: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+    2: { color: "#cc0", label: "普通", message: "もう少し複雑にできます。" },
+    3: { color: "#cc0", label: "普通", message: "記号や大文字を追加すると良くなります。" },
+    4: { color: "#0a0", label: "強い", message: "条件を満たしています。" },
+    5: { color: "#0a0", label: "非常に強い", message: "十分安全です。" },
+};
+
+signupIdForm.addEventListener("input", showIdErrorMessage);
+function showIdErrorMessage() {
+    if (signupIdForm.value.trim() === "") {
+        idErrorMessage.textContent = "ユーザーIDは入力必須です。";
+    } else if (!signupIdRegExp.test(signupIdForm.value)) {
+        idErrorMessage.textContent = "ユーザーIDの形式が正しくありません。";
+    } else {
+        idErrorMessage.textContent = "";
+    }
+}
+
+passwordForm.addEventListener("input", showPasswordMessage);
+function showPasswordMessage() {
+    const score = getPasswordLevel(passwordForm.value);
+    const result = PASSWORD_LEVEL[score];
+
+    passwordMessage.textContent = result.message;
+    passwordMessage.style.color = result.color;
+}<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li></li>
+                <li>パスワードのデータ一覧</li>
                 <pre><code><!--
--->
-<!--
+-->function getPasswordLevel(password) {
+    let score = 0;
+
+    if (password.length >= PASSWORD_MIN_LENGTH) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/\d/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    return score;
+}
+
+const PASSWORD_LEVEL = {
+    0: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+    1: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+    2: { color: "#cc0", label: "普通", message: "もう少し複雑にできます。" },
+    3: { color: "#cc0", label: "普通", message: "記号や大文字を追加すると良くなります。" },
+    4: { color: "#0a0", label: "強い", message: "条件を満たしています。" },
+    5: { color: "#0a0", label: "非常に強い", message: "十分安全です。" },
+};<!--
              --></code></pre>
                 <p>
-
+                    パスワード入力欄に入力された文字列を参照して、文字数・小文字・大文字・数字・記号ごとに正規表現に当てはめてチェックします。<br />
+                    当てはまる正規表現の数だけ変数 score に加算されていき、最終的な値が返り値として返されます。
                 </p>
-                <li></li>
+                <p>
+                    変数 score の値に応じて、文字色とメッセージを定義します。
+                </p>
+                <div class="important">
+                    <p>
+                        if文を用いて表現することもできます。
+                    </p>
+                    <p>
+                        let color;<br />
+                        let message;<br />
+                        if (score === 0) {<br />
+                            color = "#f00";<br />
+                            message = `${PASSWORD_MIN_LENGTH}文字以上にしてください。`;<br />
+                        } else if (score === 1) {<br />
+                            ...<br />
+                        } ...
+                    </p>
+                    <p>
+                        ただし、(見てわかる通り)コードが長くなるだけでなく、追加や変更の際にどこを触ればいいかを追うコストをともないます。
+                    </p>
+                    <p>
+                        そこで、今回のように PASSWORD_LEVEL という一覧表にオブジェクトとしてまとめておくという方法があります。<br />
+                        値を取り出すときも PASSWORD_LEVEL[score] だけで済むので、可読性・保守性・拡張性が一段上がります。
+                    </p>
+                </div>
+                <li>フォームバリデーションの表示</li>
                 <pre><code><!--
--->
-<!--
+-->signupIdForm.addEventListener("input", showIdErrorMessage);
+function showIdErrorMessage() {
+    if (signupIdForm.value.trim() === "") {
+        idErrorMessage.textContent = "ユーザーIDは入力必須です。";
+    } else if (!signupIdRegExp.test(signupIdForm.value)) {
+        idErrorMessage.textContent = "ユーザーIDの形式が正しくありません。";
+    } else {
+        idErrorMessage.textContent = "";
+    }
+}
+
+passwordForm.addEventListener("input", showPasswordMessage);
+function showPasswordMessage() {
+    const score = getPasswordLevel(passwordForm.value);
+    const result = PASSWORD_LEVEL[score];
+
+    passwordMessage.textContent = result.message;
+    passwordMessage.style.color = result.color;
+}<!--
              --></code></pre>
                 <p>
-
+                    ユーザーIDに関しては未入力と正規表現を満たしていない場合の2通りに対してメッセージを出します。<br />
+                    trim() メソッドで半角・全角スペースの入力を無視することができます。
+                </p>
+                <p>
+                    パスワードに関しては変数 score の値をもとに、一覧表からデータを取り出して表示します。
                 </p>
             </ol>
             <div id="page_top" class="page-top">
@@ -96,10 +225,10 @@
         const PASSWORD_LEVEL = {
             0: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
             1: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
-            2: { color: "#aa0", label: "普通", message: "もう少し複雑にできます。" },
-            3: { color: "#aa0", label: "普通", message: "記号や大文字を追加すると良くなります。" },
-            4: { color: "#0f0", label: "強い", message: "条件を満たしています。" },
-            5: { color: "#0f0", label: "非常に強い", message: "十分安全です。" },
+            2: { color: "#cc0", label: "普通", message: "もう少し複雑にできます。" },
+            3: { color: "#cc0", label: "普通", message: "記号や大文字を追加すると良くなります。" },
+            4: { color: "#0a0", label: "強い", message: "条件を満たしています。" },
+            5: { color: "#0a0", label: "非常に強い", message: "十分安全です。" },
         };
 
         function getPasswordLevel(password) {
@@ -114,15 +243,8 @@
             return score;
         }
 
-        passwordForm.addEventListener("input", () => {
-            const score = getPasswordLevel(passwordForm.value);
-            const result = PASSWORD_LEVEL[score];
-        
-            passwordMessage.textContent = result.message;
-            passwordMessage.style.color = result.color;
-        });
-
-        signupIdForm.addEventListener("input", () => {
+        signupIdForm.addEventListener("input", showIdErrorMessage);
+        function showIdErrorMessage() {
             if (signupIdForm.value.trim() === "") {
                 idErrorMessage.textContent = "ユーザーIDは入力必須です。";
             } else if (!signupIdRegExp.test(signupIdForm.value)) {
@@ -130,6 +252,15 @@
             } else {
                 idErrorMessage.textContent = "";
             }
-        });
+        }
+
+        passwordForm.addEventListener("input", showPasswordMessage);
+        function showPasswordMessage() {
+            const score = getPasswordLevel(passwordForm.value);
+            const result = PASSWORD_LEVEL[score];
+        
+            passwordMessage.textContent = result.message;
+            passwordMessage.style.color = result.color;
+        }
     </script>
 </html>
