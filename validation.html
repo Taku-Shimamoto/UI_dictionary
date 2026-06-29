@@ -13,11 +13,6 @@
         input {
             display: inline;
         }
-
-        .error {
-            color: #f00;
-            font-size: 12px;
-        }
     </style>
     <body>
         <site-header></site-header>
@@ -36,7 +31,7 @@
                 <span id="id_errormessage" class="error"></span><br />
                 <label for="password">パスワード: </label>
                 <input id="password" name="password" type="password" placeholder="パスワード" />
-                <span id="password_errormessage" class="error"></span>
+                <span id="password_message" class="error"></span>
             </form>
             <h2 id="feature">特徴</h2>
             <p>
@@ -96,36 +91,36 @@
         const passwordRegExp = new RegExp(`^\\w{${PASSWORD_MIN_LENGTH},}$`);
 
         const idErrorMessage = document.getElementById("id_errormessage");
-        const passwordErrorMessage = document.getElementById("password_errormessage");
+        const passwordMessage = document.getElementById("password_message");
 
-const PASSWORD_STRENGTH = {
-  0: { color: "red", label: "弱い", message: "8文字以上にしてください" },
-  1: { color: "red", label: "弱い", message: "8文字以上にしてください" },
-  2: { color: "yellow", label: "普通", message: "もう少し複雑にできます" },
-  3: { color: "yellow", label: "普通", message: "記号や大文字を追加すると良いです" },
-  4: { color: "green", label: "強い", message: "良いパスワードです" },
-  5: { color: "green", label: "非常に強い", message: "十分安全です" },
-};
+        const PASSWORD_LEVEL = {
+            0: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+            1: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+            2: { color: "#aa0", label: "普通", message: "もう少し複雑にできます。" },
+            3: { color: "#aa0", label: "普通", message: "記号や大文字を追加すると良くなります。" },
+            4: { color: "#0f0", label: "強い", message: "条件を満たしています。" },
+            5: { color: "#0f0", label: "非常に強い", message: "十分安全です。" },
+        };
 
-function getPasswordStrength(pw) {
-  let score = 0;
+        function getPasswordLevel(password) {
+            let score = 0;
+        
+            if (password.length >= PASSWORD_MIN_LENGTH) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/\d/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+        
+            return score;
+        }
 
-  if (pw.length >= 8) score++;
-  if (/[a-z]/.test(pw)) score++;
-  if (/[A-Z]/.test(pw)) score++;
-  if (/\d/.test(pw)) score++;
-  if (/[^A-Za-z0-9]/.test(pw)) score++;
-
-  return score;
-}
-
-passwordForm.addEventListener("input", () => {
-  const score = getPasswordStrength(passwordForm.value);
-  const result = PASSWORD_STRENGTH[score];
-
-  passwordErrorMessage.textContent = result.message;
-  passwordErrorMessage.style.color = result.color;
-});
+        passwordForm.addEventListener("input", () => {
+            const score = getPasswordLevel(passwordForm.value);
+            const result = PASSWORD_LEVEL[score];
+        
+            passwordMessage.textContent = result.message;
+            passwordMessage.style.color = result.color;
+        });
 
         signupIdForm.addEventListener("input", () => {
             if (signupIdForm.value.trim() === "") {
@@ -136,15 +131,5 @@ passwordForm.addEventListener("input", () => {
                 idErrorMessage.textContent = "";
             }
         });
-        /*
-        passwordForm.addEventListener("input", () => {
-            if (passwordForm.value.trim() === "") {
-                passwordErrorMessage.textContent = "パスワードは入力必須です。";
-            } else if (!passwordRegExp.test(passwordForm.value)) {
-                passwordErrorMessage.textContent = "パスワードの形式が正しくありません。";
-            } else {
-                passwordErrorMessage.textContent = "";
-            }
-        });*/
     </script>
 </html>

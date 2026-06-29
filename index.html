@@ -6,14 +6,16 @@
         <title>UI辞典 もくじ</title>
     </head>
     <body>
-        <div id="page_area"></div>
+        <main>
+            <div id="page_area"></div>
+        </main>
         <site-footer></site-footer>
     </body>
     <script src="common.js"></script>
     <script>
         const pageArea = document.getElementById("page_area");
         pageArea.innerHTML = PAGE_DATA
-            .map((page) => `<a href="${page.href}">${page.name}</a><br />`)
-            .join("");
+            .map((page) => `<a href="${page.href}">${page.name}</a>`)
+            .join("<br />");
     </script>
 </html>

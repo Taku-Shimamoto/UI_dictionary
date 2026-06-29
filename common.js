@@ -14,7 +14,7 @@ const PAGE_DATA = [
         id: "badge",
         name: "購入バッジ",
         href: "badge.html",
-        category: ["状態表示", "表示切替"],
+        category: ["状態表示", "表示切替", "UX"],
     },
     {
         id: "button",
@@ -22,6 +22,61 @@ const PAGE_DATA = [
         href: "button.html",
         category: ["クリック操作"],
     },
+    {
+        id: "dropdownmenu",
+        name: "ドロップダウンメニュー",
+        href: "dropdownmenu.html",
+        category: ["クリック操作", "表示切替"],
+    },
+    {
+        id: "hamburger",
+        name: "ハンバーガーメニュー",
+        href: "hamburger.html",
+        category: ["クリック操作", "表示切替"],
+    },
+    {
+        id: "modal",
+        name: "モーダルウィンドウ",
+        href: "modal.html",
+        category: ["クリック操作", "詳細表示"],
+    },
+    {
+        id: "slider",
+        name: "画像スライダー(ドット)",
+        href: "slider.html",
+        category: ["クリック操作", "自動", "表示切替"],
+    },
+    {
+        id: "tab",
+        name: "タブ",
+        href: "tab.html",
+        category: ["クリック操作", "表示切替"],
+    },
+    {
+        id: "toast",
+        name: "トースト通知",
+        href: "toast.html",
+        category: ["フィードバック"],
+    },
+    {
+        id: "toggleswitch",
+        name: "トグルスイッチ",
+        href: "toggleswitch.html",
+        category: ["クリック操作", "表示切替"],
+    },
+    {
+        id: "topscroll",
+        name: "トップスクロールボタン",
+        href: "topscroll.html",
+        category: ["クリック操作"],
+    },
+    {
+        id: "validation",
+        name: "リアルタイムバリデーション",
+        href: "validation.html",
+        category: ["フィードバック", "UX", "セキュリティ"],
+    },
+    // 以降、追加があるときはここに追記してください。
 ];
 
 // ==================================================
