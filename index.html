@@ -6,17 +6,14 @@
         <title>UI辞典 もくじ</title>
     </head>
     <body>
-        <a href="accordion.html">アコーディオン</a><br />
-        <a href="badge.html">購入バッジ</a><br />
-        <a href="button.html">ボタン</a><br />
-        <a href="dropdownmenu.html">ドロップダウンメニュー</a><br />
-        <a href="hamburger.html">ハンバーガーメニュー</a><br />
-        <a href="modal.html">モーダル</a><br />
-        <a href="slider.html">画像スライダー(ドット)</a><br />
-        <a href="tab.html">タブ切り替え</a><br />
-        <a href="toast.html">トースト通知</a><br />
-        <a href="toggleswitch.html">トグルスイッチ</a><br />
-        <a href="topscroll.html">トップスクロールボタン</a><br />
-        <a href="validation.html">リアルタイムバリデーション(作成中)</a>
+        <div id="page_area"></div>
+        <site-footer></site-footer>
     </body>
+    <script src="common.js" defer></script>
+    <script>
+        const pageArea = document.getElementById("page_area");
+        pageArea.innerHTML = PAGE_DATA
+            .map((page) => `<a href="${page.href}">${page.name}</a><br />`)
+            .join("");
+    </script>
 </html>
