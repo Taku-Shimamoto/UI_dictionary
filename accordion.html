@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 アコーディオン</title>
@@ -50,7 +51,7 @@
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->&lt;div class="accordion-title"&gt;ここをクリックしてみましょう。&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div class="accordion"&gt;
     &lt;p&gt;クリックすると中身が表示されます。&lt;/p&gt;
@@ -58,7 +59,7 @@
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->.accordion-title {
     display: flex;
     justify-content: space-between;
@@ -85,7 +86,7 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const accordionTitles = Array.from(document.getElementsByClassName("accordion-title"));
 
 accordionTitles.forEach((title) => {
@@ -101,8 +102,8 @@ accordionTitles.forEach((title) => {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>アコーディオンの高さ・幅・アニメーション秒数の設定</li>
-                <pre><code><!--
+                <li class="point">アコーディオンの高さ・幅・アニメーション秒数の設定</li>
+                <pre><code class="language-css"><!--
 -->.accordion {
     height: 0;
     overflow-y: hidden;
@@ -113,8 +114,8 @@ accordionTitles.forEach((title) => {
                     クリックしていない状態で中身が表示されないよう、高さを0、縦方向のはみ出し部分を hidden に設定します。<br />
                     アニメーション秒数は好みに応じて調整しましょう。
                 </p>
-                <li>.open クラスの付け外しと高さの取得</li>
-                <pre><code><!--
+                <li class="point">.open クラスの付け外しと高さの取得</li>
+                <pre><code class="language-js"><!--
 -->accordionTitles.forEach((title) => {
     title.addEventListener("click", () => {
         title.classList.toggle("open");
@@ -144,7 +145,8 @@ accordionTitles.forEach((title) => {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const accordionTitles = Array.from(document.getElementsByClassName("accordion-title"));
 

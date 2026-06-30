@@ -76,6 +76,12 @@ const PAGE_DATA = [
         href: "validation.html",
         category: ["フィードバック", "UX", "セキュリティ"],
     },
+    {
+        id: "tooltip",
+        name: "ツールチップ",
+        href: "tooltip.html",
+        category: ["UX", "詳細表示"],
+    },
     // 以降、追加があるときはここに追記してください。
 ];
 

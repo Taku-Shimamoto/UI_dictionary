@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 モーダルウィンドウ</title>
@@ -119,7 +120,7 @@
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->&lt;input type="button" id="modal_button" class="modal-button" value="クリックしてみましょう" /&gt;
 &lt;div id="modal_background" class="modal-background"&gt;
     &lt;div id="modal" class="modal"&gt;
@@ -133,7 +134,7 @@
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->.no-scroll {
     overflow: hidden;
 }
@@ -224,7 +225,7 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const modalButton = document.getElementById("modal_button");
 const modalBackground = document.getElementById("modal_background");
 
@@ -256,8 +257,8 @@ function closeModal() {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>モーダルの仕組み</li>
-                <pre><code><!--
+                <li class="point">モーダルの仕組み</li>
+                <pre><code class="language-html"><!--
 -->&lt;input type="button" id="modal_button" class="modal-button" value="クリックしてみましょう" /&gt;
 &lt;div id="modal_background" class="modal-background"&gt;
     &lt;div id="modal" class="modal"&gt;
@@ -273,8 +274,8 @@ function closeModal() {
                     モーダルの仕組みは「<span class="bold">ボタン</span>」「<span class="bold">背景</span>」「<span class="bold">モーダルウィンドウ</span>」の3つになります。<br />
                     ボタンと背景は兄弟要素、背景とモーダルウィンドウは親子要素にします。
                 </p>
-                <li>ボタンCSS</li>
-                <pre><code><!--
+                <li class="point">ボタンCSS</li>
+                <pre><code class="language-css"><!--
 -->.modal-button {
     background-color: #0f0;
     border: none;
@@ -297,8 +298,8 @@ function closeModal() {
                 <p>
                     <a href="button.html">ボタン</a>の装飾です。好きなデザインのものがあればそれを使っていただいて構いません。
                 </p>
-                <li>モーダルの背景</li>
-                <pre><code><!--
+                <li class="point">モーダルの背景</li>
+                <pre><code class="language-css"><!--
 -->.modal-background {
     align-items: center;
     background-color: #000c;
@@ -332,8 +333,8 @@ function closeModal() {
                     ③opacity: 0; と visibility: hidden; で見えないようにし、 transition: all .8s; でアニメーション秒数を指定します。<br />
                     　JavaScriptで .open クラスの付け外しをした際に opacity と visibility の値が変化して表示/非表示を制御することができます。
                 </p>
-                <li>モーダルウィンドウ</li>
-                <pre><code><!--
+                <li class="point">モーダルウィンドウ</li>
+                <pre><code class="language-css"><!--
 -->.modal {
     background-color: #fff;
     border: 8px solid #ccc;
@@ -380,8 +381,8 @@ function closeModal() {
                 <p>
                     モーダルウィンドウの×印のデザインは、<a href="hamburger.html">ハンバーガーメニュー</a>のものと一緒です。
                 </p>
-                <li>モーダルウィンドウ表示中のスクロール無効</li>
-                <pre><code><!--
+                <li class="point">モーダルウィンドウ表示中のスクロール無効</li>
+                <pre><code class="language-css"><!--
 -->.no-scroll {
     overflow: hidden;
 }<!--
@@ -389,8 +390,8 @@ function closeModal() {
                 <p>
                     JavaScriptでbodyタグに .no-scroll クラスが付与されると、スクロールを無効にします。
                 </p>
-                <li>原則、JavaScriptでは「クラスの付け外し」を行うだけ</li>
-                <pre><code><!--
+                <li class="point">原則、JavaScriptでは「クラスの付け外し」を行うだけ</li>
+                <pre><code class="language-js"><!--
 -->function getScrollbarWidth() {
     return window.innerWidth - document.documentElement.clientWidth;
 }
@@ -432,7 +433,8 @@ function closeModal() {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const modalButton = document.getElementById("modal_button");
         const modalBackground = document.getElementById("modal_background");

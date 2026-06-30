@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 ボタン</title>
@@ -57,7 +58,7 @@
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
             -->&lt;input type="button" class="button" value="ボタン" /&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
@@ -65,7 +66,7 @@
                 input要素にはデフォルトで hover, active, disabled 時のCSSが設定されていますが、自分で設定することもできます。
             </p>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->.button {
     background-color: #0f0;
     border: none;
@@ -92,7 +93,7 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const button = document.getElementById("button");
 button.addEventListener("click", () => {
     // この中にクリックイベントの内容を記述してください。
@@ -100,8 +101,8 @@ button.addEventListener("click", () => {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>マウスを乗せたときに色を淡くする</li>
-                <pre><code><!--
+                <li class="point">マウスを乗せたときに色を淡くする</li>
+                <pre><code class="language-css"><!--
 -->.button:hover {
     cursor: pointer;
     opacity: .6;
@@ -112,8 +113,8 @@ button.addEventListener("click", () => {
                     cursor: pointer; を指定するとマウスポインタが指の形になります。任意で指定してください。<br />
                     色を淡くする効果は、opacity(透明度)を上げることによって実現することができます。
                 </p>
-                <li>クリックしたときにボタンを押した感覚を持たせる</li>
-                <pre><code><!--
+                <li class="point">クリックしたときにボタンを押した感覚を持たせる</li>
+                <pre><code class="language-css"><!--
 -->.button:active {
     box-shadow: none;
     transform: translateY(2px);
@@ -125,8 +126,8 @@ button.addEventListener("click", () => {
                     ① box-shadow: none; によってボタンの影をなくし、<br />
                     ② transform: translateY(2px); によってボタンの影の高さぶん(今回は2px)下に押し下げることで、視覚的にボタンを押したように見えます。
                 </p>
-                <li>ボタンが押せないときの装飾</li>
-                <pre><code><!--
+                <li class="point">ボタンが押せないときの装飾</li>
+                <pre><code class="language-css"><!--
 -->.button:disabled {
     box-shadow: none;
     pointer-events: none;
@@ -136,8 +137,8 @@ button.addEventListener("click", () => {
                 <p>
                     pointer-events: none; を指定することで、hover, active, クリックイベントのいずれも無効になります。
                 </p>
-                <li>クリックイベントの付与</li>
-                <pre><code><!--
+                <li class="point">クリックイベントの付与</li>
+                <pre><code class="language-js"><!--
 -->button.addEventListener("click", () => {
     // この中にクリックイベントの内容を記述してください。
 });<!--
@@ -156,7 +157,8 @@ button.addEventListener("click", () => {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const button = document.getElementById("button");
         button.addEventListener("click", () => {

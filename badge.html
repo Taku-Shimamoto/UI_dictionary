@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <script src="https://kit.fontawesome.com/27cbb9919d.js" crossorigin="anonymous"></script>
@@ -92,7 +93,7 @@
             </p>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->.cart-icon-wrapper {
     position: relative;
 }
@@ -127,8 +128,8 @@
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>購入バッジのデザイン、配置など</li>
-                <pre><code><!--
+                <li class="point">購入バッジのデザイン、配置など</li>
+                <pre><code class="language-css"><!--
 -->.qty-badge {
     background-color: #f00;
     border-radius: 50%;
@@ -152,7 +153,7 @@
                     これは「要素の50%分右と上にズラす」という意味で、これを指定することでアイコンの高さ・幅・大きさなどに<br />
                     依存せず常に右上の位置に配置することができます。
                 </p>
-                <li>在庫「0」のときは表示しない</li>
+                <li class="point">在庫「0」のときは表示しない</li>
                 <p>
                     扱う言語にもよりますが、if文や三項演算子などを使って、カート内の数量を表す変数が0のときとそうでないときとで<br />
                     表示を変えるようにしましょう。
@@ -168,7 +169,8 @@
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         let qty = 0;
         const cartAddQty = document.getElementById("qty");

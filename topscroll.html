@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 トップスクロールボタン</title>
@@ -28,14 +29,14 @@
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->&lt;div id="page_top" class="page-top"&gt;
     &lt;a href="#"&gt;Page Top&lt;/a&gt;
 &lt;/div&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->.page-top {
     opacity: 0;
     position: fixed;
@@ -69,11 +70,10 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const pageTopButton = document.getElementById("page_top");
 const BUTTON_APPEARANCE_HEIGHT = 300;
 
-// トップスクロールボタンの表示/非表示
 window.addEventListener("scroll", toggleTopScrollButton);
 function toggleTopScrollButton() {
     pageTopButton.classList.toggle("is-visible", window.scrollY > BUTTON_APPEARANCE_HEIGHT);
@@ -81,12 +81,12 @@ function toggleTopScrollButton() {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>aタグのリンク先</li>
+                <li class="point">aタグのリンク先</li>
                 <p>
                     aタグのリンク先を # にすることで、ページの一番上にスクロールします。
                 </p>
-                <li>ボタンCSS</li>
-                <pre><code><!--
+                <li class="point">ボタンCSS</li>
+                <pre><code class="language-css"><!--
 -->.page-top {
     opacity: 0;
     position: fixed;
@@ -109,10 +109,9 @@ function toggleTopScrollButton() {
                 <p>
                     表示 / 非表示にフェード効果を与えるため、transition: all .5s; を指定します。
                 </p>
-                <li>原則、JavaScriptでは「クラスの付け外し」を行うだけ</li>
-                <pre><code><!--
--->// トップスクロールボタンの表示/非表示
-window.addEventListener("scroll", toggleTopScrollButton);
+                <li class="point">原則、JavaScriptでは「クラスの付け外し」を行うだけ</li>
+                <pre><code class="language-js"><!--
+-->window.addEventListener("scroll", toggleTopScrollButton);
 function toggleTopScrollButton() {
     pageTopButton.classList.toggle("is-visible", window.scrollY > BUTTON_APPEARANCE_HEIGHT);
 }<!--
@@ -134,5 +133,6 @@ function toggleTopScrollButton() {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
 </html>

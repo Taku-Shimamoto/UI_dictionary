@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 リアルタイムバリデーション</title>
@@ -45,7 +46,7 @@
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->&lt;form&gt;
     &lt;label for="signup_id"&gt;ユーザーID: &lt;/label&gt;
     &lt;input id="signup_id" name="signup_id" type="text" placeholder="ユーザーID" /&gt;
@@ -57,7 +58,7 @@
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->input {
     display: inline;
 }
@@ -68,7 +69,7 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const signupIdForm = document.getElementById("signup_id");
 const passwordForm = document.getElementById("password");
 const ID_MIN_LENGTH = 5;
@@ -92,12 +93,12 @@ function getPasswordLevel(password) {
 }
 
 const PASSWORD_LEVEL = {
-    0: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
-    1: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
-    2: { color: "#cc0", label: "普通", message: "もう少し複雑にできます。" },
-    3: { color: "#cc0", label: "普通", message: "記号や大文字を追加すると良くなります。" },
-    4: { color: "#0a0", label: "強い", message: "条件を満たしています。" },
-    5: { color: "#0a0", label: "非常に強い", message: "十分安全です。" },
+    0: { color: "#f00", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+    1: { color: "#f00", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+    2: { color: "#cc0", message: "もう少し複雑にできます。" },
+    3: { color: "#cc0", message: "記号や大文字を追加すると良くなります。" },
+    4: { color: "#0a0", message: "条件を満たしています。" },
+    5: { color: "#0a0", message: "十分安全です。" },
 };
 
 signupIdForm.addEventListener("input", showIdErrorMessage);
@@ -122,8 +123,8 @@ function showPasswordMessage() {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>パスワードのデータ一覧</li>
-                <pre><code><!--
+                <li class="point">パスワードのデータ一覧</li>
+                <pre><code class="language-js"><!--
 -->function getPasswordLevel(password) {
     let score = 0;
 
@@ -137,12 +138,12 @@ function showPasswordMessage() {
 }
 
 const PASSWORD_LEVEL = {
-    0: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
-    1: { color: "#f00", label: "弱い", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
-    2: { color: "#cc0", label: "普通", message: "もう少し複雑にできます。" },
-    3: { color: "#cc0", label: "普通", message: "記号や大文字を追加すると良くなります。" },
-    4: { color: "#0a0", label: "強い", message: "条件を満たしています。" },
-    5: { color: "#0a0", label: "非常に強い", message: "十分安全です。" },
+    0: { color: "#f00", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+    1: { color: "#f00", message: `${PASSWORD_MIN_LENGTH}文字以上にしてください。` },
+    2: { color: "#cc0", message: "もう少し複雑にできます。" },
+    3: { color: "#cc0", message: "記号や大文字を追加すると良くなります。" },
+    4: { color: "#0a0", message: "条件を満たしています。" },
+    5: { color: "#0a0", message: "十分安全です。" },
 };<!--
              --></code></pre>
                 <p>
@@ -156,16 +157,17 @@ const PASSWORD_LEVEL = {
                     <p>
                         if文を用いて表現することもできます。
                     </p>
-                    <p>
-                        let color;<br />
-                        let message;<br />
-                        if (score === 0) {<br />
-                            color = "#f00";<br />
-                            message = `${PASSWORD_MIN_LENGTH}文字以上にしてください。`;<br />
-                        } else if (score === 1) {<br />
-                            ...<br />
-                        } ...
-                    </p>
+                    <pre><code class="language-js"><!--
+-->let color;
+let message;
+if (score === 0) {
+    color = "#f00";
+    message = `${PASSWORD_MIN_LENGTH}文字以上にしてください。`;
+} else if (score === 1) {
+    ...
+} else if (score === 2) {
+    ... <!--
+                 --></code></pre>
                     <p>
                         ただし、(見てわかる通り)コードが長くなるだけでなく、追加や変更の際にどこを触ればいいかを追うコストをともないます。
                     </p>
@@ -174,8 +176,8 @@ const PASSWORD_LEVEL = {
                         値を取り出すときも PASSWORD_LEVEL[score] だけで済むので、可読性・保守性・拡張性が一段上がります。
                     </p>
                 </div>
-                <li>フォームバリデーションの表示</li>
-                <pre><code><!--
+                <li class="point">フォームバリデーションの表示</li>
+                <pre><code class="language-js"><!--
 -->signupIdForm.addEventListener("input", showIdErrorMessage);
 function showIdErrorMessage() {
     if (signupIdForm.value.trim() === "") {
@@ -210,7 +212,8 @@ function showPasswordMessage() {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const signupIdForm = document.getElementById("signup_id");
         const passwordForm = document.getElementById("password");

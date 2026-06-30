@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 ハンバーガーメニュー</title>
@@ -27,15 +28,15 @@
             </p>
             <p>一見難しそうに見えますが、手順はとても簡単で</p>
             <ol class="structure">
-                <li>HTMLで構造を作成する</li>
-                <li>JavaScriptで.activeクラスの付け外しをする</li>
-                <li>CSSのtransitionによってアニメーションをつける</li>
+                <li class="point">HTMLで構造を作成する</li>
+                <li class="point">JavaScriptで.activeクラスの付け外しをする</li>
+                <li class="point">CSSのtransitionによってアニメーションをつける</li>
             </ol>
             <p>の3ステップで実装することができます。</p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
             -->&lt;header&gt;
     &lt;div id="hamburger" class="hamburger"&gt;
         &lt;span&gt;&lt;/span&gt;
@@ -58,7 +59,7 @@
             <p>※headerタグの中にあるという前提です。</p>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->header {
     background-color: #00a;
     height: 64px;
@@ -143,7 +144,7 @@ header nav.active {
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const hamburgerButton = document.getElementById("hamburger");
 const navigationWindow = document.getElementById("hamburger_nav");
 const navigationLinks = Array.from(document.getElementsByClassName("nav-link"));
@@ -164,17 +165,16 @@ function clearClassActive() {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <h3>HTML</h3>
-                <li>三本線のアイコン</li>
-                <pre><code><!--
+                <li class="point">三本線のアイコン</li>
+                <pre><code class="language-html"><!--
             -->&lt;div id="hamburger" class="hamburger"&gt;
     &lt;span&gt;&lt;/span&gt;
     &lt;span&gt;&lt;/span&gt;
     &lt;span&gt;&lt;/span&gt;
 &lt;/div&gt;<!--
              --></code></pre>
-                <li>ナビゲーションウィンドウ</li>
-                <pre><code><!--
+                <li class="point">ナビゲーションウィンドウ</li>
+                <pre><code class="language-html"><!--
 -->&lt;nav id="hamburger_nav"&gt;
     &lt;ul&gt;
         &lt;li&gt;&lt;a class="nav-link" href="#"&gt;ページの一番上に戻る&lt;/a&gt;&lt;/li&gt;
@@ -187,9 +187,8 @@ function clearClassActive() {
     &lt;/ul&gt;
 &lt;/nav&gt;<!--
              --></code></pre>
-                <h3>CSS</h3>
-                <li>三本線アイコンの配置と固定</li>
-                <pre><code><!--
+                <li class="point">三本線アイコンの配置と固定</li>
+                <pre><code class="language-css"><!--
 -->.hamburger {
     cursor: pointer;
     height: 48px;
@@ -223,8 +222,8 @@ function clearClassActive() {
             <p>
                 :nth-of-type(1 ~ 3) を指定することで、1本目・2本目・3本目を別々の高さに指定します。
             </p>
-            <li>三本線アイコンのデザイン</li>
-                <pre><code><!--
+            <li class="point">三本線アイコンのデザイン</li>
+                <pre><code class="language-css"><!--
 -->.hamburger span {
     background-color: #fff;
     border-radius: 50px;
@@ -238,8 +237,8 @@ function clearClassActive() {
                 ここでポイントになるのが、transition: all .5s; の部分です。<br />
                 三本線が×の形に変化するための秒数をここで指定することで、クリックしたときに滑らかに動くようになります。
             </p>
-            <li>ナビゲーションウィンドウの配置とデザイン</li>
-            <pre><code><!--
+            <li class="point">ナビゲーションウィンドウの配置とデザイン</li>
+            <pre><code class="language-css"><!--
 -->header nav {
     background-color: #333c;
     display: flex;
@@ -271,8 +270,8 @@ header nav a {
                 rightの値をwidthの値が対応するようにします。これは、幅30%ぶんの要素が、画面右端のさらに30%右側に配置されるという意味です。<br />
                 つまり、この時点では画面右端の見えない部分に「<span class="bold">隠している</span>」ということになります。
             </p>
-            <li>三本線アイコンをクリックしたときの挙動</li>
-            <pre><code><!--
+            <li class="point">三本線アイコンをクリックしたときの挙動</li>
+            <pre><code class="language-css"><!--
 -->header nav.active {
     right: 0;
 }
@@ -305,17 +304,14 @@ header nav a {
                 スペースを入れてしまうと、「ヘッダー内のnavタグ内にある.activeクラスが付いている要素」という意味になり、<br />
                 今回のように「要素に.activeクラスが付与されたとき」のニュアンスとはズレてしまいます。
             </p>
-            <h3>JavaScript</h3>
-            <li>JavaScriptで行うのは「.activeクラスの付け外し」のみ</li>
-            <pre><code><!--
--->// activeクラスの付け外し
-hamburgerButton.addEventListener("click", toggleClassActive);
+            <li class="point">JavaScriptで行うのは「.activeクラスの付け外し」のみ</li>
+            <pre><code class="language-js"><!--
+-->hamburgerButton.addEventListener("click", toggleClassActive);
 function toggleClassActive() {
     hamburgerButton.classList.toggle("active");
     navigationWindow.classList.toggle("active");
 }
 
-// リンクをクリックしたとき、.activeクラスを消去
 navigationLinks.forEach((link) => link.addEventListener("click", clearClassActive));
 function clearClassActive() {
     hamburgerButton.classList.remove("active");
@@ -334,5 +330,6 @@ function clearClassActive() {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
 </html>

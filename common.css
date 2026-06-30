@@ -268,13 +268,16 @@ p {
 pre {
     background-color: #004;
     border-radius: 4px;
-    color: #ffc;
     display: block;
     font-size: 14px;
     line-height: 150%;
     margin: 0 0 16px 80px;
     padding: 16px 0 16px 40px;
-    width: 60%;
+    width: 70%;
+}
+
+.point {
+    margin: 8px 0;
 }
 
 /* ページトップボタン */

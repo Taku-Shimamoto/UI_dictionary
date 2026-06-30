@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 トグルスイッチ</title>
@@ -64,7 +65,7 @@
                 <a href="index.html">ホーム</a> &gt; トグルスイッチ
             </nav>
             <p>クリックしてみましょう。</p>
-            <lavel>ダークモードにする</label>
+            <label>ダークモードにする</label>
             <div class="switch-outer" data-setting="darkmode">
                 <div class="toggle-switch"></div>
             </div>
@@ -80,7 +81,7 @@
             </p>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->&lt;div class="switch-outer" data-setting="darkmode"&gt;
     &lt;div class="toggle-switch"&gt;&lt;/div&gt;
 &lt;/div&gt;
@@ -91,7 +92,7 @@
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->body {
     transition: all .2s;
 }
@@ -143,7 +144,7 @@ body.boldtext {
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const switchOuters = Array.from(document.querySelectorAll(".switch-outer"));
 
 switchOuters.forEach((outer) => {
@@ -159,8 +160,8 @@ switchOuters.forEach((outer) => {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>構造</li>
-                <pre><code><!--
+                <li class="point">構造</li>
+                <pre><code class="language-html"><!--
 -->&lt;div class="switch-outer" data-setting="darkmode"&gt;
     &lt;div class="toggle-switch"&gt;&lt;/div&gt;
 &lt;/div&gt;<!--
@@ -169,8 +170,8 @@ switchOuters.forEach((outer) => {
                     「スイッチの外側」 + 「スイッチの内側」で構成します。<br />
                     data-setting 属性はHTML上意味を持ちませんが、スイッチのID代わりになるのと、JavaScript を動かすために指定します。
                 </p>
-                <li>トグルスイッチの装飾</li>
-                <pre><code><!--
+                <li class="point">トグルスイッチの装飾</li>
+                <pre><code class="language-css"><!--
 -->.switch-outer {
     background-color: #ddd;
     border-radius: calc(infinity * 1px);
@@ -216,8 +217,8 @@ switchOuters.forEach((outer) => {
                     外側: 右と下方向に1pxぶんズレた位置に、8pxぶんの強いぼかしが入ります。<br />
                     内側: 左と上方向に1pxぶんズレた位置に、4pxぶんのぼかしを inset で内側に入れます。
                 </p>
-                <li>トグルスイッチのアニメーション</li>
-                <pre><code><!--
+                <li class="point">トグルスイッチのアニメーション</li>
+                <pre><code class="language-css"><!--
 -->.toggle-switch.active {
     transform: translateX(40px);
 }<!--
@@ -226,8 +227,8 @@ switchOuters.forEach((outer) => {
                     40pxぶんの横移動をさせます。<br />
                     40px = ボタン幅32px + (左右余白4px * 2)
                 </p>
-                <li>(例)ダークモードの反映</li>
-                <pre><code><!--
+                <li class="point">(例)ダークモードの反映</li>
+                <pre><code class="language-css"><!--
 -->body {
     transition: all .2s;
 }
@@ -242,8 +243,8 @@ body.darkmode {
                     ページ全体にCSSが反映されるようになっています。
                 </p>
                 <p>transition の有無は好みに応じて選んでください。</p>
-                <li>JavaScriptではdata-setting属性とスイッチ内側のDOMを取得し、クラスの付け外しを行う</li>
-                <pre><code><!--
+                <li class="point">JavaScriptではdata-setting属性とスイッチ内側のDOMを取得し、クラスの付け外しを行う</li>
+                <pre><code class="language-js"><!--
 -->switchOuters.forEach((outer) => {
     outer.addEventListener("click", () => {
         const dataAttribute = outer.dataset.setting;
@@ -273,7 +274,8 @@ body.darkmode {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const switchOuters = Array.from(document.querySelectorAll(".switch-outer"));
 

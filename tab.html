@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 タブ切り替え</title>
@@ -101,7 +102,7 @@
             <h3 id="html_code">HTML</h3>
             <div class="code-block">
                 <input type="button" class="copy-button" value="Copy" />
-                <pre><code class="copy-text"><!--
+                <pre><code class="copy-text language-html"><!--
 -->&lt;div class="tab-wrapper"&gt;
     &lt;div class="tab-button-wrapper"&gt;
         &lt;div id="tab_background" class="tab-background"&gt;&lt;/div&gt;
@@ -119,7 +120,7 @@
             </div>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->.tab-wrapper {
     margin-top: 40px;
     width: 480px;
@@ -186,7 +187,7 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const tabButtons = Array.from(document.getElementsByClassName("tab-button"));
 const tabDisplays = Array.from(document.getElementsByClassName("tab-display"));
 const tabBackground = document.getElementById("tab_background");
@@ -211,8 +212,8 @@ function addClassActive(i) {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>構造</li>
-                <pre><code><!--
+                <li class="point">構造</li>
+                <pre><code class="language-html"><!--
 -->&lt;div class="tab-wrapper"&gt;
     &lt;div class="tab-button-wrapper"&gt;
         &lt;div id="tab_background" class="tab-background"&gt;&lt;/div&gt;
@@ -231,8 +232,8 @@ function addClassActive(i) {
                     「タブ見出し(ボタン)」 + 「タブ背景」 + 「タブ表示部分」で構成します。どちらも初期状態として、<br />
                     最初のボタンと画面を表示するために .active クラスを付与しています。
                 </p>
-                <li>タブ見出しとタブ背景の装飾やアニメーションを設定</li>
-                <pre><code><!--
+                <li class="point">タブ見出しとタブ背景の装飾やアニメーションを設定</li>
+                <pre><code class="language-css"><!--
 -->.tab-button-wrapper {
     display: flex;
     justify-content: space-between;
@@ -306,8 +307,8 @@ function addClassActive(i) {
                         子要素「ええっ！？ どっちにくっつけばいいの……？あ、そうか！僕自身がびよ〜んと伸びれば、どっちの命令も叶えられるぞ！」びよ～ん
                     </p>
                 </div>
-                <li>表示画面</li>
-                <pre><code><!--
+                <li class="point">表示画面</li>
+                <pre><code class="language-css"><!--
 -->.tab-display {
     border: 2px solid #000;
     border-radius: 0 0 16px 16px;
@@ -326,8 +327,8 @@ function addClassActive(i) {
                     .active クラスが付いた場合に display: block; で表示します。<br />
                     JavaScriptで直接CSSを変えることで表示/非表示にすることもできますが、JavaScriptはあくまで「動き」を制御します。
                 </p>
-                <li>JavaScriptでは「タブ背景の横移動」 + 「クラスの付け外し」を行う</li>
-                <pre><code><!--
+                <li class="point">JavaScriptでは「タブ背景の横移動」 + 「クラスの付け外し」を行う</li>
+                <pre><code class="language-js"><!--
 -->tabButtons.forEach((tab, i) => tab.addEventListener("click", () => addClassActive(i)));
 function removeClassActive() {
     tabButtons.forEach((button) => button.classList.remove("active"));
@@ -358,7 +359,8 @@ function addClassActive(i) {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const tabButtons = Array.from(document.getElementsByClassName("tab-button"));
         const tabDisplays = Array.from(document.getElementsByClassName("tab-display"));

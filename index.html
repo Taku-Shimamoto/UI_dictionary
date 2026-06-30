@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 もくじ</title>
     </head>
     <body>
+        <header>
+            <h1><a href="index.html">UI Dictionary</a></h1>
+        </header>
         <main>
-            <div id="page_area"></div>
+            <ol id="page_area"></ol>
         </main>
-        <site-footer></site-footer>
+        <footer>
+            Copyright &copy; 2026 UI Dictionary Beta-version
+        </footer>
     </body>
     <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const pageArea = document.getElementById("page_area");
         pageArea.innerHTML = PAGE_DATA
-            .map((page) => `<a href="${page.href}">${page.name}</a>`)
-            .join("<br />");
+            .map((page, i) => `<li><a href="${page.href}">${page.name}</a></li>`)
+            .join("");
     </script>
 </html>

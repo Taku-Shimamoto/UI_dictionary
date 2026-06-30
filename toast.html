@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 トースト通知</title>
@@ -27,14 +28,14 @@
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->&lt;div id="toast_notice" class="toast-notice"&gt;
     ✓ ここに通知として表示するメッセージを記述してください。
 &lt;/div&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->.toast-notice {
     background-color: #0b0b;
     border-radius: 8px;
@@ -57,7 +58,7 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const toastNotice = document.getElementById("toast_notice");
 const RETURN_MS = 3000;
 let toastTimerId = null;
@@ -80,8 +81,8 @@ function toggleToastActive() {
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>トースト通知のデザインと配置</li>
-                <pre><code><!--
+                <li class="point">トースト通知のデザインと配置</li>
+                <pre><code class="language-css"><!--
 -->.toast-notice {
     background-color: #0b0b;
     border-radius: 8px;
@@ -112,8 +113,8 @@ function toggleToastActive() {
                     JavaScript で .active クラスを付与したときに、画面内にスライドするようにします。<br />
                     画面右端との余白が必要なければ、translateX() の値は0でもかまいません。
                 </p>
-                <li>JavaScriptでの .active クラスの付け外し</li>
-                <pre><code><!--
+                <li class="point">JavaScriptでの .active クラスの付け外し</li>
+                <pre><code class="language-js"><!--
 -->function toggleToastActive() {
     if (toastTimerId) {
         clearTimeout(toastTimerId);
@@ -141,5 +142,6 @@ function toggleToastActive() {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
 </html>

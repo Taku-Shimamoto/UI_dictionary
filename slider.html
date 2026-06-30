@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <title>UI辞典 スライダー(ドット)</title>
@@ -107,7 +108,7 @@
             <p class="attention">自動切換・「前」「次」ボタン・ドットの有無などお好みに応じて使用してください。</p>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->&lt;div class="slider-wrapper"&gt;
     &lt;p id="prev" class="arrow prev"&gt;&lt;&lt;/p&gt;
     &lt;div id="slider_track" class="slider-track"&gt;
@@ -127,7 +128,7 @@
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->img {
     width: 400px;
 }
@@ -198,7 +199,7 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const track = document.getElementById("slider_track");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
@@ -237,8 +238,8 @@ showSlide(currentIndex);<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li>構造</li>
-                <pre><code><!--
+                <li class="point">構造</li>
+                <pre><code class="language-html"><!--
 -->&lt;div class="slider-wrapper"&gt;
     &lt;p id="prev" class="arrow prev"&gt;&lt;&lt;/p&gt;
     &lt;div id="slider_track" class="slider-track"&gt;
@@ -260,13 +261,9 @@ showSlide(currentIndex);<!--
                     スライダー要素: <span class="bold">画像エリア + 「前」「次」ボタン</span> で構成します。<br />
                     ドット: ドットのみで構成します。初期状態は一枚目の画像なので、対応する1番目のドットに .active クラスを付与します。
                 </p>
-                <li>画像エリアと「前」「次」ボタンの配置・デザイン</li>
-                <pre><code><!--
--->img {
-    width: 400px;
-}
-
-.slider-wrapper {
+                <li class="point">画像エリアと「前」「次」ボタンの配置・デザイン</li>
+                <pre><code class="language-css"><!--
+-->.slider-wrapper {
     height: 400px;
     margin: 0 auto;
     overflow: hidden;
@@ -311,8 +308,8 @@ showSlide(currentIndex);<!--
                     ②slider-wrapper の overflow: hidden; と slider-track の flex プロパティで、はみ出し部分を隠しつつ画像を横並びにします。<br />
                     ③アニメーション秒数や ease による加減速はお好みに応じて指定してください。
                 </p>
-                <li>ドット部分</li>
-                <pre><code><!--
+                <li class="point">ドット部分</li>
+                <pre><code class="language-css"><!--
 -->.dots {
     display: flex;
     gap: 16px;
@@ -342,8 +339,8 @@ showSlide(currentIndex);<!--
                     ドットの大きさは小さすぎず、大きすぎない程度が良いでしょう。<br />
                     お好みで .active クラスが付いているドットの色を変えると「今、何番目の画像を表示しているのか」が分かりやすくなります。
                 </p>
-                <li>共通関数</li>
-                <pre><code><!--
+                <li class="point">共通関数</li>
+                <pre><code class="language-js"><!--
 -->function showSlide(i) {
     currentIndex = i;        
     track.style.transform = `translateX(-${currentIndex * SLIDE_WIDTH}px)`;
@@ -359,8 +356,8 @@ showSlide(currentIndex);<!--
                     ドットに .active クラスを付与することで色を変えます。<br />
                     この関数を複数の方法で呼び起こすことで、画像の変更方法にバリエーションを持たせることができます。
                 </p>
-                <li>時間経過による切り替え</li>
-                <pre><code><!--
+                <li class="point">時間経過による切り替え</li>
+                <pre><code class="language-js"><!--
 -->setInterval(() => {
     currentIndex = (currentIndex + 1) % dots.length;
     showSlide(currentIndex);
@@ -369,8 +366,8 @@ showSlide(currentIndex);<!--
                 <p>
                     変数 currentIndex を 0→1→2→3→0 ... という形で時間経過により循環させます。
                 </p>
-                <li>「前」「次」ボタン</li>
-                <pre><code><!--
+                <li class="point">「前」「次」ボタン</li>
+                <pre><code class="language-js"><!--
 -->prevButton.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + dots.length) % dots.length;
     showSlide(currentIndex);
@@ -385,8 +382,8 @@ nextButton.addEventListener("click", () => {
                     「前」ボタン: 0→3→2→1→0 ... という形で変数 currentIndex が循環します。<br />
                     「次」ボタン: 0→1→2→3→0 ... という形で変数 currentIndex が循環します。
                 </p>
-                <li>ドットのクリックによる画像変更</li>
-                <pre><code><!--
+                <li class="point">ドットのクリックによる画像変更</li>
+                <pre><code class="language-js"><!--
 -->dots.forEach((dot, i) => dot.addEventListener("click", () => showSlide(i)));<!--
              --></code></pre>
                 <p>
@@ -400,7 +397,8 @@ nextButton.addEventListener("click", () => {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const track = document.getElementById("slider_track");
         const prevButton = document.getElementById("prev");

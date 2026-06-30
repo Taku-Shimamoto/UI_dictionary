@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link rel="stylesheet" href="prism.css" />
+        <link rel="stylesheet" href="common.css" />
+        <meta charset="UTF-8" />
+        <title>UI辞書 ツールチップ</title>
+    </head>
+    <style>
+        .setting {
+            margin-top: 16px;
+        }
+
+        .tooltip-icon {
+            background-color: #000;
+            border-radius: 50%;
+            color: #fff;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+            height: 24px;
+            margin-left: 32px;
+            padding: 2px;
+            text-align: center;
+            user-select: none;
+            vertical-align: text-top;
+            width: 24px;
+        }
+
+        .tooltip-icon:hover {
+            cursor: pointer;
+        }
+
+        .tooltip-info {
+            background-color: #333c;
+            border-radius: 8px;
+            color: #fff;
+            display: inline-block;
+            font-size: 12px;
+            margin-left: 24px;
+            opacity: 0;
+            padding: 8px;
+            position: relative;
+            transition: all .2s ease;
+            visibility: hidden;
+        }
+
+        .tooltip-info.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-info::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            border-style: solid;
+            border-width: 10px 20px 10px 0;
+            border-color: transparent #333c transparent transparent;
+            translate: -100% -50%;
+        }
+
+        .switch-outer {
+            background-color: #ddd;
+            border-radius: calc(infinity * 1px);
+            height: 40px;
+            margin: 8px 0;
+            position: relative;
+            transition: all .5s ease;
+            width: 80px;
+        }
+
+        .switch-outer:hover {
+            cursor: pointer;
+        }
+
+        .switch-outer.active {
+            background-color: #0f0;
+        }
+
+        .toggle-switch {
+            background-color: #fff;
+            border-radius: 50%;
+            bottom: 0;
+            box-shadow: 1px 1px 8px #ccc, -1px -1px 4px #ddd inset;
+            height: 32px;
+            left: 4px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            transition: transform .5s ease;
+            width: 32px;
+        }
+
+        .toggle-switch.active {
+            transform: translateX(40px);
+        }
+    </style>
+    <body>
+        <site-header></site-header>
+        <main>
+            <toast-notice></toast-notice>
+            <nav class="breadcrumb-nav">
+                <a href="index.html">ホーム</a> &gt; ツールチップ
+            </nav>
+            <p>「？」のアイコンにマウスを乗せてみましょう。</p>
+            <div class="setting">
+                <label>アカウントを公開する<span class="tooltip-icon">？</span></label>
+                <div class="tooltip-info">
+                    ONにすると、すべてのユーザーがあなたの投稿を閲覧することができます。<br />
+                    OFFにすると、あなたが承認したユーザーのみがあなたの投稿を閲覧することができます。
+                </div>
+                <div class="switch-outer">
+                    <div class="toggle-switch"></div>
+                </div>
+            </div>
+            <div class="setting">
+                <label>ダイレクトメッセージを受け付ける<span class="tooltip-icon">？</span></label>
+                <div class="tooltip-info">
+                    ONにすると、すべてのユーザーがあなたに対してメッセージを送ることができます。<br />
+                </div>
+                <div class="switch-outer">
+                    <div class="toggle-switch"></div>
+                </div>
+            </div>
+            <p>※このトグルスイッチはダミーです。押しても何も起こりません。</p>
+            <h2 id="feature">特徴</h2>
+            <p>
+
+            </p>
+            <h2 id="code">ソースコードの一例</h2>
+            <h3 id="html_code">HTML</h3>
+            <input type="button" class="copy-button" value="Copy" />
+            <pre><code class="copy-text language-html"><!--
+-->
+<!--
+         --></code></pre>
+            <h3 id="css_code">CSS</h3>
+            <input type="button" class="copy-button" value="Copy" />
+            <pre><code class="copy-text language-css"><!--
+-->
+<!--
+         --></code></pre>
+            <h3 id="js_code">JavaScript</h3>
+            <input type="button" class="copy-button" value="Copy" />
+            <pre><code class="copy-text language-js"><!--
+-->
+<!--
+         --></code></pre>
+            <h2 id="explanation">解説</h2>
+            <ol>
+                <li class="point"></li>
+                <pre><code class="language-"><!--
+-->
+<!--
+             --></code></pre>
+                <p>
+
+                </p>
+                <li class="point"></li>
+                <pre><code class="language-"><!--
+-->
+<!--
+             --></code></pre>
+                <p>
+
+                </p>
+            </ol>
+            <div id="page_top" class="page-top">
+                <a href="#">Page Top</a>
+            </div>
+        </main>
+        <site-footer></site-footer>
+    </body>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
+    <script>
+        const switchOuters = Array.from(document.querySelectorAll(".switch-outer"));
+        const settings = document.querySelectorAll(".setting");
+
+        settings.forEach((setting) => {
+            const icon = setting.querySelector(".tooltip-icon");
+            const info = setting.querySelector(".tooltip-info");
+        
+            icon.addEventListener("mouseenter", () => {
+                info.classList.add("active");
+            });
+        
+            icon.addEventListener("mouseleave", () => {
+                info.classList.remove("active");
+            });
+        });
+
+        switchOuters.forEach((outer) => {
+            outer.addEventListener("click", () => {
+                const dataAttribute = outer.dataset.setting;
+                const isActive = outer.classList.toggle("active");
+
+                const toggleSwitch = outer.querySelector(".toggle-switch");
+
+                toggleSwitch?.classList.toggle("active", isActive);
+                document.body.classList.toggle(dataAttribute, isActive);
+            });
+        });
+    </script>
+</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
         <script src="https://kit.fontawesome.com/27cbb9919d.js" crossorigin="anonymous"></script>
@@ -121,7 +122,7 @@
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->&lt;div class="dropdown-wrapper"&gt;
     &lt;div class="dropdown"&gt;
         &lt;button class="dropdown-title"&gt;Menu&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
@@ -138,7 +139,7 @@
             <p class="caution">使用する際は、aタグにhref属性を必ず指定してください。</p>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->.dropdown-wrapper {
     margin-bottom: 35vh;
 }
@@ -224,7 +225,7 @@
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->const dropdownTitles = Array.from(document.getElementsByClassName("dropdown-title"));
 const menuLists = Array.from(document.getElementsByClassName("menu-list"));
 
@@ -268,8 +269,8 @@ window.addEventListener("click", (e) => {
             <h2 id="explanation">解説</h2>
             <p>基本的な仕組みは<a href="accordion.html">アコーディオン</a>とほとんど一緒です。合わせてご覧いただくと、より理解が深まります。</p>
             <ol>
-                <li>構造</li>
-                <pre><code><!--
+                <li class="point">構造</li>
+                <pre><code class="language-html"><!--
 -->&lt;div class="dropdown-wrapper"&gt;
     &lt;div class="dropdown"&gt;
         &lt;button class="dropdown-title"&gt;Menu&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
@@ -290,9 +291,9 @@ window.addEventListener("click", (e) => {
                 <p>
                     &lt;span&gt;タグ内に開閉状態を表す+印をCSSで記述します。
                 </p>
-                <li>ドロップダウンメニュー見出しボタンのデザインや配置など
+                <li class="point">ドロップダウンメニュー見出しボタンのデザインや配置など
                 </li>
-                <pre><code><!--
+                <pre><code class="language-css"><!--
 -->.dropdown-wrapper {
     margin-bottom: 35vh;
 }
@@ -346,8 +347,8 @@ window.addEventListener("click", (e) => {
                     文字列はそのままではCSSの transform プロパティの影響を受けません。<br />
                     inline-block 要素にすることで、transform プロパティを適用できるようにしましょう。
                 </p>
-                <li>メニュー全体の配置やデザインなど</li>
-                <pre><code><!--
+                <li class="point">メニュー全体の配置やデザインなど</li>
+                <pre><code class="language-css"><!--
 -->.menu-list {
     background-color: #fff;
     height: 0;
@@ -377,8 +378,8 @@ window.addEventListener("click", (e) => {
                     position: absolute; を指定することで、ページから「浮いた」状態になり、スクロールの計上から除外されます。<br />
                     その結果アコーディオンとは違って、<span class="bold">ページ全体がスクロールの高さぶん押し出されなくなります</span>。
                 </p>
-                <li>ボタンクリックによる開閉</li>
-                <pre><code><!--
+                <li class="point">ボタンクリックによる開閉</li>
+                <pre><code class="language-js"><!--
 -->dropdownTitles.forEach((title) => {
     title.addEventListener("click", () => {
         const dropdownMenu = title.nextElementSibling;
@@ -408,8 +409,8 @@ window.addEventListener("click", (e) => {
                     変数 isOpen で開閉状態を判定し、閉じられていれば .open クラスを付与したうえで高さを自動計算し持たせ、<br />
                     そうでなければ .open クラスを取り除いて高さをなくします。
                 </p>
-                <li>枠外クリックによって閉じる</li>
-                <pre><code><!--
+                <li class="point">枠外クリックによって閉じる</li>
+                <pre><code class="language-js"><!--
 -->window.addEventListener("click", (e) => {
     const isDropdownTitle = dropdownTitles.some((title) => title.contains(e.target));
     const isMenuList = menuLists.some((menu) => menu.contains(e.target));
@@ -441,7 +442,8 @@ window.addEventListener("click", (e) => {
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
     <script>
         const dropdownTitles = Array.from(document.getElementsByClassName("dropdown-title"));
         const menuLists = Array.from(document.getElementsByClassName("menu-list"));

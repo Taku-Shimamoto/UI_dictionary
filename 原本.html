@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="prism.css" />
         <link rel="stylesheet" href="common.css" />
         <meta charset="UTF-8" />
-        <title></title>
+        <title>UI辞書 </title>
     </head>
     <style>
 
@@ -23,34 +24,34 @@
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-html"><!--
 -->
 <!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-css"><!--
 -->
 <!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
-            <pre><code class="copy-text"><!--
+            <pre><code class="copy-text language-js"><!--
 -->
 <!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li></li>
-                <pre><code><!--
+                <li class="point"></li>
+                <pre><code class="language-"><!--
 -->
 <!--
              --></code></pre>
                 <p>
 
                 </p>
-                <li></li>
-                <pre><code><!--
+                <li class="point"></li>
+                <pre><code class="language-"><!--
 -->
 <!--
              --></code></pre>
@@ -64,5 +65,6 @@
         </main>
         <site-footer></site-footer>
     </body>
-    <script src="common.js" defer></script>
+    <script src="common.js"></script>
+    <script src="prism.js"></script>
 </html>
