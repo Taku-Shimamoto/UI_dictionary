@@ -9,6 +9,7 @@
     <style>
         .setting {
             margin-top: 16px;
+            position: relative;
         }
 
         .tooltip-icon {
@@ -32,33 +33,24 @@
         }
 
         .tooltip-info {
-            background-color: #333c;
+            background-color: #333a;
             border-radius: 8px;
             color: #fff;
             display: inline-block;
             font-size: 12px;
-            margin-left: 24px;
             opacity: 0;
             padding: 8px;
-            position: relative;
-            transition: all .2s ease;
+            position: absolute;
+            transform: translate(5%, -50%);
+            transition: 
+                opacity .2s ease,
+                visibility .2s ease;
             visibility: hidden;
         }
 
         .tooltip-info.active {
             opacity: 1;
             visibility: visible;
-        }
-
-        .tooltip-info::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            border-style: solid;
-            border-width: 10px 20px 10px 0;
-            border-color: transparent #333c transparent transparent;
-            translate: -100% -50%;
         }
 
         .switch-outer {
@@ -83,7 +75,9 @@
             background-color: #fff;
             border-radius: 50%;
             bottom: 0;
-            box-shadow: 1px 1px 8px #ccc, -1px -1px 4px #ddd inset;
+            box-shadow:
+                1px 1px 8px #ccc,
+                -1px -1px 4px #ddd inset;
             height: 32px;
             left: 4px;
             margin: auto;
@@ -127,44 +121,177 @@
             <p>※このトグルスイッチはダミーです。押しても何も起こりません。</p>
             <h2 id="feature">特徴</h2>
             <p>
-
+                「？」マークのアイコンにマウスを乗せると、その間だけ説明文が表示されます。<br />
+                マウスが離れると、表示されていた説明文は非表示になります。
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text language-html"><!--
--->
-<!--
+-->&lt;div class="setting"&gt;
+    &lt;label&gt;アカウントを公開する&lt;span class="tooltip-icon"&gt;？&lt;/span&gt;&lt;/label&gt;
+    &lt;div class="tooltip-info"&gt;
+        ONにすると、すべてのユーザーがあなたの投稿を閲覧することができます。&lt;br /&gt;
+        OFFにすると、あなたが承認したユーザーのみがあなたの投稿を閲覧することができます。
+    &lt;/div&gt;
+&lt;/div&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text language-css"><!--
--->
-<!--
+-->.setting {
+    margin-top: 16px;
+    position: relative;
+}
+
+.tooltip-icon {
+    background-color: #000;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 24px;
+    margin-left: 32px;
+    padding: 2px;
+    text-align: center;
+    user-select: none;
+    vertical-align: text-top;
+    width: 24px;
+}
+
+.tooltip-icon:hover {
+    cursor: pointer;
+}
+
+.tooltip-info {
+    background-color: #333a;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    opacity: 0;
+    padding: 8px;
+    position: absolute;
+    transform: translate(5%, -50%);
+    transition: 
+        opacity .2s ease,
+        visibility .2s ease;
+    visibility: hidden;
+}
+
+.tooltip-info.active {
+    opacity: 1;
+    visibility: visible;
+}<!--
          --></code></pre>
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text language-js"><!--
--->
-<!--
+-->const settings = document.querySelectorAll(".setting");
+
+settings.forEach((setting) => {
+    const icon = setting.querySelector(".tooltip-icon");
+    const info = setting.querySelector(".tooltip-info");
+        
+    icon.addEventListener("mouseenter", () => {
+        info.classList.add("active");
+    });
+        
+    icon.addEventListener("mouseleave", () => {
+        info.classList.remove("active");
+    });
+});<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
-                <li class="point"></li>
-                <pre><code class="language-"><!--
--->
-<!--
+                <li class="point">アイコンのデザイン</li>
+                <pre><code class="language-css"><!--
+-->.tooltip-icon {
+    background-color: #000;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 24px;
+    margin-left: 32px;
+    padding: 2px;
+    text-align: center;
+    user-select: none;
+    vertical-align: text-top;
+    width: 24px;
+}
+
+.tooltip-icon:hover {
+    cursor: pointer;
+}<!--
              --></code></pre>
                 <p>
-
+                    vertical-align の値がデフォルトだと、文字の高さに対してやや下目に配置されます。<br />
+                    今回は text-top を指定して親要素の上端とアイコンの上端が揃うように配置しています。
                 </p>
-                <li class="point"></li>
-                <pre><code class="language-"><!--
--->
-<!--
+                <p>
+                    あるいは position: relative; と position: absolute; を指定して、任意の位置に配置することもできます。<br />
+                    お好みで調整をしてください。
+                </p>
+                <li class="point">テキストのデザイン、配置、アニメーションの指定</li>
+                <pre><code class="language-css"><!--
+-->.tooltip-info {
+    background-color: #333a;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    opacity: 0;
+    padding: 8px;
+    position: absolute;
+    transform: translate(5%, -50%);
+    transition: 
+        opacity .2s ease,
+        visibility .2s ease;
+    visibility: hidden;
+}
+
+.tooltip-info.active {
+    opacity: 1;
+    visibility: visible;
+}<!--
              --></code></pre>
                 <p>
-
+                    背景色はお好みで指定して構いませんが、背景色が他の要素を見えなくすることによるUX低下に配慮して、<br />
+                    ある程度の透明度を加えたり、ページデザインに合わせた色合いを選んだりする傾向が好まれます。
+                </p>
+                <p>
+                    transform: traslate(5%, -50%); は<span class="bold">右にアイコンの5%ぶん、上にアイコンの50%ぶん</span>ズラすという意味です。<br />
+                    表示される説明文がアイコンより少し右、アイコンの上端に説明文の縦中央が合うように配置されています。
+                </p>
+                <li class="point">JavaScriptで .active クラスの付け外しを行う</li>
+                <pre><code class="language-js"><!--
+-->settings.forEach((setting) => {
+    const icon = setting.querySelector(".tooltip-icon");
+    const info = setting.querySelector(".tooltip-info");
+        
+    icon.addEventListener("mouseenter", () => {
+        info.classList.add("active");
+    });
+        
+    icon.addEventListener("mouseleave", () => {
+        info.classList.remove("active");
+    });
+});<!--
+             --></code></pre>
+                <p>
+                    .setting のDOMを取得し forEach メソッドを使用する理由は、対応するツールチップのアイコンと説明文のDOMを<br />
+                    添字(インデックス番号)に依存せず、querySelector を使用し確実に一つだけ取得したいためです。
+                </p>
+                <p>
+                    mouseenter イベントに似たイベントリスナーとして mouseover イベントがありますが、これは親要素の hover で<br />
+                    イベントが発火したあと、子要素に hover するたびにイベントが発火します。将来的に子要素が増えてくると、これが<br />
+                    意図しない挙動になる可能性も出てきます。そういう場合は mouseenter イベントが好まれます。
+                </p>
+                <p>
+                    最近はスマートフォンやタブレット端末が普及しているため、pointerenter や pointerleave イベントなども好まれます。
                 </p>
             </ol>
             <div id="page_top" class="page-top">

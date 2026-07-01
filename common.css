@@ -184,7 +184,6 @@ h2 {
     border-left: 8px solid #aa0;
     padding-left: 8px;
     padding-bottom: 8px;
-    width: 70%;
 }
 
 /* 段落 */
@@ -272,6 +271,7 @@ pre {
     font-size: 14px;
     line-height: 150%;
     margin: 0 0 16px 80px;
+    overflow-x: scroll;
     padding: 16px 0 16px 40px;
     width: 70%;
 }

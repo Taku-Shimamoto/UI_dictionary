@@ -165,6 +165,15 @@ function clearClassActive() {
     navigationWindow.classList.remove("active");
 }
 
+// ハンバーガーメニュー以外をクリックしたとき、activeクラスを消去
+window.addEventListener("click", (e) => {
+    const isHumburgerButton = hamburgerButton.contains(e.target);
+    const isHumburgerWindow = navigationWindow.contains(e.target);
+
+    if (isHumburgerButton || isHumburgerWindow) return;
+    clearClassActive();
+});
+
 // ==================================================
 // ページトップボタン
 // ==================================================
