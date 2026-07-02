@@ -7,12 +7,15 @@
         <title>UI辞典 アコーディオン</title>
     </head>
     <style>
+        .accordion-wrapper {
+            margin: 16px;
+            width: 400px;
+        }
+
         .accordion-title {
             display: flex;
-            font-size: 20px;
+            font-size: 18px;
             justify-content: space-between;
-            margin: 16px;
-            width: 40%;
         }
 
         .accordion-title:hover {
@@ -21,13 +24,15 @@
 
         .accordion-title span:after {
             content: "+";
+            display: inline-block;
+            transition: transform .5s;
         }
 
         .accordion-title.open span:after {
-            content: "-";
+            transform: rotate(315deg);
         }
 
-        .accordion {
+        .accordion-text {
             height: 0;
             overflow-y: hidden;
             transition: all .5s;
@@ -39,31 +44,44 @@
             <nav class="breadcrumb-nav">
                 <a href="index.html">ホーム</a> &gt; アコーディオン
             </nav>
-            <div class="accordion-title">ここをクリックしてみましょう。<span></span></div>
-            <div class="accordion">
-                <p>クリックすると中身が表示されます。</p>
+            <div class="accordion-wrapper">
+                <div class="accordion-title">ここをクリックしてみましょう。<span></span></div>
+                <div class="accordion-text">
+                    <p>
+                        クリックすると中身が表示されます。
+                    </p>
+                </div>
             </div>
             <h2 id="feature">特徴</h2>
             <p>
-                見出し部分をクリックすると中身が表示され、+マークから-マークに変化します。<br />
-                もう一度クリックすると中身が格納され、-マークから+マークに戻ります。
+                見出し部分をクリックすると中身が表示され、+マークが回転して×マークに変化します。<br />
+                もう一度クリックすると中身が格納され、×マークから+マークに戻ります。
             </p>
             <h2 id="code">ソースコードの一例</h2>
             <h3 id="html_code">HTML</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text language-html"><!--
--->&lt;div class="accordion-title"&gt;ここをクリックしてみましょう。&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div class="accordion"&gt;
-    &lt;p&gt;クリックすると中身が表示されます。&lt;/p&gt;
+-->&lt;div class="accordion-wrapper"&gt;
+    &lt;div class="accordion-title"&gt;ここをクリックしてみましょう。&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="accordion-text"&gt;
+        &lt;p&gt;
+            クリックすると中身が表示されます。
+        &lt;/p&gt;
+    &lt;/div&gt;
 &lt;/div&gt;<!--
          --></code></pre>
             <h3 id="css_code">CSS</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text language-css"><!--
--->.accordion-title {
+-->.accordion-wrapper {
+    margin: 16px;
+    width: 400px;
+}
+
+.accordion-title {
     display: flex;
+    font-size: 18px;
     justify-content: space-between;
-    width: 40%;
 }
 
 .accordion-title:hover {
@@ -72,13 +90,15 @@
 
 .accordion-title span:after {
     content: "+";
+    display: inline-block;
+    transition: transform .5s;
 }
 
 .accordion-title.open span:after {
-    content: "-";
+    transform: rotate(315deg);
 }
 
-.accordion {
+.accordion-text {
     height: 0;
     overflow-y: hidden;
     transition: all .5s;
@@ -87,21 +107,37 @@
             <h3 id="js_code">JavaScript</h3>
             <input type="button" class="copy-button" value="Copy" />
             <pre><code class="copy-text language-js"><!--
--->const accordionTitles = Array.from(document.getElementsByClassName("accordion-title"));
+-->const accordions = Array.from(document.querySelectorAll(".accordion-wrapper"));
 
-accordionTitles.forEach((title) => {
-    title.addEventListener("click", () => {
-        title.classList.toggle("open");
+accordions.forEach((accordion) => {
+    accordion.addEventListener("click", () => {
+        const title = accordion.querySelector(".accordion-title");
+        const text = accordion.querySelector(".accordion-text");
 
-        const accordion = title.nextElementSibling;
-        const isOpen = accordion.classList.toggle("open");
-
-        accordion.style.height = isOpen ? accordion.scrollHeight + "px" : 0;
+        const isTitleOpen = title.classList.toggle("open");
+        const isTextOpen = text.classList.toggle("open");
+        text.style.height = (isTitleOpen && isTextOpen) ? text.scrollHeight + "px" : 0;
     });
 });<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
+                <li class="point">アコーディオンの+マークを×マークへ変化</li>
+                <pre><code class="language-css"><!--
+-->.accordion-title span:after {
+    content: "+";
+    display: inline-block;
+    transition: transform .5s;
+}
+
+.accordion-title.open span:after {
+    transform: rotate(315deg);
+}<!--
+         --></code></pre>
+                <p>
+                    transform: rotate(315deg); を指定して回転させるのですが、+マークは文字列であるため、そのままでは transition の対象になりません。<br />
+                    transition の対象にするために inline-block 要素に指定します。
+                </p>
                 <li class="point">アコーディオンの高さ・幅・アニメーション秒数の設定</li>
                 <pre><code class="language-css"><!--
 -->.accordion {
@@ -116,27 +152,25 @@ accordionTitles.forEach((title) => {
                 </p>
                 <li class="point">.open クラスの付け外しと高さの取得</li>
                 <pre><code class="language-js"><!--
--->accordionTitles.forEach((title) => {
-    title.addEventListener("click", () => {
-        title.classList.toggle("open");
+-->accordions.forEach((accordion) => {
+    accordion.addEventListener("click", () => {
+        const title = accordion.querySelector(".accordion-title");
+        const text = accordion.querySelector(".accordion-text");
 
-        const accordion = title.nextElementSibling;
-        const isOpen = accordion.classList.toggle("open");
-
-        accordion.style.height = isOpen ? accordion.scrollHeight + "px" : 0;
+        const isTitleOpen = title.classList.toggle("open");
+        const isTextOpen = text.classList.toggle("open");
+        text.style.height = (isTitleOpen && isTextOpen) ? text.scrollHeight + "px" : 0;
     });
 });<!--
              --></code></pre>
                 <p>
-                    アコーディオンの見出しに .open クラスの付け外しを行います。
+                    アコーディオン全体を包むラッパー要素(.accordion-wrapper)に対してDOMを取得し、forEach メソッドでイベントを付与します。<br />
+                    querySelector を使って添字に依存しない + 確実に一つの見出しとテキストDOMを取得する、という目的があります。
                 </p>
                 <p>
-                    nextElementSibling によって<span class="bold">見出しの兄弟要素</span>である .accordion 要素を取得します。
-                </p>
-                <p>
-                    isOpen はアコーディオンの中身に .open クラスの付け外しを行い、クラス名が付いていればtrueを、そうでなければfalseを返します。<br />
-                    .open クラス名が付いていればその要素の高さを取得し指定することで中身が表示されます。<br />
-                    そうでなければ0が指定され、中身が隠れます。
+                    toggle メソッドを使って .open クラスの付け外しを行い、状態としてとっておきます。<br />
+                    どちらも .open クラスがある場合(開いている場合)、scrollHeight によって自動で高さを取得します。<br />
+                    .open クラスがない場合(アコーディオンを閉じている場合)、高さは0になり、中身を隠します。
                 </p>
             </ol>
             <div id="page_top" class="page-top">
@@ -148,15 +182,16 @@ accordionTitles.forEach((title) => {
     <script src="common.js"></script>
     <script src="prism.js"></script>
     <script>
-        const accordionTitles = Array.from(document.getElementsByClassName("accordion-title"));
+        const accordions = Array.from(document.querySelectorAll(".accordion-wrapper"));
 
-        accordionTitles.forEach((title) => {
-            title.addEventListener("click", () => {
-                title.classList.toggle("open");
-                const accordion = title.nextElementSibling;
+        accordions.forEach((accordion) => {
+            accordion.addEventListener("click", () => {
+                const title = accordion.querySelector(".accordion-title");
+                const text = accordion.querySelector(".accordion-text");
 
-                const isOpen = accordion?.classList.toggle("open");
-                accordion.style.height = isOpen ? accordion.scrollHeight + "px" : 0;
+                const isTitleOpen = title.classList.toggle("open");
+                const isTextOpen = text.classList.toggle("open");
+                text.style.height = (isTitleOpen && isTextOpen) ? text.scrollHeight + "px" : 0;
             });
         });
     </script>

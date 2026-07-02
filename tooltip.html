@@ -16,13 +16,12 @@
             background-color: #000;
             border-radius: 50%;
             color: #fff;
-            display: inline-block;
+            display: inline-grid;
             font-size: 12px;
             font-weight: bold;
             height: 24px;
             margin-left: 32px;
-            padding: 2px;
-            text-align: center;
+            place-items: center;
             user-select: none;
             vertical-align: text-top;
             width: 24px;
@@ -100,7 +99,7 @@
             </nav>
             <p>「？」のアイコンにマウスを乗せてみましょう。</p>
             <div class="setting">
-                <label>アカウントを公開する<span class="tooltip-icon">？</span></label>
+                <label>アカウントを公開する<span class="tooltip-icon">?</span></label>
                 <div class="tooltip-info">
                     ONにすると、すべてのユーザーがあなたの投稿を閲覧することができます。<br />
                     OFFにすると、あなたが承認したユーザーのみがあなたの投稿を閲覧することができます。
@@ -148,13 +147,12 @@
     background-color: #000;
     border-radius: 50%;
     color: #fff;
-    display: inline-block;
+    display: inline-grid;
     font-size: 12px;
     font-weight: bold;
     height: 24px;
     margin-left: 32px;
-    padding: 2px;
-    text-align: center;
+    place-items: center;
     user-select: none;
     vertical-align: text-top;
     width: 24px;
@@ -211,13 +209,12 @@ settings.forEach((setting) => {
     background-color: #000;
     border-radius: 50%;
     color: #fff;
-    display: inline-block;
+    display: inline-grid;
     font-size: 12px;
     font-weight: bold;
     height: 24px;
     margin-left: 32px;
-    padding: 2px;
-    text-align: center;
+    place-items: center;
     user-select: none;
     vertical-align: text-top;
     width: 24px;
@@ -227,6 +224,10 @@ settings.forEach((setting) => {
     cursor: pointer;
 }<!--
              --></code></pre>
+                <p>
+                    grid レイアウトを使用し、 place-items: center; によって縦横ともに中央配置にします。<br />
+                    今回はインライン要素としても使いたい(?マークを改行したくない)ので、 inline-block を指定します。
+                </p>
                 <p>
                     vertical-align の値がデフォルトだと、文字の高さに対してやや下目に配置されます。<br />
                     今回は text-top を指定して親要素の上端とアイコンの上端が揃うように配置しています。

@@ -237,21 +237,17 @@ function clearAlldropdownMenus() {
     });
 }
 
-dropdownTitles.forEach((title) => {
-    title.addEventListener("click", () => {
-        const dropdownMenu = title.nextElementSibling;
-        const isOpen = title.classList.contains("open");
+dropdownMenus.forEach((dropdown) => {
+    dropdown.addEventListener("click", () => {
+        const title = dropdown.querySelector(".dropdown-title");
+        const list = dropdown.querySelector(".menu-list");
+        const isOpen = list.classList.contains("open");
 
         clearAlldropdownMenus();
 
-        if (!isOpen) {
-            title.classList.add("open");
-            dropdownMenu.classList.add("open");
-            dropdownMenu.style.height = dropdownMenu.scrollHeight + "px";
-        } else {
-            dropdownMenu.classList.remove("open");
-            dropdownMenu.style.height = 0;
-        }
+        title.classList.toggle("open", !isOpen);
+        list.classList.toggle("open", !isOpen);
+        list.style.height = !isOpen ? list.scrollHeight + "px" : 0;
     });
 });
 
@@ -380,26 +376,23 @@ window.addEventListener("click", (e) => {
                 </p>
                 <li class="point">ボタンクリックによる開閉</li>
                 <pre><code class="language-js"><!--
--->dropdownTitles.forEach((title) => {
-    title.addEventListener("click", () => {
-        const dropdownMenu = title.nextElementSibling;
-        const isOpen = title.classList.contains("open");
+-->dropdownMenus.forEach((dropdown) => {
+    dropdown.addEventListener("click", () => {
+        const title = dropdown.querySelector(".dropdown-title");
+        const list = dropdown.querySelector(".menu-list");
+        const isOpen = list.classList.contains("open");
 
         clearAlldropdownMenus();
 
-        if (!isOpen) {
-            title.classList.add("open");
-            dropdownMenu.classList.add("open");
-            dropdownMenu.style.height = dropdownMenu.scrollHeight + "px";
-        } else {
-            dropdownMenu.classList.remove("open");
-            dropdownMenu.style.height = 0;
-        }
+        title.classList.toggle("open", !isOpen);
+        list.classList.toggle("open", !isOpen);
+        list.style.height = !isOpen ? list.scrollHeight + "px" : 0;
     });
 });<!--
              --></code></pre>
                 <p>
-                    添字(インデックス番号)に依存しないよう、nextElementSibling でボタンの兄弟要素であるメニューリストを取得します。
+                    .dropdown ブロックに対してforEach メソッドでイベントを付与し、querySelector でボタンとメニューのDOMを取得します。<br />
+                    querySelector を使うことで、添字に依存せず、確実に一つのDOMを取得して動かすことができます。
                 </p>
                 <p>
                     clearAlldropdownMenus() 関数によって、一度メニューの開閉状態をリセットします。こうすることで、<br />
@@ -430,6 +423,11 @@ window.addEventListener("click", (e) => {
                     そうでないとボタンやメニューリストをクリックした際もイベントハンドラが発火しメニューの開閉が<br />
                     正常に行われないためです。
                 </p>
+                <p>
+                    some メソッドはコールバック関数に対して一つでも当てはまれば true を返すものです。<br />
+                    このページの例ではドロップダウンメニューは一つだけなのでなくても動きますが、複数ある場合に大きな意味を持ちます。<br />
+                    <span class="bold">クリックした要素が複数あるうちの「ボタン」または「メニューリスト」のどれかに当てはまる場合</span>に早期 return を行う、という意味になります。
+                </p>
                 <p class="attention">
                     イベント要素(event, eなどと表記されるケースが多いです)は通常、関数引数で受けるのが一般的です。<br />
                     なくてもブラウザ側が暗黙にイベント要素として処理することがありますが、現在は非推奨とされています。<br />
@@ -445,8 +443,9 @@ window.addEventListener("click", (e) => {
     <script src="common.js"></script>
     <script src="prism.js"></script>
     <script>
-        const dropdownTitles = Array.from(document.getElementsByClassName("dropdown-title"));
-        const menuLists = Array.from(document.getElementsByClassName("menu-list"));
+        const dropdownMenus = Array.from(document.querySelectorAll(".dropdown"));
+        const dropdownTitles = Array.from(document.querySelectorAll("dropdown-title"));
+        const menuLists = Array.from(document.querySelectorAll("menu-list"));
 
         function clearAlldropdownMenus() {
             dropdownTitles.forEach((title) => title.classList.remove("open"));
@@ -456,21 +455,17 @@ window.addEventListener("click", (e) => {
             });
         }
 
-        dropdownTitles.forEach((title) => {
-            title.addEventListener("click", () => {
-                const dropdownMenu = title.nextElementSibling;
-                const isOpen = title.classList.contains("open");
+        dropdownMenus.forEach((dropdown) => {
+            dropdown.addEventListener("click", () => {
+                const title = dropdown.querySelector(".dropdown-title");
+                const list = dropdown.querySelector(".menu-list");
+                const isOpen = list.classList.contains("open");
 
                 clearAlldropdownMenus();
 
-                if (!isOpen) {
-                    title.classList.add("open");
-                    dropdownMenu.classList.add("open");
-                    dropdownMenu.style.height = dropdownMenu.scrollHeight + "px";
-                } else {
-                    dropdownMenu.classList.remove("open");
-                    dropdownMenu.style.height = 0;
-                }
+                title.classList.toggle("open", !isOpen);
+                list.classList.toggle("open", !isOpen);
+                list.style.height = !isOpen ? list.scrollHeight + "px" : 0;
             });
         });
 
@@ -481,6 +476,12 @@ window.addEventListener("click", (e) => {
             if (isDropdownTitle || isMenuList) return;
             
             clearAlldropdownMenus();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                clearAlldropdownMenus();
+            }
         });
     </script>
 </html>

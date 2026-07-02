@@ -34,15 +34,15 @@
             border-radius: 50%;
             color: #fff;
             cursor: default;
-            display: inline-block;
+            display: grid;
             font-size: 12px;
             height: 24px;
-            padding: 2px;
+            place-items: center;
             position: absolute;
             right: 0;
-            text-align: center;
             top: 0;
             transform: translate(50%, -50%);
+            user-select: none;
             width: 24px;
             z-index: 5;
         }
@@ -103,15 +103,15 @@
     border-radius: 50%;
     color: #fff;
     cursor: default;
-    display: inline-block;
+    display: grid;
     font-size: 12px;
     height: 24px;
-    padding: 2px;
+    place-items: center;
     position: absolute;
     right: 0;
-    text-align: center;
     top: 0;
     transform: translate(50%, -50%);
+    user-select: none;
     width: 24px;
     z-index: 5;
 }
@@ -135,19 +135,23 @@
     border-radius: 50%;
     color: #fff;
     cursor: default;
-    display: inline-block;
+    display: grid;
     font-size: 12px;
     height: 24px;
-    padding: 2px;
+    place-items: center;
     position: absolute;
     right: 0;
-    text-align: center;
     top: 0;
     transform: translate(50%, -50%);
+    user-select: none;
     width: 24px;
     z-index: 5;
 }<!--
              --></code></pre>
+                <p>
+                    <a href="tooltip.html">ツールチップ</a>と同様、grid レイアウト + place-items: center; を指定してバッジの中の数字を縦横ともに中央配置にします。<br />
+                    
+                </p>
                 <p>
                     特に重要なのが <span class="bold">transform: translate(50%, -50%);</span> の部分です。<br />
                     これは「要素の50%分右と上にズラす」という意味で、これを指定することでアイコンの高さ・幅・大きさなどに<br />

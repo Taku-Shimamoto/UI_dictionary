@@ -75,7 +75,7 @@
     right: 8px;
     top: 8px;
     width: 48px;
-    z-index: 30;
+    z-index: 300;
 }
 
 .hamburger span {
@@ -105,10 +105,11 @@ header nav {
     height: 100vh;
     justify-content: center;
     position: fixed;
-    right: -30%;
+    right: 0;
     top: 0;
+    transform: translateX(100%);
     transition: all .5s;
-    width: 30%;
+    width: calc(100% / 5);
     z-index: 20;
 }
 
@@ -125,7 +126,7 @@ header nav a {
 }
 
 header nav.active {
-    right: 0;
+    transform: translateX(0);
 }
 
 .hamburger.active span:nth-of-type(1) {
@@ -149,19 +150,25 @@ header nav.active {
 const navigationWindow = document.getElementById("hamburger_nav");
 const navigationLinks = Array.from(document.getElementsByClassName("nav-link"));
 
-// activeクラスの付け外し
 hamburgerButton.addEventListener("click", toggleClassActive);
 function toggleClassActive() {
     hamburgerButton.classList.toggle("active");
     navigationWindow.classList.toggle("active");
 }
 
-// リンクをクリックしたとき、.activeクラスを消去
 navigationLinks.forEach((link) => link.addEventListener("click", clearClassActive));
 function clearClassActive() {
     hamburgerButton.classList.remove("active");
     navigationWindow.classList.remove("active");
-}<!--
+}
+
+window.addEventListener("click", (e) => {
+    const isHumburgerButton = hamburgerButton.contains(e.target);
+    const isHumburgerWindow = navigationWindow.contains(e.target);
+
+    if (isHumburgerButton || isHumburgerWindow) return;
+    clearClassActive();
+});<!--
          --></code></pre>
             <h2 id="explanation">解説</h2>
             <ol>
@@ -245,10 +252,11 @@ function clearClassActive() {
     height: 100vh;
     justify-content: center;
     position: fixed;
-    right: -30%;
+    right: 0;
     top: 0;
+    transform: translateX(100%);
     transition: all .5s;
-    width: 30%;
+    width: calc(100% / 5);
     z-index: 20;
 }
 
@@ -265,15 +273,24 @@ header nav a {
 }<!--
          --></code></pre>
             <p>
-                ナビゲーションウィンドウの背景色に透明度を入れることで、コンテンツが完全に隠れないようにします。<br />
-                高さを100vhに指定することで、ナビゲーションウィンドウの高さが画面いっぱいになります。<br />
-                rightの値をwidthの値が対応するようにします。これは、幅30%ぶんの要素が、画面右端のさらに30%右側に配置されるという意味です。<br />
-                つまり、この時点では画面右端の見えない部分に「<span class="bold">隠している</span>」ということになります。
+                ナビゲーションウィンドウの背景色は好みで指定して構いませんが、コンテンツの一部が隠れることによるUX低下に配慮し、<br />
+                ある程度の透明度を入れることも好まれます。
+            </p>
+            <p>
+                height の値を 100vh に指定することで、ページの高さいっぱいに合わせます。
+            </p>
+            <p>
+                非表示の状態は厳密に言うと「<span class="bold">画面の右側に隠している</span>」という状態です。これは right: 0; と transform: translateX(100%);<br />
+                の指定によってナビゲーションウィンドウの幅のぶんだけ右端からさらに右にズラしており、これが結果として画面の右側に隠れているということになります。
+            </p>
+            <p>
+                ナビゲーションウィンドウの幅は表示する内容によって調整が必要です。<br />
+                今回は calc(100% / 5) によって画面全体の5分の1の幅という指定にしています。
             </p>
             <li class="point">三本線アイコンをクリックしたときの挙動</li>
             <pre><code class="language-css"><!--
 -->header nav.active {
-    right: 0;
+    transform: translateX(0);
 }
 
 .hamburger.active span:nth-of-type(1) {
@@ -291,20 +308,18 @@ header nav a {
 }<!--
          --></code></pre>
             <p>
-                三本線アイコンをクリックすると、JavaScriptによって.activeクラスが付与されます(後述)。<br />
-                「5. ナビゲーションウィンドウの配置とデザイン」で述べた通り、ナビゲーションウィンドウは-30%の幅の分だけ、画面右端に隠れている状態です。<br />
-                .activeクラスが付いている時のみ、これを right: 0; にすることで、隠れていたナビゲーションウィンドウが現れるようになります。
+                JavaScript によって .active クラスが付与されたとき、画面右側に隠していたナビゲーションウィンドウを画面内に移動します。
             </p>
             <p>
                 1本目・3本目の線にはそれぞれ-45°・45°の傾斜をつけることで、×の形を作ります。<br />
-                2本目の線にはopacity: 0; を指定することで、一時的に見えない状態にします。
+                2本目の線には opacity: 0; を指定することで、一時的に見えない状態にします。
             </p>
             <p class="attention">
-                注意点として、 header nav.active のように、<span class="bold">navと.activeとの間にスペースを入れない</span>ようにしましょう。<br />
-                スペースを入れてしまうと、「ヘッダー内のnavタグ内にある.activeクラスが付いている要素」という意味になり、<br />
-                今回のように「要素に.activeクラスが付与されたとき」のニュアンスとはズレてしまいます。
+                注意点として、 header nav.active のように、<span class="bold">nav と .active との間にスペースを入れない</span>ようにしましょう。<br />
+                スペースを入れてしまうと、「ヘッダーの&lt;nav&gt;タグ内にある .active クラスが付いている要素」という意味になり、<br />
+                今回のように「要素に .active クラスが付与されたとき」のニュアンスとはズレてしまいます。
             </p>
-            <li class="point">JavaScriptで行うのは「.activeクラスの付け外し」のみ</li>
+            <li class="point">JavaScript で行うのは「.active クラスの付け外し」のみ</li>
             <pre><code class="language-js"><!--
 -->hamburgerButton.addEventListener("click", toggleClassActive);
 function toggleClassActive() {
@@ -319,9 +334,24 @@ function clearClassActive() {
 }<!--
          --></code></pre>
          <p>
-            三本線アイコンをクリックしたときはtoggleメソッドを使い、「.activeクラスがなければ付与し、あれば取り除く」ようにします。<br />
-            一方でリンクをクリックしたときに自動でナビゲーションウィンドウが閉じられるよう、それぞれのリンクにはremoveメソッドを<br />
-            用いて必ず.activeクラスを取り除くようにします。
+            三本線アイコンをクリックしたときは toggle メソッドを使い、.active クラスがなければ付与し、あれば取り除くようにします。<br />
+            一方でリンクをクリックしたときに自動でナビゲーションウィンドウが閉じられるよう、それぞれのリンクには remove メソッドを<br />
+            用いて必ず .active クラスを取り除くようにします。
+         </p>
+            <li class="point">外部クリックでも閉じるように設定(UX)</li>
+            <pre><code class="language-js"><!--
+-->window.addEventListener("click", (e) => {
+    const isHumburgerButton = hamburgerButton.contains(e.target);
+    const isHumburgerWindow = navigationWindow.contains(e.target);
+
+    if (isHumburgerButton || isHumburgerWindow) return;
+    clearClassActive();
+});<!--
+         --></code></pre>
+         <p>
+            <a href="dropdownmenu.html">ドロップダウンメニュー</a>と同様、window に対してクリックイベントを付与して .active クラスを取り除きます。<br />
+            この際、クリックした要素が「ハンバーガーアイコン」と「ナビゲーションウィンドウ」である場合に早期 return をしてクリックイベントが<br />
+            発火しないようにしましょう。
          </p>
             </ol>
             <div id="page_top" class="page-top">

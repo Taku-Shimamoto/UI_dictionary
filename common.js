@@ -174,6 +174,13 @@ window.addEventListener("click", (e) => {
     clearClassActive();
 });
 
+// Escキー押下時、activeクラスを消去
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        clearClassActive();
+    }
+});
+
 // ==================================================
 // ページトップボタン
 // ==================================================
